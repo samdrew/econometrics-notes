@@ -21,11 +21,7 @@ This also works for linear scaling with a matrix
 
 $$\mathbb{E}(AX) = A \mathbb{E}(X)$$
 
-`Variance` is the square of the deviation from the expected value. For a discrete possibility this means that $V(x) = \sigma ^2 = \sum (x - \mathbb{E}(x))^2$, or the sum of the squared differences between the outcome and the expected outcome. In a continuous situation this is $V(x) = \int (x - \mathbb{E}(x))^2 f(x) dx$.
-
-To do this with a vector X
-
-$$ Var(X) = \mathbb{E}\left( (X - \mu) (X - \mu)' \right)$$
+`Variance` <a name="var"></a> is the square of the deviation from the expected value. For a discrete possibility this means that $V(x) = \sigma ^2 = \sum (x - \mathbb{E}(x))^2$, or the sum of the squared differences between the outcome and the expected outcome. In a continuous situation this is $V(x) = \int (x - \mathbb{E}(x))^2 f(x) dx$.
 
 The variance of a random vector is a square variance-covariance matrix, which has the variance of each element of a random vector in the main diagonal and the interaction terms in the quadrants. This turns out to be a symmetric matrix, meaning that $A = A'$. 
 
@@ -34,6 +30,22 @@ Var(X_1) & Cov(X_1, X_2) & ... & Covar(X_1, X_N) \\
 Cov(X_2, X_1) & Var(X_2) & ... & ... \\
 ... & ... & ... & ... \\
 Cov(X_N, X_1) & ... & ... & Var(X_N) \end{array} \right)$$
+
+This can then be written in terms of the expectations where
+
+$$ Var(X) = \mathbb{E}\left( (X - \mathbb{E}(X)) (X - \mathbb{E}(X))' \right) \\
+\left( \begin{array} 
+(X_1 - \mathbb{E}(X_1))^2 & (X_1 - \mathbb{E}(X_1))(X_2 - \mathbb{E}(X_2)) & ... & ... \\
+... & (X_2 - \mathbb{E}(X_2))^2  & ... & ... \\
+... & ... & ... & ... \\
+Cov(X_N, X_1) & ... & ... & Var(X_N) \end{array} \right)$$
+
+When we then want to find Var(AX)
+
+$$Var(AX) = \mathbb{E}\left( (AX - A\mathbb{E}(X))(AX - A\mathbb{E}(X)') \right) \\
+= \mathbb{E}\left( A(X - \mathbb{E}(X))(X - \mathbb{E}(X)')A' \right)  \\
+= A \mathbb{E}\left( (X - \mathbb{E}(X))(X - \mathbb{E}(X)') \right) A' \\
+= A Var(X) A' $$
 
 `Density Function` <a name="pdf"></a> (`f(x)`) is the function which describes the chance of a given variable occuring. In discrete variables this is the weight variable and equivlent to $P(x = x_0)$, while for continuous variables this is just defined as $f(x_0) = frac{dP(x<=x_0)}{dx_0}$ where $P(x < x_0)$ is the [cumulative distribution function](#cdf)
 
@@ -47,7 +59,7 @@ This then has the expectation $$\mathbb{E}(y | x = x_0) = \int y f(y|x_0) dy$$ a
 
 In the case that $\mathbb{E}(Y | X = x)$ isn't for a fixed value of X, then the expectation is then a function with respect to x. (So $\mathbb{E}(Y | X = x) = g_x(Y)$)
 
-`Independence`
+`Independence` is an important assumption of variables in many of the models, and has the effect of massively simplifying the maths so that $\mathbb{E}(Y | X) = \mathbb{E}(Y)$. Mostly this is relevant in the case that 
 
 ## Sampling
 
@@ -72,12 +84,33 @@ In the case that $\mathbb{E}(Y | X = x)$ isn't for a fixed value of X, then the 
 * $y_i$ is the outcome variable
 * $\beta _0$ is the constant term
 * $\beta _1$ is the slope
-* $x_i$ is the covariate
+* $x_i$ is the covariate (dependent variable)
 * $u_i$ is the disturbance or error term. 
+
+Given that this is extremely basic, we'd normally want to extend it to have lots of dependent variables, which in turn means lots of co-efficient terms ($\beta _k$)
 
 `covariates` are your random variables. These are also known as 
 
-`mean independence`
+`bias` Given our OLS estimator $\hat \beta = (X' X)^{-1} X' y$ we can plug in the linear regression model $y = X\beta + u$ to give us 
+$$\hat \beta = (X' X)^{-1} X' (X\beta + u)\\
+ = (X' X)^{-1} X' X \beta + (X' X)^{-1} X' u \\
+ = \beta + (X' X)^{-1} X' u$$
+
+ We can then take expectations of this, and given the mean independence of the error term ($\mathbb{E}(u | X) = 0$) we get 
+
+ $$\mathbb{E}(\hat \beta) = \beta + (X' X) X' \mathbb{E}(u) \\
+  = \beta $$
+
+`variance` we can start with the identity we found in the previous [variance](#var) section, $Var(AX) = A Var(X) A'$ and apply that to our $\hat \beta = (X' X)^{-1} X y$ where $A = (X' X)^{-1} X'$. This gives us 
+
+$$Var(\hat \beta) = (X' X)^{-1} X' Var(y) X (X' X)^{-1}\\
+ = (X' X)^{-1} X' \sigma I X (X' X)^{-1}\\
+ = \sigma^2 (X' X)^{-1} X' X (X' X)^{-1}\\
+ = \sigma^2 (X' X)^{-1} $$
+
+`Gauss-Markov` provides proof that $\hat \beta _{OLS}$ is the Best Unbiased Linear Estimator for a linear regression, under the G-M Conditions (e.g. zero-mean conditional variance)
+
+We can start by looking for a better linear estimator. Any linear estimator will be in the form $$\tilde \beta = \Alpha \y + u$$ where $\Alpha = \left( \begin{array} \Alpha_0 \\ \Alpha_1 \\ ... \\ \Alpha_N \end{array} \right)$. This can then be described in terms of the $\hat \beta_{OLS}$ as $\tilde \beta = $
 
 ## Estimation
 
@@ -140,6 +173,8 @@ One-sided
 
 
 ## Binary Response Models
+
+These models have the properties that for -∞ the function should return 0 and and the function for +∞ tends towards 1, and the function of 0 returning 1/2. The models generally used are the `logit` (L or $\Lamda$) and `probit` ($\Phi$).
 
 `Notation`
 
