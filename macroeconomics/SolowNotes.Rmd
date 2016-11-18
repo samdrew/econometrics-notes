@@ -45,7 +45,11 @@ Note that A is not an observable value...
 * Diminishing ROI
     - Capital
     - Labour
+* Measurement of Capital
 * Single good economy
+* Closed market
+* Savings = Investment
+* Unified view of labour
 * Output is possible to model as a function of just K and AL (extremely simplified model)
 * Assume steady-state $\dot k = 0$
 

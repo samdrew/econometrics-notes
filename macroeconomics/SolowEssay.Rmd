@@ -17,7 +17,30 @@ This essay will explore some of these results, their implications and the limita
 
 # The Model
 
-The model states that 
+The model states that output ($Y$) can be described as a function of capital ($K$) and effective labour, described by two parameters, the labour force ($L$) and the labour efficiency, or technology factor ($A$).
+
+$$Y = F(K,AL)$$
+
+where capital is defined as 
+
+$$K = s Y - \delta K$$
+
+with the exogenous rates for savings ($s$) and depreciation ($\delta$). 
+
+This will model a closed market economy, as it has no trade. Additionally the capital increase is proportional to the savings rate, because the savings and investment are assumed to be equal.
+
+## Analytical model
+
+In order to make use of this model, it is necessary to give it mathematical form, which will further encapsulate the behaviour we want to represent in this model. In this case we are expecting diminishing, but positive returns from both capital and effective labour. An effective way of representing this is as a Cobb-Douglas function.
+
+$$Y = K^\alpha(AL)^\beta$$
+
+Given the additional assumption that in order to double the output you will need to double both the capital stock and effective labour, we can conclude that $\alpha + \beta = 1$ therefore $\beta = 1 - \alpha$. This assumption implies the economy is large enough to already be considered efficient such that additional competition, and that the growth factors for $A$ and $L$ are exogeneous, so neither technological growth nor immigration rates will be effected by output. 
+
+$$L(t) = L(0)e^{nt}\\
+A(t) = A(0)E^{gt}$$
+
+
 
 ```{r, echo=FALSE}
 ```
