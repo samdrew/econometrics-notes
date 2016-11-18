@@ -1,0 +1,24 @@
+---
+title: "Solow Model - Assumptions, Results and Steady-State Dynamics"
+author: "Sam Drew"
+date: "18/11/2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+The Solow model is an extremely simple economic model, introduced by Robert Solow in 1956, which explores the relationship between capital and effective labour in a market economy. In doing so it provides results relating to the expected growth rates of a nation, the capital share of labour, labour wage growth and capital growth. 
+
+This essay will explore some of these results, their implications and the limitations of these results as implied by the assumptions.
+
+# The Model
+
+The model states that 
+
+```{r, echo=FALSE}
+```
+

@@ -1,0 +1,77 @@
+---
+title: "SolowNotes"
+author: "Sam Drew"
+date: "18/11/2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Macro - Solow Model Notes
+
+* 1956 - old model
+* log(GDPperCapita) as steady state in US
+    - Log growth is steady, the capital accumulation is continuinally increasing
+* Capital share of economy
+    - ~1/3 from 1950-2000
+        + going back to beginning of century (see Pikety)
+    - Steady growth since then...
+    - $frac{r+\delta)}{y}K$ where $\delta$ is depreciation
+* Continuous time model
+* Remember growth is expressed as 
+$$ \frac{\delta log Y}{\delta t} = \frac{\delta log Y}{\delta Y} \frac{\delta Y}{\delta t} = \frac{\delta Y / \delta t}{Y} = \frac{\dot Y}{Y}$$
+    - which can also be $A(t) = A(0)e^{gt}$ where $g = \frac{\dot A}{A}$
+
+Defined As:
+
+$$ Y = F(K, AL) \\
+\dot K = s Y - \delta K$$
+
+Which are 
+
+* Production function
+* Capital growth function (savings as a proportion of output - depreciation of capital)
+
+Note that A is not an observable value...
+
+## Assumptions
+
+* Constant/Exogenous
+    - Technical Efficiency (A)
+    - Capital/Labour ratio
+    - Steady state capital/labour ratio
+* Diminishing ROI
+    - Capital
+    - Labour
+* Single good economy
+* Output is possible to model as a function of just K and AL (extremely simplified model)
+* Assume steady-state $\dot k = 0$
+
+## Results
+
+* Differential of log variable with respect time, is growth divided by variable
+* Once on balanced growth path, growth is defined (endogenously) entirely by A
+* Predicts constant share of capital income in GDP (42:10)
+    - Wages constant in GDP per capita
+    - Return to capital is stable
+* $\dot k = s \cdot f(k) - (n + g + \delta)k$
+    - Plot together and find intercept for $\dot k = 0$.
+    - Away from $k*$ the growth path tends back towards steady-state value
+        + This validates the steady-state assumption
+* Wages per efficiency unit
+    - $f(k) - f'(k)k$ therefore wages go up along with A
+* $log \frac{Y(t)}{L(t)} - log \frac{Y(0)}{L(0)} = \theta log A(0) + gt + \theta log y* - \theta log \frac{Y(0)}{L(0)}$ where $\theta = 1 - e^{-\lambda t}$ and $\lambda = (1 - \alpha)(n - g - \delta)$
+    - Higher intial output ($\frac{Y(0)}{L(0)}$) => lower growth
+
+## Steady-state dynamics
+* Approach k* at a rate of $\lambda$
+
+## Log Linearization
+* due to non-linear properties of $\dot k = s \cdot f(k) - (n + g + \delta)k$ we want to simplify it to be linear.
+    - First order Taylor approximation of $f(k) ~= f(k_0) + f'(k_0) (k - k_0)
+    - Also taking a log of all values as the growth is exponential... so to simplify we can use $X = e^{log X}$
+    - Similarly we can look at $$\frac{\delta f(e^{log X})}{\delta log X} = \frac{\delta f(e^{log X})}{\delta e^{log X}} \frac{\delta e^{log X}}{\delta log X} = f'(e^{log X})e^{log X} = f'(X) X$$
+* Given the steady-state properties, we take $k_0 = k*$
+* Given $\frac{f'(k) k*}{f(k)}$ is the capital share of labour, we can get ...
