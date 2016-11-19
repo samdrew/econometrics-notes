@@ -63,7 +63,7 @@ and
 
 $$ \dot k = s \cdot f(k) - (n + g + \delta)k $$
 
-where $y=\frac{Y}{AL}$, $k=\frac{K}{AL}$. If we then assume that capital growth per unit effective labour ($\dot k$) is constant we get
+where $y=\frac{Y}{AL}$, $k=\frac{K}{AL}$. If we then assume that capital per unit effective labour is constant (i.e. capital growth per worker is zero: $\dot k = 0$) we get
 
 $$\begin{aligned}
 0 &= s \cdot f(k) - (n + g + \delta)k \\
@@ -73,10 +73,16 @@ $$\begin{aligned}
 Graphically this can be plotted as 
 
 ```{r, echo=FALSE}
-graphsize = c(0,3)
-curve(x^0.5, xlab = "k (Capital/EffLabour)", ylab = "y (Output/EffLabour)", xlim = graphsize, ylim= graphsize)
+xsize = c(0,10)
+ysize = c(0,3)
+n = 0.05
+g = 0.1
+d = 0.1
+curve(x^0.3, axes = FALSE, frame.plot = TRUE, xlab = "k (Capital/EffLabour)", ylab = "y (Output/EffLabour)", xlim = xsize, ylim= ysize)
 par(new = TRUE)
-curve(0.7*x, axes = FALSE, xlab = "", ylab = "", xlim = graphsize, ylim = graphsize)
+curve((n + g + d)*x, axes = FALSE, xlab = "", ylab = "", xlim = xsize, ylim = ysize)
 ```
 
-which gives us an equilibrium point $k^*$.
+which gives us an equilibrium point for labour share of output with respect to capital $k^*$.
+
+
