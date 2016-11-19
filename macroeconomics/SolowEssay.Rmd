@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The Solow model is an extremely simple economic model, introduced by Robert Solow in 1956, which explores the relationship between capital and effective labour in a market economy. In doing so it provides results relating to the expected growth rates of a nation, the capital share of labour, labour wage growth and capital growth. 
 
-This essay will explore some of these results, their implications and the limitations of these results as implied by the assumptions.
+This essay will build up the model step-by-step, exploring the assumptions implied by each element of the model implications and the limitations of these results as implied by the assumptions.
 
 # The Model
 
@@ -21,9 +21,9 @@ The model states that output ($Y$) can be described as a function of capital ($K
 
 $$Y = F(K,AL)$$
 
-where capital is defined as 
+where capital growth is defined as 
 
-$$K = s Y - \delta K$$
+$$\dot K = s Y - \delta K$$
 
 with the exogenous rates for savings ($s$) and depreciation ($\delta$). 
 
@@ -37,11 +37,46 @@ $$Y = K^\alpha(AL)^\beta$$
 
 Given the additional assumption that in order to double the output you will need to double both the capital stock and effective labour, we can conclude that $\alpha + \beta = 1$ therefore $\beta = 1 - \alpha$. This assumption implies the economy is large enough to already be considered efficient such that additional competition, and that the growth factors for $A$ and $L$ are exogeneous, so neither technological growth nor immigration rates will be effected by output. 
 
-$$L(t) = L(0)e^{nt}\\
-A(t) = A(0)E^{gt}$$
+$$\begin{aligned}
+L(t) = L(0)e^{nt}\\
+A(t) = A(0)E^{gt}
+\end{aligned}$$
 
+from which we show that the growth rates ($n$ and $g$) are defined as the 
 
+$$\begin{aligned}
+\frac{\dot L}{L} = \frac{dL(t)/dt}{L(t)} = \frac{nL(0)e^{nt}}{L(0)e^{nt}} = n \\
+\frac{\dot A}{A} = \frac{dA(t)/dt}{A(t)} = \frac{nA(0)e^{nt}}{A(0)e^{gt}} = g 
+\end{aligned}$$.
+
+## Analysis
+
+More interesting than looking at the capital output for the economy is looking at the output per unit of effective labour. This can be achieved just by dividing through by AL, which gives 
+
+$$\frac{Y}{AL} = F(\frac{K}{AL},1)$$
+
+which we can then denote as 
+
+$$y = f(k)$$
+
+and
+
+$$ \dot k = s \cdot f(k) - (n + g + \delta)k $$
+
+where $y=\frac{Y}{AL}$, $k=\frac{K}{AL}$. If we then assume that capital growth per unit effective labour ($\dot k$) is constant we get
+
+$$\begin{aligned}
+0 &= s \cdot f(k) - (n + g + \delta)k \\
+\Rightarrow s \cdot f(k) &= (n + g + \delta)k
+\end{aligned}$$
+
+Graphically this can be plotted as 
 
 ```{r, echo=FALSE}
+graphsize = c(0,3)
+curve(x^0.5, xlab = "k (Capital/EffLabour)", ylab = "y (Output/EffLabour)", xlim = graphsize, ylim= graphsize)
+par(new = TRUE)
+curve(0.7*x, axes = FALSE, xlab = "", ylab = "", xlim = graphsize, ylim = graphsize)
 ```
 
+which gives us an equilibrium point $k^*$.

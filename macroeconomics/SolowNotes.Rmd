@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
     - ~1/3 from 1950-2000
         + going back to beginning of century (see Pikety)
     - Steady growth since then...
-    - $frac{r+\delta)}{y}K$ where $\delta$ is depreciation
+    - $\frac{r+\delta)}{y}K$ where $\delta$ is depreciation
 * Continuous time model
 * Remember growth is expressed as 
 $$ \frac{\delta log Y}{\delta t} = \frac{\delta log Y}{\delta Y} \frac{\delta Y}{\delta t} = \frac{\delta Y / \delta t}{Y} = \frac{\dot Y}{Y}$$
@@ -74,7 +74,7 @@ Note that A is not an observable value...
 
 ## Log Linearization
 * due to non-linear properties of $\dot k = s \cdot f(k) - (n + g + \delta)k$ we want to simplify it to be linear.
-    - First order Taylor approximation of $f(k) ~= f(k_0) + f'(k_0) (k - k_0)
+    - First order Taylor approximation of $f(k) ~= f(k_0) + f'(k_0) (k - k_0)$
     - Also taking a log of all values as the growth is exponential... so to simplify we can use $X = e^{log X}$
     - Similarly we can look at $$\frac{\delta f(e^{log X})}{\delta log X} = \frac{\delta f(e^{log X})}{\delta e^{log X}} \frac{\delta e^{log X}}{\delta log X} = f'(e^{log X})e^{log X} = f'(X) X$$
 * Given the steady-state properties, we take $k_0 = k*$
