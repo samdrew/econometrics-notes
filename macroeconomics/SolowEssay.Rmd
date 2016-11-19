@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The Solow model is an extremely simple economic model, introduced by Robert Solow in 1956, which explores the relationship between capital and effective labour in a market economy. In doing so it provides results relating to the expected growth rates of a nation, the capital share of labour, labour wage growth and capital growth. 
 
-This essay will build up the model step-by-step, exploring the assumptions implied by each element of the model implications and the limitations of these results as implied by the assumptions.
+This essay will build up the model step-by-step, exploring the assumptions implied by each element of the model, their implications and the limitations of these results.
 
 # The Model
 
@@ -49,21 +49,22 @@ $$\begin{aligned}
 \frac{\dot A}{A} = \frac{dA(t)/dt}{A(t)} = \frac{nA(0)e^{nt}}{A(0)e^{gt}} = g 
 \end{aligned}$$.
 
-## Analysis
+## Capital Growth
 
 More interesting than looking at the capital output for the economy is looking at the output per unit of effective labour. This can be achieved just by dividing through by AL, which gives 
 
-$$\frac{Y}{AL} = F(\frac{K}{AL},1)$$
+$$\begin{aligned}
+\frac{Y}{AL} &= F(\frac{K}{AL},1) \\
+ &= K^\alpha(AL)^{1-\alpha}(AL)^{-1} \\
+ &= \frac{K^\alpha}{AL^\alpha} = \left( \frac{K}{AL} \right)^\alpha \\
+ \Rightarrow y &= k^\alpha
+\end{aligned}$$
 
-which we can then denote as 
-
-$$y = f(k)$$
-
-and
+where $y \equiv \frac{Y}{AL}$, $k \equiv \frac{K}{AL}$. This then gives us capital growth of 
 
 $$ \dot k = s \cdot f(k) - (n + g + \delta)k $$
 
-where $y=\frac{Y}{AL}$, $k=\frac{K}{AL}$. If we then assume that capital per unit effective labour is constant (i.e. capital growth per worker is zero: $\dot k = 0$) we get
+ If we then assume that capital per unit effective labour is constant (i.e. capital growth per worker is zero: $\dot k = 0$) we get
 
 $$\begin{aligned}
 0 &= s \cdot f(k) - (n + g + \delta)k \\
@@ -83,6 +84,43 @@ par(new = TRUE)
 curve((n + g + d)*x, axes = FALSE, xlab = "", ylab = "", xlim = xsize, ylim = ysize)
 ```
 
-which gives us an equilibrium point for labour share of output with respect to capital $k^*$.
+which gives us an equilibrium point for labour share of output with respect to capital $k^*$. 
 
+## Model Dynamics
+From this result we can look at the behaviour of the system when $k \neq k^*$. In the case that $k < k^*$ we find that $\dot k$ is then greater than $0$, which means that over time $k \rightarrow k^*$. Similarly when $k > k^*$ the value of $k$ will also decrease towards $k^*$.
 
+The implication of the steady-state result is that given the other assumptions in the model, the assumption of $\dot k = 0$ is valid. 
+
+So given that the model converges, the question then becomes, at what rate does it converge. This is going to be defined by the growth rate of $frac{\dot k}{k}$, which we can estimate from $\dot k = s \cdot f(k) - (n + g + \delta)k$. 
+
+### Log Linearization
+
+Log linearization makes use of a Taylor approximation, to create a linear model near a known state to find the properties of the behaviour nearby. The first order Taylor approximation is defined as 
+
+$$f(x) \approx f(x_0) + f'(x)\mid _{x=x_0}(x-x_0)$$
+
+which simply says, from a known state, if you move in the direction of the gradient of the curve then you are likely to be close to the curve (so long as you don't go to far).
+
+While this is useful extremely close to the steady-state, for an exponential function a far closer approximation can be found by performing a log-linearization, differentiating with respect to log x. If we define $g(k) = \dot k = s \cdot f(k) - (n+G+\delta )k$ then we can attempt to find $\frac{\delta g(k)}{\delta log k}$. Given $k^* = 0$ we find the log-linear approximation as
+
+$$g(k) \approx \frac{\delta g(k)}{\delta log k}\biggm\lvert _{k=k^*} (log k - log k^*)$$
+
+## Technology
+
+Having this equlibrium allows us to also identify $k^* = \left( \frac{s}{n+g+\delta} \right)^{\frac{1}{1-\alpha}}$, $y^*= \left( \frac{s}{n+g+\delta} \right)^{\frac{\alpha}{1-\alpha}}$ and find that output per worker is 
+
+$$\frac{Y}{L} = A \left( \frac{s}{n + g + \delta}\right)^{\frac{\alpha}{1-\alpha}}$$
+
+meaning that output per labourer will increase only with an increase in the technology factor (as all other variables are considered to be exogenous). 
+
+# Conclusion
+
+Solow provides us with an extremely simple model that can be used to provide insight into the relationships between growth in labour, capital and development for an economy, however the many assumptions it makes limit its value in deep analysis. Many of the properties of the model, such as the consistency of labour/capital output ratio and steady growth rates are in keeping with trends.
+
+It also provides helpful insight in comparing economies, and modeling their differences based on rates.
+
+Problems can come from the assumption that capital can be measured independently of output. Given that capital units are not directly comparable, the inclination is to define their value in monetary terms. The paradox in this is that the market value of capital tends to be very closely related to its output capacity, meaning that comparisons of capital share of output are likely to express a cultural agreement on the valuation of the capital.
+
+The exogeneity of savings, labour and technological growth rates rely on a stable society. In particular savings(/investment) rates being constant regardless of returns, but also constant technological growth regardless of how close an economy is to subsistance levels, and a single-type labour force.
+
+However the results obtained by Mankiw et al (1992) show that the model does hold stand up to analysis given the addition of human capital to the model.
