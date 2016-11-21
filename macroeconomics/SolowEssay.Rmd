@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
-The Solow model is an extremely simple economic model, introduced by Robert Solow in 1956, which explores the relationship between capital and effective labour in a market economy. In doing so it provides results relating to the expected growth rates of a nation, the capital share of labour, labour wage growth and capital growth. 
+The Solow model is an extremely simple economic model, introduced by Solow (1956), which explores the relationship between capital and effective labour in a market economy. In doing so it provides results relating to the expected growth rates of a nation, the capital share of labour, labour wage growth and capital growth. 
 
 This essay will build up the model step-by-step, exploring the assumptions implied by each element of the model, their implications and the limitations of these results.
 
@@ -86,8 +86,10 @@ curve((n + g + d)*x, axes = FALSE, xlab = "", ylab = "", xlim = xsize, ylim = ys
 
 which gives us an equilibrium point for labour share of output with respect to capital $k^*$. 
 
+We can also use this to see how the equilibrium would vary based upon differences in savings rates ($k^*$ increases with savings rate), differences in labour or technology growth asset depreciation ($k^*$ decreases with increased rates) between countries. This result also makes intuitive sense as putting more money into capital will cause there to be more capital. Similarly having faster increasing population or technology growth will reduce the reliance on capital.
+
 ## Model Dynamics
-From this result we can look at the behaviour of the system when $k \neq k^*$. In the case that $k < k^*$ we find that $\dot k$ is then greater than $0$, which means that over time $k \rightarrow k^*$. Similarly when $k > k^*$ the value of $k$ will also decrease towards $k^*$.
+From this equlibrium $k^*$* we can look at the behaviour of the system when $k \neq k^*$. In the case that $k < k^*$ we find that $\dot k$ is then greater than $0$, which means that over time $k \rightarrow k^*$. Similarly when $k > k^*$ the value of $k$ will also decrease towards $k^*$.
 
 The implication of the steady-state result is that given the other assumptions in the model, the assumption of $\dot k = 0$ is valid. 
 
@@ -105,13 +107,21 @@ While this is useful extremely close to the steady-state, for an exponential fun
 
 $$g(k) \approx \frac{\delta g(k)}{\delta log k}\biggm\lvert _{k=k^*} (log k - log k^*)$$
 
-## Technology
+In order to actually find this value we make use of the fact that $k = e^{log k}$, making the differential with respect to $log k$ feasible. Also given that $\frac{\delta e^{log x}}{\delta log x} = f'(x) \cdot x$ we get
+
+$$ g(k) \approx (s f'(k) k^* - (n + g + \delta)k^*) \cdot (log k - log k^*)$$
+
+## Per Capita GDP
 
 Having this equlibrium allows us to also identify $k^* = \left( \frac{s}{n+g+\delta} \right)^{\frac{1}{1-\alpha}}$, $y^*= \left( \frac{s}{n+g+\delta} \right)^{\frac{\alpha}{1-\alpha}}$ and find that output per worker is 
 
 $$\frac{Y}{L} = A \left( \frac{s}{n + g + \delta}\right)^{\frac{\alpha}{1-\alpha}}$$
 
 meaning that output per labourer will increase only with an increase in the technology factor (as all other variables are considered to be exogenous). 
+
+Given that per capita GDP is a common metric for comparing countries, this is an important result to see what makes the difference in countries outcomes. From this we can see that the only endogeneous variable within the model that will drive per capita growth is technology. This implies that, all else held equal, the outcome differentials between countries are driven primarily by technology. 
+
+Given the exponential growth of this variable, the model predicts that it will be the only significant differentiator in comparing per-capita outcomes for different nations.
 
 # Conclusion
 
