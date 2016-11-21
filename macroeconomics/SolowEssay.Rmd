@@ -1,8 +1,9 @@
 ---
 title: "Solow Model - Assumptions, Results and Steady-State Dynamics"
-author: "Sam Drew"
-date: "18/11/2016"
+author: "Sam Drew (1660968)"
 output: pdf_document
+bibliograpy: bibtex-citations.bib
+csl: author-date
 ---
 
 ```{r setup, include=FALSE}
@@ -11,17 +12,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
-The Solow model is an extremely simple economic model, introduced by Solow (1956), which explores the relationship between capital and effective labour in a market economy. In doing so it provides results relating to the expected growth rates of a nation, the capital share of labour, labour wage growth and capital growth. 
+The Solow model (Solow 1956) is an extremely simple economic model, which explores the relationship between capital and labour in a market economy. In doing so it provides results relating to the expected growth rates of a nation, the capital share of labour, labour wage growth and capital growth. 
 
 This essay will build up the model step-by-step, exploring the assumptions implied by each element of the model, their implications and the limitations of these results.
 
 # The Model
 
-The model states that output ($Y$) can be described as a function of capital ($K$) and effective labour, described by two parameters, the labour force ($L$) and the labour efficiency, or technology factor ($A$).
+The while Solow's model describes output ($Y$) as a function of capital ($K$) and labour ($L$), it has become common to extend this to effective labour, modelling labour as a combination of $L$ and a technology factor ($A$).
 
 $$Y = F(K,AL)$$
 
-where capital growth is defined as 
+and we define capital growth as 
 
 $$\dot K = s Y - \delta K$$
 
@@ -111,6 +112,24 @@ In order to actually find this value we make use of the fact that $k = e^{log k}
 
 $$ g(k) \approx (s f'(k) k^* - (n + g + \delta)k^*) \cdot (log k - log k^*)$$
 
+By substituting for $s$, we can find the capital growth as 
+
+$$\begin{aligned}
+g(k) &\approx \left(\frac{f'(k) k^*}{f(k^*)} - 1 \right)(n + g + \delta)k^* (log k - log k^*) \\
+g(k) &\approx \left(\alpha - 1 \right)(n + g + \delta)k^* (log k - log k^*)
+\end{aligned}$$
+
+As this is the capital share of income. This then allows us to identify the convergence rate ($\lambda$) of $log k$ approaching $log k^*$
+
+$$\frac{\dot k}{k} \approx -(1 - \alpha)(n + g + \delta)(log k - log k^*)$$
+
+giving $\lambda = (1 - \alpha)(n + g + \delta)$. As such we end up with convergence rates for $k$ and $y$ towards the steady-state of
+
+$$\begin{aligned}
+\frac{\dot k}{k} &\approx - \lambda (log k - log k^*) \\
+\frac{\dot y}{y} &\approx - \lambda (log y - log y^*) 
+\end{aligned}$$
+
 ## Per Capita GDP
 
 Having this equlibrium allows us to also identify $k^* = \left( \frac{s}{n+g+\delta} \right)^{\frac{1}{1-\alpha}}$, $y^*= \left( \frac{s}{n+g+\delta} \right)^{\frac{\alpha}{1-\alpha}}$ and find that output per worker is 
@@ -134,3 +153,9 @@ Problems can come from the assumption that capital can be measured independently
 The exogeneity of savings, labour and technological growth rates rely on a stable society. In particular savings(/investment) rates being constant regardless of returns, but also constant technological growth regardless of how close an economy is to subsistance levels, and a single-type labour force.
 
 However the results obtained by Mankiw et al (1992) show that the model does hold stand up to analysis given the addition of human capital to the model.
+
+# References
+
+Mankiw, N. Gregory and Romer, David and Weil, David N. (1992) A Contribution to the Empirics of Economic Growth. The Quarterly Journal of Economics 107 (2): 407:437.
+
+Robert M. Solow (1956) A Contribution to the Theory of Economic Growth. The Quarterly Journal of Economics 70 (1): 65:94.
