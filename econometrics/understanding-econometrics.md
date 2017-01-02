@@ -49,11 +49,15 @@ $$Var(AX) = \mathbb{E}\left( (AX - A\mathbb{E}(X))(AX - A\mathbb{E}(X)') \right)
 = A \mathbb{E}\left( (X - \mathbb{E}(X))(X - \mathbb{E}(X)') \right) A' \\
 = A Var(X) A' $$
 
-`Density Function` <a name="pdf"></a> (`f(x)`) is the function which describes the chance of a given variable occuring. In discrete variables this is the weight variable and equivlent to $P(x = x_0)$, while for continuous variables this is just defined as $f(x_0) = frac{dP(x<=x_0)}{dx_0}$ where $P(x < x_0)$ is the [cumulative distribution function](#cdf)
+Note that for scalar A we get the result
 
-`Cumulative Distribution Function` <a name="cdf"></a> is the chance of a given threshold value being greater than or equal to the case. This can be defined in terms of the density function as $$P(x <= x_0) = \int_{-\infty}^{x_0} f(x)$$ for continuous distributions.
+$$ Var(AX) = A^2 Var(X)$$
 
-`Joint Distributions` in real-life most probabilities won't be a function of just a single variable. This then gives rise to functions taking multiple variables for the density & distribution functions. The distribution function would then be denoted as $P(y <= y_0, x <= x0)$ and the density function as the derivative ($frac{dP(y <= y_0, x <= x0)}{dx_0 dy_0}$).
+`Density Function` <a name="pdf"></a> (`f(x)`) is the function which describes the chance of a given variable occuring. In discrete variables this is the weight variable and equivlent to $P(x = x_0)$, while for continuous variables this is just defined as $f(x_0) = \frac{dP(x \leq x_0)}{dx_0}$ where $P(x < x_0)$ is the [cumulative distribution function](#cdf)
+
+`Cumulative Distribution Function` <a name="cdf"></a> is the chance of a given threshold value being greater than or equal to the case. This can be defined in terms of the density function as $$P(x \leq x_0) = \int_{-\infty}^{x_0} f(x)$$ for continuous distributions.
+
+`Joint Distributions` in real-life most probabilities won't be a function of just a single variable. This then gives rise to functions taking multiple variables for the density & distribution functions. The distribution function would then be denoted as $P(y \leq y_0, x \leq x0)$ and the density function as the derivative ($\frac{dP(y \leq y_0, x \leq x_0)}{dx_0 dy_0}$).
 
 `Conditional Distribution/Expectation` When dealing with joint distributions mostly we will be considering one variable at a time, and as such want to look at the probability of one outcome given another (denoted as $P(y | x = x_0)$). This has the density function defined as $f(y|x) = \frac{f(y,x)}{f(x)}$. 
 
@@ -93,6 +97,18 @@ Given that this is extremely basic, we'd normally want to extend it to have lots
 
 `covariates` are your random variables. These are also known as 
 
+`model estimation` the model is built up by using a sample to find the [BLUE](#g-m) by minimizing the sum of squared residuals of the sample. So in the general (matrix form) model $Y = \beta X + u$ we are trying to minimize the value of $u'u$, as $u$ is a matrix. Rearranging the model for $u$, we have $u = Y - \beta X$.
+
+$$\begin{aligned}
+\text{SSR} &= u'u = (Y - \hat \beta X)'(Y - \hat \beta X) \\
+&= (Y' - \hat \beta ' X')(Y - X \hat \beta) \\
+&= Y'Y - Y'X \hat \beta - \hat \beta ' X'Y - \hat \beta ' X' Y + \hat \beta ' X' X \hat \beta \\
+\frac{d\text{SSR}}{d\hat \beta} &= - X'Y - X'Y + 2X'X \hat \beta \\
+0 &= 2X'X \hat \beta - 2X'Y \\
+\hat \beta &= (2X'X)^{-1} 2X'Y \\
+&= (X'X)^{-1} X'Y
+\end{aligned}$$
+
 `bias` Given our OLS estimator $\hat \beta = (X' X)^{-1} X' y$ we can plug in the linear regression model $y = X\beta + u$ to give us 
 $$\begin{align}
 \hat \beta &= (X' X)^{-1} X' (X\beta + u)\\
@@ -107,12 +123,14 @@ $$\begin{align}
 
 `variance` we can start with the identity we found in the previous [variance](#var) section, $Var(AX) = A Var(X) A'$ and apply that to our $\hat \beta = (X' X)^{-1} X y$ where $A = (X' X)^{-1} X'$. This gives us 
 
-$$Var(\hat \beta) = (X' X)^{-1} X' Var(y) X (X' X)^{-1}\\
- = (X' X)^{-1} X' \sigma I X (X' X)^{-1}\\
- = \sigma^2 (X' X)^{-1} X' X (X' X)^{-1}\\
- = \sigma^2 (X' X)^{-1} $$
+$$\begin{aligned}
+Var(\hat \beta) &= (X' X)^{-1} X' Var(y) X (X' X)^{-1}\\
+ &= (X' X)^{-1} X' \sigma^2 I X (X' X)^{-1}\\
+ &= \sigma^2 (X' X)^{-1} X' X (X' X)^{-1}\\
+ &= \sigma^2 (X' X)^{-1} 
+ \end{aligned}$$
 
-`Gauss-Markov` provides proof that $\hat \beta _{OLS}$ is the Best Unbiased Linear Estimator for a linear regression, under the G-M Conditions (e.g. zero-mean conditional variance)
+`Gauss-Markov` <a name="g-m"></a>  provides proof that $\hat \beta _{OLS}$ is the Best Unbiased Linear Estimator for a linear regression, under the G-M Conditions (e.g. zero-mean conditional variance)
 
 We can start by looking for a better linear estimator. Any linear estimator will be in the form $$\tilde \beta = \alpha y + u$$ where $\alpha = \left( \begin{array} \alpha _0 \\ \alpha _1 \\ ... \\ \alpha _N \end{array} \right)$. This can then be described in terms of the $\hat \beta_{OLS}$ as $\tilde \beta = a$
 
