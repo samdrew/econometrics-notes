@@ -1,6 +1,13 @@
-# Econometrics Understanding
+---
+title: "Econometrics Understanding"
+author: "Sam Drew"
+header-includes:
+   - \usepackage{xfrac}
+output:
+    html_document
+---
 
-## Introduction
+# Introduction
 
 `Expectation` is the mean value for the population. This means that for a discrete possibility the $\mathbb{E}(x) = x \cdot P(x)$. For a continuous variable this is $\mathbb{E}(x) = \int x f(x) dx$ where $f(x)$ is the [density function](#pdf).
 
@@ -12,10 +19,10 @@ This can also be shown in matricies with the following
 
 $$\begin{aligned}
 \mathbb{E}(X_1 + X_2) &= \mathbb{E}\left( \begin{array} 
-X_{11} + X_{12} \\ X_{21} + X_{22} \\ ... \\ X_{1N} + X_{2N} \end{array} \right)\\
+X_{11} + X_{12} \\ X_{21} + X_{22} \\ \ldots \\ X_{1N} + X_{2N} \end{array} \right)\\
 &= \left( \begin{array} 
-\mathbb{E}(X_{11} + X_{12}) \\ \mathbb{E}(X_{21} + X_{22}) \\ ... \\ \mathbb{E}(X_{N1} + X_{N2}) \end{array} \right) \\
-&= \left( \begin{array} \mathbb{E}(X_{11}) \\  \mathbb{E}(X_{21}) \\ ... \\  \mathbb{E}(X_{N1}) \end{array} \right) + \left( \begin{array} \mathbb{E}(X_{12}) \\  \mathbb{E}(X_{22}) \\ ... \\  \mathbb{E}(X_{N2}) \end{array} \right) \\
+\mathbb{E}(X_{11} + X_{12}) \\ \mathbb{E}(X_{21} + X_{22}) \\ \ldots \\ \mathbb{E}(X_{N1} + X_{N2}) \end{array} \right) \\
+&= \left( \begin{array} \mathbb{E}(X_{11}) \\  \mathbb{E}(X_{21}) \\ \ldots \\  \mathbb{E}(X_{N1}) \end{array} \right) + \left( \begin{array} \mathbb{E}(X_{12}) \\  \mathbb{E}(X_{22}) \\ \ldots \\  \mathbb{E}(X_{N2}) \end{array} \right) \\
 &= \mathbb{E}(X_{1}) + \mathbb{E}(X_{2})
 \end{aligned}$$
 
@@ -28,19 +35,19 @@ $$\mathbb{E}(AX) = A \mathbb{E}(X)$$
 The variance of a random vector is a square variance-covariance matrix, which has the variance of each element of a random vector in the main diagonal and the interaction terms in the quadrants. This turns out to be a symmetric matrix, meaning that $A = A'$. 
 
 $$Var(X) = \left( \begin{array} 
-Var(X_1) & Cov(X_1, X_2) & ... & Covar(X_1, X_N) \\
-Cov(X_2, X_1) & Var(X_2) & ... & ... \\
-... & ... & ... & ... \\
-Cov(X_N, X_1) & ... & ... & Var(X_N) \end{array} \right)$$
+Var(X_1) & Cov(X_1, X_2) & \ldots & Covar(X_1, X_N) \\
+Cov(X_2, X_1) & Var(X_2) & \ddots & \vdots \\
+\ldots & \ldots & \ddots & \vdots \\
+Cov(X_N, X_1) & \ldots & \ldots & Var(X_N) \end{array} \right)$$
 
 This can then be written in terms of the expectations where
 
 $$ Var(X) = \mathbb{E}\left( (X - \mathbb{E}(X)) (X - \mathbb{E}(X))' \right) \\
 \left( \begin{array} 
-(X_1 - \mathbb{E}(X_1))^2 & (X_1 - \mathbb{E}(X_1))(X_2 - \mathbb{E}(X_2)) & ... & ... \\
-... & (X_2 - \mathbb{E}(X_2))^2  & ... & ... \\
-... & ... & ... & ... \\
-Cov(X_N, X_1) & ... & ... & Var(X_N) \end{array} \right)$$
+(X_1 - \mathbb{E}(X_1))^2 & (X_1 - \mathbb{E}(X_1))(X_2 - \mathbb{E}(X_2)) & \ldots & \vdots \\
+\ldots & (X_2 - \mathbb{E}(X_2))^2  & \ddots & \vdots \\
+\ldots & \ldots & \ddots & \vdots \\
+Cov(X_N, X_1) & \ldots & \ldots & Var(X_N) \end{array} \right)$$
 
 When we then want to find Var(AX)
 
@@ -67,11 +74,11 @@ In the case that $\mathbb{E}(Y | X = x)$ isn't for a fixed value of X, then the 
 
 `Independence` is an important assumption of variables in many of the models, and has the effect of massively simplifying the maths so that $\mathbb{E}(Y | X) = \mathbb{E}(Y)$. Mostly this is relevant in the case that 
 
-## Sampling
+# Sampling
 
-`Random Variables` 
+`Random Variables` These are the covariates which effect
 
-`iid`
+`iid`, or identically independent distributed, is a core assumption of many variables and samples (including [Gauss-Markov](#g-m)). 
 
 `Estimators/Models`
 
@@ -79,11 +86,11 @@ In the case that $\mathbb{E}(Y | X = x)$ isn't for a fixed value of X, then the 
 
 `Central Limit Theorem`
 
-`Continuous Mapping` states that for a given (continuous) function $f(x)$, as the value of $\hat x$ approaches a given value $x$, the function $f(\hat x)$ also approaches a value $f(x)$. This only works if the 
+`Continuous Mapping` states that for a given (continuous) function $f(x)$, as the value of $\hat x$ approaches a given value $x$, the function $f(\hat x)$ also approaches a value $f(x)$. This only works if the function $f(x)$ is differentiable. 
 
-`Slutzky Lemma` 
+`Slutzky Lemma` similar to the continuous mapping function, however it is applied to probability convergence. Given $\hat \mu$, $\hat \tau$ as random variable where 
 
-## Linear Regression Model
+# Linear Regression Model
 
 `Model` A simple single-variate linear regression model might be described as the following $y_i = \beta _0 + x_i \beta _1 + u_i$ for $i = 1, \ldots , N$
 
@@ -132,9 +139,9 @@ Var(\hat \beta) &= (X' X)^{-1} X' Var(y) X (X' X)^{-1}\\
 
 `Gauss-Markov` <a name="g-m"></a>  provides proof that $\hat \beta _{OLS}$ is the Best Unbiased Linear Estimator for a linear regression, under the G-M Conditions (e.g. zero-mean conditional variance)
 
-We can start by looking for a better linear estimator. Any linear estimator will be in the form $$\tilde \beta = \alpha y + u$$ where $\alpha = \left( \begin{array} \alpha _0 \\ \alpha _1 \\ ... \\ \alpha _N \end{array} \right)$. This can then be described in terms of the $\hat \beta_{OLS}$ as $\tilde \beta = a$
+We can start by looking for a better linear estimator. Any linear estimator will be in the form $$\tilde \beta = \alpha y + u$$ where $\alpha = \left( \begin{array} \alpha _0 \\ \alpha _1 \\ \ldots \\ \alpha _N \end{array} \right)$. This can then be described in terms of the $\hat \beta_{OLS}$ as $\tilde \beta = a$
 
-## Estimation
+# Estimation
 
 `Ordinary Least Square` is what happens when you try to find an estimator which minimizes the square of the error term in the linear regression model. 
 
@@ -165,7 +172,7 @@ S &= (\hat u' \hat u) = (Y - \hat \beta X)'(Y - X \hat \beta)\\
 
 `Standard Error regression`
 
-## OLS Properties
+# OLS Properties
 
 `Assumptions` about the data are required for the OLS estimator to be valid. There are a set of assumptions named Gauss-Markov which include
 
@@ -177,7 +184,7 @@ S &= (\hat u' \hat u) = (Y - \hat \beta X)'(Y - X \hat \beta)\\
 
 `Asymptotic Variance`
 
-## Hypothesis Testing
+# Hypothesis Testing
 
 `Hypothesis formulation`
 
@@ -199,11 +206,11 @@ One-sided
 
 `Homoskedacity`
 
-## Confidence Intervals
+# Confidence Intervals
 
 
 
-## Binary Response Models
+# Binary Response Models
 
 These models have the properties that for -∞ the function should return 0 and and the function for +∞ tends towards 1, and the function of 0 returning 1/2. The models generally used are the `logit` (L or $\Lamda$) and `probit` ($\Phi$).
 
@@ -215,7 +222,7 @@ These models have the properties that for -∞ the function should return 0 and 
 * linear function $\gamma_0$ is assumed to be a linear transformation which can be described in the form of a matrix $\beta_0$, meaning that $\gamma_0(x_i, u_i) = x_i'\beta_0 - u_i$
 * which allows single outcome binary outcome model to be described as a function where the outcome from $x_i'\beta_0$ is larger than $u_i$. This can be written as $y_i = 1(x_i'\beta_0 \geq u_i)$
 
-### Parametric
+## Parametric
 
 `Parametric functions` Logit/Probit
 
@@ -227,11 +234,49 @@ These models have the properties that for -∞ the function should return 0 and 
 
 `Newton-Raphson` is an iterative heuristic algorithm for finding solutions to equations. The reason it is relevant is that it is able to provide results for problems which cannot otherwise be analytically solved.
 
-### Semi-Parametric
+## Semi-Parametric
 
-## Maximum Likelihood Estimator
+# Maximum Likelihood Estimator
 
 We are trying to find the smallest possible value for the error term ($\theta$) when using a binary outcome model to estimate an outcome. This term shall be known as $\theta_0$
 
 `Log-likelihood estimator` Starting with the log-likelihood function $$ln \mathcal{L}(\theta) = \sum\limits_{i=1}^n ln(f(z_i,\theta))$$ we need to find the likelihood estimator where $$\theta_n := arg \max_{\theta} ln \mathcal{L}(\theta)$$
+
+# Hetroskedastic Estimators
+
+Sometimes we can't assume that the errors are going to be homoskedastic. In these cases we'll take a look at the properties of the OLS estimator, and look at some of the other available estimators.
+
+$$\begin{aligned}
+Y &= X \beta + u && Var(Y|X) = \sigma^2 \Omega \\
+\hat \beta_{OLS} &= (X'X)^{-1} X'Y \\
+Var(\hat \beta_{OLS}|X) &= (X'X)^{-1} X' Var(Y|X) X' (X'X)^{-1} \\
+&= (X'X)^{-1} X' \sigma^2 \Omega X' (X'X)^{-1} \\
+&= \sigma^2 (X'X)^{-1} X' \Omega X' (X'X)^{-1}
+\end{aligned}$$
+
+It is then possible to prove that the variance of $\hat \beta_{OLS}$ is greater in the case of hetroskedacity than it is in the case of homoskedacity, ie $\sigma^2 (X'X)^{-1} X' \Omega X' (X'X)^{-1} > \sigma^2 (X'X)^{-1}$. Given that G-M is no longer upheld, OLS is no longer BLUE.
+
+## GLS
+
+Generalized least squares methods are ways of finding the linear regression terms in the case of hetroskedacity. They achieve it by transforming the system using a transformation matrix $P$ to remove the hetroskedacity and then using OLS on the new model.
+
+$$\begin{aligned}
+PY &= PX\beta + Pu && \text{s.t. } Var(Pu|X) = \sigma^2 \mathbf{I} \\
+Var(Pu|X) &= P Var(u|X) P' = \sigma^2 P \Omega P' \\
+&= \sigma^2 \mathbf{I} \\
+\Rightarrow \mathbf{I} &= P \Omega P' \\
+\end{aligned}$$
+
+This gives us a relationship between $P$, $\mathbf{I}$ and $\Omega$. What we really want to find is the value of $P$ in terms of $\Omega$.
+
+$$\begin{aligned}
+P^{-1} &= P^{-1} P \Omega P' = \Omega P' \\
+P^{-1} P'^{-1} &= \Omega \\
+\Rightarrow \Omega &= (P'P)^{-1} \\
+&&&\text{Assume matrix P is symmetric} \Rightarrow P = P' \\
+\Omega &= (P^2)^{-2} = P^{-2} \\
+P &= \Omega^{-1/2} \\
+Var(\Omega^{-1/2} u | X) &= \sigma^2 \Omega^{-1/2} \Omega \Omega^{-1/2} \\
+&= \sigma^2 \mathbf{I}
+\end{aligned}$$
 
