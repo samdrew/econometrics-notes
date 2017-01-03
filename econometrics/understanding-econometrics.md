@@ -132,7 +132,7 @@ $$\begin{align}
 
 $$\begin{aligned}
 Var(\hat \beta) &= (X' X)^{-1} X' Var(y) X (X' X)^{-1}\\
- &= (X' X)^{-1} X' \sigma^2 I X (X' X)^{-1}\\
+ &= (X' X)^{-1} X' \sigma^2 \mathbf{I} X (X' X)^{-1}\\
  &= \sigma^2 (X' X)^{-1} X' X (X' X)^{-1}\\
  &= \sigma^2 (X' X)^{-1} 
  \end{aligned}$$
@@ -280,3 +280,29 @@ Var(\Omega^{-1/2} u | X) &= \sigma^2 \Omega^{-1/2} \Omega \Omega^{-1/2} \\
 &= \sigma^2 \mathbf{I}
 \end{aligned}$$
 
+Using this transformation matrix $\Omega^{-1/2}$ we can then look at our original definition of the GLS model and substitute in the new value for $P$. This will give us the GLS model.
+
+$$\begin{aligned}
+PY &= PX\beta + Pu \\
+\Omega^{-1/2} Y &= \Omega^{-1/2} X \beta + \Omega^{-1/2} u \\
+&& z = \Omega^{-1/2} Y \\
+&& \omega = \Omega^{-1/2} X \\
+&& \varepsilon = \Omega^{-1/2} u\\
+z &= \omega \beta + \varepsilon \\
+\hat \beta_{OLS} &= (\omega' \omega)^{-1} \omega' z \\
+\hat \beta_{GLS} &= (X'P'PX)^{-1}X'P'PY \\
+&= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} Y
+\end{aligned}$$
+
+Now we want to know the properties of this model. Let's look at the Variance of this model.
+
+$$\begin{aligned}
+Y &= X\beta + u && Var(u | X) = \sigma^2 \Omega \\
+\hat \beta_{GLS} &= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} Y \\
+Var(\hat \beta_{GLS}) &= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} Var(Y|X) \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
+&= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} \sigma^2 \Omega \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
+&= \sigma^2 (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
+&= \sigma^2 (X' \Omega^{-1} X)^{-1} 
+\end{aligned}$$
+
+Note: Sometimes GLS, when applied to hetroskedasity is referred to as Weighted Least Squares (WLS).

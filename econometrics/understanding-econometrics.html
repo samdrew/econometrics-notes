@@ -209,7 +209,7 @@ Cov(X_N, X_1) &amp; \ldots &amp; \ldots &amp; Var(X_N) \end{array} \right)\]</sp
 <p><code>variance</code> we can start with the identity we found in the previous <a href="#var">variance</a> section, <span class="math inline">\(Var(AX) = A Var(X) A'\)</span> and apply that to our <span class="math inline">\(\hat \beta = (X' X)^{-1} X y\)</span> where <span class="math inline">\(A = (X' X)^{-1} X'\)</span>. This gives us</p>
 <p><span class="math display">\[\begin{aligned}
 Var(\hat \beta) &amp;= (X' X)^{-1} X' Var(y) X (X' X)^{-1}\\
- &amp;= (X' X)^{-1} X' \sigma^2 I X (X' X)^{-1}\\
+ &amp;= (X' X)^{-1} X' \sigma^2 \mathbf{I} X (X' X)^{-1}\\
  &amp;= \sigma^2 (X' X)^{-1} X' X (X' X)^{-1}\\
  &amp;= \sigma^2 (X' X)^{-1} 
  \end{aligned}\]</span></p>
@@ -314,7 +314,7 @@ Var(Pu|X) &amp;= P Var(u|X) P' = \sigma^2 P \Omega P' \\
 &amp;= \sigma^2 \mathbf{I} \\
 \Rightarrow \mathbf{I} &amp;= P \Omega P' \\
 \end{aligned}\]</span></p>
-<p>This gives us a relationship between $P, <span class="math inline">\(\mathbf{I}\)</span> and <span class="math inline">\(\Omega\)</span>. What we really want to find is the value of <span class="math inline">\(P\)</span> in terms of <span class="math inline">\(\Omega\)</span>.</p>
+<p>This gives us a relationship between <span class="math inline">\(P\)</span>, <span class="math inline">\(\mathbf{I}\)</span> and <span class="math inline">\(\Omega\)</span>. What we really want to find is the value of <span class="math inline">\(P\)</span> in terms of <span class="math inline">\(\Omega\)</span>.</p>
 <p><span class="math display">\[\begin{aligned}
 P^{-1} &amp;= P^{-1} P \Omega P' = \Omega P' \\
 P^{-1} P'^{-1} &amp;= \Omega \\
@@ -325,6 +325,28 @@ P &amp;= \Omega^{-1/2} \\
 Var(\Omega^{-1/2} u | X) &amp;= \sigma^2 \Omega^{-1/2} \Omega \Omega^{-1/2} \\
 &amp;= \sigma^2 \mathbf{I}
 \end{aligned}\]</span></p>
+<p>Using this transformation matrix <span class="math inline">\(\Omega^{-1/2}\)</span> we can then look at our original definition of the GLS model and substitute in the new value for <span class="math inline">\(P\)</span>. This will give us the GLS model.</p>
+<p><span class="math display">\[\begin{aligned}
+PY &amp;= PX\beta + Pu \\
+\Omega^{-1/2} Y &amp;= \Omega^{-1/2} X \beta + \Omega^{-1/2} u \\
+&amp;&amp; z = \Omega^{-1/2} Y \\
+&amp;&amp; \omega = \Omega^{-1/2} X \\
+&amp;&amp; \varepsilon = \Omega^{-1/2} u\\
+z &amp;= \omega \beta + \varepsilon \\
+\hat \beta_{OLS} &amp;= (\omega' \omega)^{-1} \omega' z \\
+\hat \beta_{GLS} &amp;= (X'P'PX)^{-1}X'P'PY \\
+&amp;= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} Y
+\end{aligned}\]</span></p>
+<p>Now we want to know the properties of this model. Let’s look at the Variance of this model.</p>
+<p><span class="math display">\[\begin{aligned}
+Y &amp;= X\beta + u &amp;&amp; Var(u | X) = \sigma^2 \Omega \\
+\hat \beta_{GLS} &amp;= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} Y \\
+Var(\hat \beta_{GLS}) &amp;= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} Var(Y|X) \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
+&amp;= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} \sigma^2 \Omega \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
+&amp;= \sigma^2 (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
+&amp;= \sigma^2 (X' \Omega^{-1} X)^{-1} 
+\end{aligned}\]</span></p>
+<p>Note: Sometimes GLS, when applied to hetroskedasity is referred to as Weighted Least Squares (WLS).</p>
 </div>
 </div>
 
