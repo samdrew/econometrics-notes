@@ -180,7 +180,7 @@ Cov(X_N, X_1) &amp; \ldots &amp; \ldots &amp; Var(X_N) \end{array} \right)\]</sp
 \end{aligned}\]</span></p>
 <p><code>Total law of Variance</code> This law, otherwise known as Eve’s law, allows the variance of a given value to be found, knowing only its conditional variance and expectations.</p>
 <p><span class="math display">\[Var(Y)=\mathbb{E}[Var(Y|X)]+Var(\mathbb{E}[Y|X])\]</span></p>
-<p><code>Law of Large Numbers</code> means that if you take enough samples, the sample mean will approach the population mean. Formally this is normally stated as</p>
+<p><code>Law of Large Numbers</code> means that if you take enough samples, the sample mean will approach the population mean. The below equation states that the sample mean ($)</p>
 <p><span class="math display">\[\begin{aligned}
 \hat \mu = n^{-1} \sum_{i=1}^n y_i\\
 \lim_{n \rightarrow \infty} P (|\hat \mu - \mu| &gt; \varepsilon) = 0 &amp;&amp; \forall \varepsilon &gt; 0
@@ -302,10 +302,22 @@ S &amp;= (\hat u' \hat u) = (Y - \hat \beta X)'(Y - X \hat \beta)\\
 <div id="parametric" class="section level2">
 <h2>Parametric</h2>
 <p><code>Parametric functions</code> Logit/Probit</p>
+<p><code>Logit</code> The logistic function or logit is defined as <span class="math inline">\(\Lambda(x) = \frac{e^x}{1+e^x}\)</span>. This function, while not having quite such good properties as the probit, ie less steep transition and longer tails, is very easy to differentiate.</p>
+<p><span class="math display">\[\begin{aligned}
+\Lambda(x) &amp;= \frac{e^x}{1+e^x} \\
+&amp;= \frac{1}{1+e^{-1}} \\
+&amp;= (1+e^{-1})^{-1} \\
+\frac{\delta \Lambda(x)}{\delta x} &amp;= (-1)\cdot(-e^{-x})\cdot(1+e^{-1})^{-2} \\
+&amp;= \frac{e^{-x}}{(1+e^{-x})^{-2}} \\
+&amp;= \frac{1}{1+e^{-x}} \cdot \frac{e^{-x}}{1+e^{-x}} \\
+&amp;= \frac{1}{1+e^{-x}} \cdot \frac{1 + e^{-x} - 1}{1+e^{-x}} \\
+&amp;= \frac{1}{1+e^{-x}} \cdot \left( \frac{1 + e^{-x}}{1+e^{-x}} - \frac{1}{1+e^{-x}} \right)\\
+&amp;= \Lambda(x) \cdot \left( 1 - \Lambda(x) \right)\\
+\end{aligned}\]</span></p>
 <p><code>Log-likelihood function</code></p>
 <p>NA</p>
 <p><code>Asymptotic Variance</code></p>
-<p><code>Newton-Raphson</code> is an iterative heuristic algorithm for finding solutions to equations. The reason it is relevant is that it is able to provide results for problems which cannot otherwise be analytically solved.</p>
+<p><code>Newton-Raphson</code> is an iterative, heuristic algorithm for finding solutions to equations. The reason it is relevant is that it is able to provide results for problems which cannot otherwise be analytically solved.</p>
 </div>
 <div id="semi-parametric" class="section level2">
 <h2>Semi-Parametric</h2>

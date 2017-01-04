@@ -96,7 +96,7 @@ $$\begin{aligned}
 
 $$Var(Y)=\mathbb{E}[Var(Y|X)]+Var(\mathbb{E}[Y|X])$$
 
-`Law of Large Numbers` means that if you take enough samples, the sample mean will approach the population mean. Formally this is normally stated as 
+`Law of Large Numbers` means that if you take enough samples, the sample mean will approach the population mean. The below equation states that the sample mean ($\hat \mu)
 
 $$\begin{aligned}
 \hat \mu = n^{-1} \sum_{i=1}^n y_i\\
@@ -250,13 +250,27 @@ These models have the properties that for -∞ the function should return 0 and 
 
 `Parametric functions` Logit/Probit
 
+`Logit` The logistic function or logit is defined as $\Lambda(x) = \frac{e^x}{1+e^x}$. This function, while not having quite such good properties as the probit, ie less steep transition and longer tails, is very easy to differentiate. 
+
+$$\begin{aligned}
+\Lambda(x) &= \frac{e^x}{1+e^x} \\
+&= \frac{1}{1+e^{-1}} \\
+&= (1+e^{-1})^{-1} \\
+\frac{\delta \Lambda(x)}{\delta x} &= (-1)\cdot(-e^{-x})\cdot(1+e^{-1})^{-2} \\
+&= \frac{e^{-x}}{(1+e^{-x})^{-2}} \\
+&= \frac{1}{1+e^{-x}} \cdot \frac{e^{-x}}{1+e^{-x}} \\
+&= \frac{1}{1+e^{-x}} \cdot \frac{1 + e^{-x} - 1}{1+e^{-x}} \\
+&= \frac{1}{1+e^{-x}} \cdot \left( \frac{1 + e^{-x}}{1+e^{-x}} - \frac{1}{1+e^{-x}} \right)\\
+&= \Lambda(x) \cdot \left( 1 - \Lambda(x) \right)\\
+\end{aligned}$$
+
 `Log-likelihood function`
 
 `Likelihood Estimators` ℒ
 
 `Asymptotic Variance`
 
-`Newton-Raphson` is an iterative heuristic algorithm for finding solutions to equations. The reason it is relevant is that it is able to provide results for problems which cannot otherwise be analytically solved.
+`Newton-Raphson` is an iterative, heuristic algorithm for finding solutions to equations. The reason it is relevant is that it is able to provide results for problems which cannot otherwise be analytically solved.
 
 ## Semi-Parametric
 
