@@ -180,7 +180,11 @@ Cov(X_N, X_1) &amp; \ldots &amp; \ldots &amp; Var(X_N) \end{array} \right)\]</sp
 \end{aligned}\]</span></p>
 <p><code>Total law of Variance</code> This law, otherwise known as Eve’s law, allows the variance of a given value to be found, knowing only its conditional variance and expectations.</p>
 <p><span class="math display">\[Var(Y)=\mathbb{E}[Var(Y|X)]+Var(\mathbb{E}[Y|X])\]</span></p>
-<p><code>Law of Large Numbers</code></p>
+<p><code>Law of Large Numbers</code> means that if you take enough samples, the sample mean will approach the population mean. Formally this is normally stated as</p>
+<p><span class="math display">\[\begin{aligned}
+\hat \mu = n^{-1} \sum_{i=1}^n y_i\\
+\lim_{n \rightarrow \infty} P (|\hat \mu - \mu| &gt; \varepsilon) = 0 &amp;&amp; \forall \varepsilon &gt; 0
+\end{aligned}\]</span></p>
 <p><code>Central Limit Theorem</code></p>
 <p><code>Continuous Mapping</code> states that for a given (continuous) function <span class="math inline">\(f(x)\)</span>, as the value of <span class="math inline">\(\hat x\)</span> approaches a given value <span class="math inline">\(x\)</span>, the function <span class="math inline">\(f(\hat x)\)</span> also approaches a value <span class="math inline">\(f(x)\)</span>. This only works if the function <span class="math inline">\(f(x)\)</span> is differentiable.</p>
 <p><code>Slutzky Lemma</code> similar to the continuous mapping function, however it is applied to probability convergence. Given <span class="math inline">\(\hat \mu\)</span>, <span class="math inline">\(\hat \tau\)</span> as random variable where</p>
@@ -338,7 +342,7 @@ P^{-1} &amp;= P^{-1} P \Omega P' = \Omega P' \\
 P^{-1} P'^{-1} &amp;= \Omega \\
 \Rightarrow \Omega &amp;= (P'P)^{-1} \\
 &amp;&amp;&amp;\text{Assume matrix P is symmetric} \Rightarrow P = P' \\
-\Omega &amp;= (P^2)^{-2} = P^{-2} \\
+\Omega &amp;= (P^2)^{-1} = P^{-2} \\
 P &amp;= \Omega^{-1/2} \\
 Var(\Omega^{-1/2} u | X) &amp;= \sigma^2 \Omega^{-1/2} \Omega \Omega^{-1/2} \\
 &amp;= \sigma^2 \mathbf{I}

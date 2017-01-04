@@ -96,7 +96,12 @@ $$\begin{aligned}
 
 $$Var(Y)=\mathbb{E}[Var(Y|X)]+Var(\mathbb{E}[Y|X])$$
 
-`Law of Large Numbers`
+`Law of Large Numbers` means that if you take enough samples, the sample mean will approach the population mean. Formally this is normally stated as 
+
+$$\begin{aligned}
+\hat \mu = n^{-1} \sum_{i=1}^n y_i\\
+\lim_{n \rightarrow \infty} P (|\hat \mu - \mu| > \varepsilon) = 0 && \forall \varepsilon > 0
+\end{aligned}$$
 
 `Central Limit Theorem`
 
