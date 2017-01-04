@@ -293,7 +293,7 @@ P^{-1} &= P^{-1} P \Omega P' = \Omega P' \\
 P^{-1} P'^{-1} &= \Omega \\
 \Rightarrow \Omega &= (P'P)^{-1} \\
 &&&\text{Assume matrix P is symmetric} \Rightarrow P = P' \\
-\Omega &= (P^2)^{-2} = P^{-2} \\
+\Omega &= (P^2)^{-1} = P^{-2} \\
 P &= \Omega^{-1/2} \\
 Var(\Omega^{-1/2} u | X) &= \sigma^2 \Omega^{-1/2} \Omega \Omega^{-1/2} \\
 &= \sigma^2 \mathbf{I}
