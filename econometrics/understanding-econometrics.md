@@ -256,7 +256,7 @@ $$\begin{aligned}
 \Lambda(x) &= \frac{e^x}{1+e^x} \\
 &= \frac{1}{1+e^{-1}} \\
 &= (1+e^{-1})^{-1} \\
-\frac{\delta \Lambda(x)}{\delta x} &= (-1)\cdot(-e^{-x})\cdot(1+e^{-1})^{-2} \\
+\frac{\delta \Lambda(x)}{\delta x} &= (-1)\cdot(-e^{-x})\cdot(1+e^{-x})^{-2} \\
 &= \frac{e^{-x}}{(1+e^{-x})^{2}} \\
 &= \frac{1}{1+e^{-x}} \cdot \frac{e^{-x}}{1+e^{-x}} \\
 &= \frac{1}{1+e^{-x}} \cdot \frac{1 + e^{-x} - 1}{1+e^{-x}} \\
