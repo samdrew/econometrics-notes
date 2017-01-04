@@ -6,14 +6,17 @@ header-includes:
 output:
     html_document
 ---
+\newcommand{\L}{\mathcal{L}}
+\newcommand{\E}{\mathbb{E}}
+
 
 # Introduction
 
-`Expectation` is the mean value for the population. This means that for a discrete possibility the $\mathbb{E}(x) = x \cdot P(x)$. For a continuous variable this is $\mathbb{E}(x) = \int x f(x) dx$ where $f(x)$ is the [density function](#pdf).
+`Expectation` is the mean value for the population. This means that for a discrete possibility the $\E(x) = x \cdot P(x)$. For a continuous variable this is $\E(x) = \int x f(x) dx$ where $f(x)$ is the [density function](#pdf).
 
 Other things to note about expectations: 
 
-$$\mathbb{E}(x_1 + x_2) = \mathbb{E}(x_1) + \mathbb{E}(x_2)$$
+$$\E(x_1 + x_2) = \E(x_1) + \E(x_2)$$
 
 This can also be shown in matricies with the following
 
@@ -264,9 +267,18 @@ $$\begin{aligned}
 &= \Lambda(x) \cdot \left( 1 - \Lambda(x) \right)\\
 \end{aligned}$$
 
-`Log-likelihood function`
+Similarly if we differentiate $\Lambda(x \beta)$ we find [^Logit]
 
-`Likelihood Estimators` ℒ
+$$\begin{aligned}
+\frac{\delta \Lambda(x \beta_o)}{\delta x} &= \frac{\beta_o e^{-x \beta_o}}{(1+e^{-x \beta_o})^{2}} \\
+&= \Lambda(x \beta_o) \cdot \left[ 1 - \Lambda(x \beta_o) \right] \beta_o\\
+\end{aligned}$$
+
+[^Logit]: This is $\Lambda(x'_i \beta_o)[1-\Lambda(x'_i \beta_o)]\beta_{ko}$ in the notes
+
+`Log-likelihood function` $$ln\L(\beta) = \sum_{i=1}^{n} \left( (1-y_i) ln(1-\Lambda(x'_i \beta)) + y_i ln (\Lambda(x'_i \beta)) \right)$$
+
+`Likelihood Estimators` 
 
 `Asymptotic Variance`
 

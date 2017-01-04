@@ -123,9 +123,9 @@ $(document).ready(function () {
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p><code>Expectation</code> is the mean value for the population. This means that for a discrete possibility the <span class="math inline">\(\mathbb{E}(x) = x \cdot P(x)\)</span>. For a continuous variable this is <span class="math inline">\(\mathbb{E}(x) = \int x f(x) dx\)</span> where <span class="math inline">\(f(x)\)</span> is the <a href="#pdf">density function</a>.</p>
+<p><code>Expectation</code> is the mean value for the population. This means that for a discrete possibility the <span class="math inline">\({\mathbb{E}}(x) = x \cdot P(x)\)</span>. For a continuous variable this is <span class="math inline">\({\mathbb{E}}(x) = \int x f(x) dx\)</span> where <span class="math inline">\(f(x)\)</span> is the <a href="#pdf">density function</a>.</p>
 <p>Other things to note about expectations:</p>
-<p><span class="math display">\[\mathbb{E}(x_1 + x_2) = \mathbb{E}(x_1) + \mathbb{E}(x_2)\]</span></p>
+<p><span class="math display">\[{\mathbb{E}}(x_1 + x_2) = {\mathbb{E}}(x_1) + {\mathbb{E}}(x_2)\]</span></p>
 <p>This can also be shown in matricies with the following</p>
 <p><span class="math display">\[\begin{aligned}
 \mathbb{E}(X_1 + X_2) &amp;= \mathbb{E}\left( \begin{array} 
@@ -307,15 +307,20 @@ S &amp;= (\hat u' \hat u) = (Y - \hat \beta X)'(Y - X \hat \beta)\\
 \Lambda(x) &amp;= \frac{e^x}{1+e^x} \\
 &amp;= \frac{1}{1+e^{-1}} \\
 &amp;= (1+e^{-1})^{-1} \\
-\frac{\delta \Lambda(x)}{\delta x} &amp;= (-1)\cdot(-e^{-x})\cdot(1+e^{-1})^{-2} \\
-&amp;= \frac{e^{-x}}{(1+e^{-x})^{-2}} \\
+\frac{\delta \Lambda(x)}{\delta x} &amp;= (-1)\cdot(-e^{-x})\cdot(1+e^{-x})^{-2} \\
+&amp;= \frac{e^{-x}}{(1+e^{-x})^{2}} \\
 &amp;= \frac{1}{1+e^{-x}} \cdot \frac{e^{-x}}{1+e^{-x}} \\
 &amp;= \frac{1}{1+e^{-x}} \cdot \frac{1 + e^{-x} - 1}{1+e^{-x}} \\
 &amp;= \frac{1}{1+e^{-x}} \cdot \left( \frac{1 + e^{-x}}{1+e^{-x}} - \frac{1}{1+e^{-x}} \right)\\
 &amp;= \Lambda(x) \cdot \left( 1 - \Lambda(x) \right)\\
 \end{aligned}\]</span></p>
-<p><code>Log-likelihood function</code></p>
-<p>NA</p>
+<p>Similarly if we differentiate <span class="math inline">\(\Lambda(x \beta)\)</span> we find <a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<p><span class="math display">\[\begin{aligned}
+\frac{\delta \Lambda(x \beta_o)}{\delta x} &amp;= \frac{\beta_o e^{-x \beta_o}}{(1+e^{-x \beta_o})^{2}} \\
+&amp;= \Lambda(x \beta_o) \cdot \left[ 1 - \Lambda(x \beta_o) \right] \beta_o\\
+\end{aligned}\]</span></p>
+<p><code>Log-likelihood function</code> <span class="math display">\[ln{\mathcal{L}}(\beta) = \sum_{i=1}^{n} \left( (1-y_i) ln(1-\Lambda(x'_i \beta)) + y_i ln (\Lambda(x'_i \beta) \right)\]</span></p>
+<p><code>Likelihood Estimators</code></p>
 <p><code>Asymptotic Variance</code></p>
 <p><code>Newton-Raphson</code> is an iterative, heuristic algorithm for finding solutions to equations. The reason it is relevant is that it is able to provide results for problems which cannot otherwise be analytically solved.</p>
 </div>
@@ -397,6 +402,12 @@ Var(\hat \beta_{GLS}) &amp;= \sigma^2 \mathbb{E}((X' \Omega^{-1} X)^{-1})
 \end{aligned}\]</span></p>
 <p>Note: Sometimes GLS, when applied to hetroskedasity is referred to as Weighted Least Squares (WLS).</p>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>This is <span class="math inline">\(\Lambda(x'_i \beta_o)[1-\Lambda(x'_i \beta_o)]\beta_{ko}\)</span> in the notes<a href="#fnref1">↩</a></p></li>
+</ol>
 </div>
 
 
