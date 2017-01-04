@@ -171,6 +171,15 @@ Cov(X_N, X_1) &amp; \ldots &amp; \ldots &amp; Var(X_N) \end{array} \right)\]</sp
 <p><code>Random Variables</code> These are the covariates which effect</p>
 <p><code>iid</code>, or identically independent distributed, is a core assumption of many variables and samples (including <a href="#g-m">Gauss-Markov</a>).</p>
 <p><code>Estimators/Models</code></p>
+<p><code>Law of Iterated Expectations</code> states that for <span class="math inline">\(\mathbb{E}(\mathbb{E}(Y|X)) = \mathbb{E}(Y)\)</span>. This is because the notation <span class="math inline">\(\mathbb{E}(Y|X)\)</span> is saying that the expectation of Y given a value of X equals a given value, therefore the expected outcome across all of these possible values of X is going to be Y.</p>
+<p>This can be better understood with an example. Given Y as wage, and X as gender we can calculate the following can be found</p>
+<p><span class="math display">\[\begin{aligned}
+\mathbb{E}(\text{Wage}) &amp;= \mathbb{E}(\mathbb{E}(\text{Wage}|\text{Sex})) \\
+&amp;=\sum P(\text{Sex} = sex) \cdot \mathbb{E}(\text{Wage}|\text{Sex} = sex) \\
+&amp;= P(\text{Sex} = f) \cdot \mathbb{E}(\text{Wage}|\text{Sex} = f) + P(\text{Sex} = m) \cdot \mathbb{E}(\text{Wage}|\text{Sex} = m)
+\end{aligned}\]</span></p>
+<p><code>Total law of Variance</code> This law, otherwise known as Eve’s law, allows the variance of a given value to be found, knowing only its conditional variance and expectations.</p>
+<p><span class="math display">\[Var(Y)=\mathbb{E}[Var(Y|X)]+Var(\mathbb{E}[Y|X])\]</span></p>
 <p><code>Law of Large Numbers</code></p>
 <p><code>Central Limit Theorem</code></p>
 <p><code>Continuous Mapping</code> states that for a given (continuous) function <span class="math inline">\(f(x)\)</span>, as the value of <span class="math inline">\(\hat x\)</span> approaches a given value <span class="math inline">\(x\)</span>, the function <span class="math inline">\(f(\hat x)\)</span> also approaches a value <span class="math inline">\(f(x)\)</span>. This only works if the function <span class="math inline">\(f(x)\)</span> is differentiable.</p>
@@ -244,9 +253,18 @@ S &amp;= (\hat u' \hat u) = (Y - \hat \beta X)'(Y - X \hat \beta)\\
 <h1>OLS Properties</h1>
 <p><code>Assumptions</code> about the data are required for the OLS estimator to be valid. There are a set of assumptions named Gauss-Markov which include</p>
 <ul>
-<li>Homoskadicity</li>
-<li>iid</li>
-<li></li>
+<li>Homoskedicity
+<ul>
+<li>Mean-zero error <span class="math inline">\(\mathbb{E}{u} = 0\)</span></li>
+<li><span class="math inline">\(u_i\)</span> and <span class="math inline">\(x_i\)</span> are independent</li>
+<li><span class="math inline">\(Var(u_i) = \sigma^2 \mathbf{I}\)</span></li>
+</ul></li>
+<li>iid
+<ul>
+<li>iid error term <span class="math inline">\(Cov(u_i, u_j) = 0\)</span></li>
+</ul></li>
+<li><span class="math inline">\(u\)</span> is independent of <span class="math inline">\(x\)</span></li>
+<li><span class="math inline">\(X'X\)</span> is a non-singular matrix <span class="math inline">\(det(X'X) \neq 0\)</span></li>
 </ul>
 <p><code>Sample Properties</code></p>
 <p><code>Asymptotic Variance</code></p>
@@ -341,10 +359,25 @@ z &amp;= \omega \beta + \varepsilon \\
 <p><span class="math display">\[\begin{aligned}
 Y &amp;= X\beta + u &amp;&amp; Var(u | X) = \sigma^2 \Omega \\
 \hat \beta_{GLS} &amp;= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} Y \\
-Var(\hat \beta_{GLS}) &amp;= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} Var(Y|X) \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
+&amp;= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} (X \beta + u) \\
+&amp;= \beta + (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} u \\
+\mathbb{E} (\hat \beta_{GLS} | X) &amp;= \beta + (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} \mathbb{E} (u|X) \\
+&amp;= \beta \\
+Var(\hat \beta_{GLS} | X) &amp;= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} Var(Y|X) \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
 &amp;= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} \sigma^2 \Omega \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
 &amp;= \sigma^2 (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
 &amp;= \sigma^2 (X' \Omega^{-1} X)^{-1} 
+\end{aligned}\]</span></p>
+<p>Given the law of total variance this we can say <span class="math inline">\(Var(\hat \beta_{GLS}) = \sigma^2 (X' \Omega^{-1} X)^{-1}\)</span>. Alternatively the <span class="math inline">\(Var(\hat \beta_{GLS})\)</span> can be calculated by looking at the square error, to find the same result.</p>
+<p><span class="math display">\[\begin{aligned}
+\hat \beta_{GLS} &amp;= \beta + (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} u \\
+\hat \beta_{GLS} - \beta &amp;= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} u \\
+(\hat \beta_{GLS} - \beta)(\hat \beta_{GLS} - \beta)' &amp;= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} u ((X' \Omega^{-1} X)^{-1} X' \Omega^{-1} u )' \\
+&amp;= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} u u' \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
+\mathbb{E}((\hat \beta_{GLS} - \beta)(\hat \beta_{GLS} - \beta)'|X) &amp;= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} \mathbb{E}(u u'|X) \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
+&amp;= \sigma^2 (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} \Omega \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
+&amp;= \sigma^2 (X' \Omega^{-1} X)^{-1} \\
+Var(\hat \beta_{GLS}) &amp;= \sigma^2 \mathbb{E}((X' \Omega^{-1} X)^{-1})
 \end{aligned}\]</span></p>
 <p>Note: Sometimes GLS, when applied to hetroskedasity is referred to as Weighted Least Squares (WLS).</p>
 </div>

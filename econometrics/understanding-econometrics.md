@@ -82,6 +82,20 @@ In the case that $\mathbb{E}(Y | X = x)$ isn't for a fixed value of X, then the 
 
 `Estimators/Models`
 
+`Law of Iterated Expectations` states that for $\mathbb{E}(\mathbb{E}(Y|X)) = \mathbb{E}(Y)$. This is because the notation $\mathbb{E}(Y|X)$ is saying that the expectation of Y given a value of X equals a given value, therefore the expected outcome across all of these possible values of X is going to be Y. 
+
+This can be better understood with an example. Given Y as wage, and X as gender we can calculate the following can be found
+
+$$\begin{aligned}
+\mathbb{E}(\text{Wage}) &= \mathbb{E}(\mathbb{E}(\text{Wage}|\text{Sex})) \\
+&=\sum P(\text{Sex} = sex) \cdot \mathbb{E}(\text{Wage}|\text{Sex} = sex) \\
+&= P(\text{Sex} = f) \cdot \mathbb{E}(\text{Wage}|\text{Sex} = f) + P(\text{Sex} = m) \cdot \mathbb{E}(\text{Wage}|\text{Sex} = m)
+\end{aligned}$$
+
+`Total law of Variance` This law, otherwise known as Eve's law, allows the variance of a given value to be found, knowing only its conditional variance and expectations. 
+
+$$Var(Y)=\mathbb{E}[Var(Y|X)]+Var(\mathbb{E}[Y|X])$$
+
 `Law of Large Numbers`
 
 `Central Limit Theorem`
@@ -176,9 +190,14 @@ S &= (\hat u' \hat u) = (Y - \hat \beta X)'(Y - X \hat \beta)\\
 
 `Assumptions` about the data are required for the OLS estimator to be valid. There are a set of assumptions named Gauss-Markov which include
 
-* Homoskadicity
+* Homoskedicity
+	- Mean-zero error $\mathbb{E}{u} = 0$
+	- $u_i$ and $x_i$ are independent
+	- $Var(u_i) = \sigma^2 \mathbf{I}$
 * iid
-* 
+	- iid error term $Cov(u_i, u_j) = 0$
+* $u$ is independent of $x$
+* $X'X$ is a non-singular matrix $det(X'X) \neq 0$
 
 `Sample Properties`
 
@@ -299,10 +318,27 @@ Now we want to know the properties of this model. Let's look at the Variance of 
 $$\begin{aligned}
 Y &= X\beta + u && Var(u | X) = \sigma^2 \Omega \\
 \hat \beta_{GLS} &= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} Y \\
-Var(\hat \beta_{GLS}) &= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} Var(Y|X) \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
+&= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} (X \beta + u) \\
+&= \beta + (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} u \\
+\mathbb{E} (\hat \beta_{GLS} | X) &= \beta + (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} \mathbb{E} (u|X) \\
+&= \beta \\
+Var(\hat \beta_{GLS} | X) &= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} Var(Y|X) \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
 &= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} \sigma^2 \Omega \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
 &= \sigma^2 (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
 &= \sigma^2 (X' \Omega^{-1} X)^{-1} 
+\end{aligned}$$
+
+Given the law of total variance this we can say $Var(\hat \beta_{GLS}) = \sigma^2 (X' \Omega^{-1} X)^{-1}$. Alternatively the $Var(\hat \beta_{GLS})$ can be calculated by looking at the square error, to find the same result. 
+
+$$\begin{aligned}
+\hat \beta_{GLS} &= \beta + (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} u \\
+\hat \beta_{GLS} - \beta &= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} u \\
+(\hat \beta_{GLS} - \beta)(\hat \beta_{GLS} - \beta)' &= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} u ((X' \Omega^{-1} X)^{-1} X' \Omega^{-1} u )' \\
+&= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} u u' \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
+\mathbb{E}((\hat \beta_{GLS} - \beta)(\hat \beta_{GLS} - \beta)'|X) &= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} \mathbb{E}(u u'|X) \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
+&= \sigma^2 (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} \Omega \Omega^{-1} X (X' \Omega^{-1} X)^{-1} \\
+&= \sigma^2 (X' \Omega^{-1} X)^{-1} \\
+Var(\hat \beta_{GLS}) &= \sigma^2 \mathbb{E}((X' \Omega^{-1} X)^{-1})
 \end{aligned}$$
 
 Note: Sometimes GLS, when applied to hetroskedasity is referred to as Weighted Least Squares (WLS).
