@@ -285,9 +285,9 @@ S &amp;= (\hat u' \hat u) = (Y - \hat \beta X)'(Y - X \hat \beta)\\
 <p><code>Joint Hypothesis testing</code></p>
 <p><code>Asymptotic f-test</code></p>
 <p><code>Homoskedacity</code></p>
+<div id="confidence-intervals" class="section level2">
+<h2>Confidence Intervals</h2>
 </div>
-<div id="confidence-intervals" class="section level1">
-<h1>Confidence Intervals</h1>
 </div>
 <div id="binary-response-models" class="section level1">
 <h1>Binary Response Models</h1>
@@ -319,8 +319,20 @@ S &amp;= (\hat u' \hat u) = (Y - \hat \beta X)'(Y - X \hat \beta)\\
 \frac{\delta \Lambda(x \beta_o)}{\delta x} &amp;= \frac{\beta_o e^{-x \beta_o}}{(1+e^{-x \beta_o})^{2}} \\
 &amp;= \Lambda(x \beta_o) \cdot \left[ 1 - \Lambda(x \beta_o) \right] \beta_o\\
 \end{aligned}\]</span></p>
-<p><code>Log-likelihood function</code> <span class="math display">\[ln{\mathcal{L}}(\beta) = \sum_{i=1}^{n} \left( (1-y_i) ln(1-\Lambda(x'_i \beta)) + y_i ln (\Lambda(x'_i \beta) \right)\]</span></p>
-<p><code>Likelihood Estimators</code></p>
+<p><code>Likelihood Estimators</code> are a generic form of describing the behaviour of a population from a sample. The Ordinary Least Squares regression is a linear form of this, however for a binary outcome model we need to look at a different form.</p>
+<p>We have a function <span class="math inline">\(F_\varepsilon(X \beta_o)\)</span>, which a binary outcome function and has a known distribution for the errors (<span class="math inline">\(\varepsilon\)</span>). For a binary outcome we’ll use either the Logit or Probit model to estimate this. This means that <span class="math inline">\(P(y_i=1|x_i) = F_\varepsilon (x'_i\beta_o)\)</span>. Given that this is a binary outcome we can also say that <span class="math inline">\(P(y_i=0|x_i) = 1 - F_\varepsilon (x_i \beta)\)</span>. This gives the specific outcome</p>
+<p><span class="math display">\[P(y_i | x_i) = (F_\varepsilon (x'_i \beta))^{y_i} \cdot (1- F_\varepsilon (x'_i \beta))^{1-y_i}\]</span></p>
+<p>This can then be extended beyond a given result to allow us to find the probability that all the outcomes are as expected.</p>
+<p><span class="math display">\[\begin{aligned}
+P(Y | X) &amp;= P(y_1 | x_1) \cdot P(y_2 | x_2) \cdot \ldots \cdot P(y_n | x_n) \\
+&amp;= \prod_{i=1}^n \left( (F_\varepsilon (x'_i \beta))^{y_i} \cdot (1- F_\varepsilon (x'_i \beta))^{1-y_i} \right)
+\end{aligned}\]</span></p>
+<p>And this is our likelihood function, also denoted with respect to <span class="math inline">\(\beta\)</span> as</p>
+<p><span class="math display">\[{\mathcal{L}}(\beta) = \prod_{i=1}^n \left( (F_\varepsilon (x'_i \beta))^{y_i} \cdot (1- F_\varepsilon (x'_i \beta))^{1-y_i} \right)\]</span></p>
+<p><code>Log-likelihood function</code> The likelihood function itself isn’t very useful. Trying to evaluate an n-dimensional product takes a lot of caluclation, even for a computer. As such we take advantage of the monotonic properties of the log function and take logs of both sides, giving us</p>
+<p><span class="math display">\[ln{\mathcal{L}}(\beta) = \sum_{i=1}^n \left(y_i ln (F_\varepsilon (x'_i \beta)) + (1-y_i)ln(1- F_\varepsilon(x'_i \beta)) \right) \]</span></p>
+<p>This can then be applied to both the logit and the probit models, with <span class="math inline">\(F_\varepsilon (x'_i \beta) = \Lambda(x_i \beta)\)</span> and <span class="math inline">\(F_\varepsilon (x'_i \beta) = \Phi(x_i \beta)\)</span> respectively.</p>
+<p><span class="math display">\[ln{\mathcal{L}}(\beta) = \sum_{i=1}^{n} \left( (1-y_i) ln(1-\Lambda(x'_i \beta)) + y_i ln (\Lambda(x'_i \beta)) \right)\]</span></p>
 <p><code>Asymptotic Variance</code></p>
 <p><code>Newton-Raphson</code> is an iterative, heuristic algorithm for finding solutions to equations. The reason it is relevant is that it is able to provide results for problems which cannot otherwise be analytically solved.</p>
 </div>

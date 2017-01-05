@@ -233,7 +233,7 @@ One-sided
 
 `Homoskedacity`
 
-# Confidence Intervals
+## Confidence Intervals
 
 
 
@@ -267,7 +267,7 @@ $$\begin{aligned}
 &= \Lambda(x) \cdot \left( 1 - \Lambda(x) \right)\\
 \end{aligned}$$
 
-Similarly if we differentiate $\Lambda(x \beta)$ we find [^Logit]
+Similarly if we differentiate $\Lambda(x \beta)$ we find[^Logit]. That said I am not sure that the following is correct.
 
 $$\begin{aligned}
 \frac{\delta \Lambda(x \beta_o)}{\delta x} &= \frac{\beta_o e^{-x \beta_o}}{(1+e^{-x \beta_o})^{2}} \\
@@ -276,9 +276,32 @@ $$\begin{aligned}
 
 [^Logit]: This is $\Lambda(x'_i \beta_o)[1-\Lambda(x'_i \beta_o)]\beta_{ko}$ in the notes
 
-`Log-likelihood function` $$ln\L(\beta) = \sum_{i=1}^{n} \left( (1-y_i) ln(1-\Lambda(x'_i \beta)) + y_i ln (\Lambda(x'_i \beta)) \right)$$
+`Probit` is a very similar function to the logit, however it is defined as $F(x \beta)
 
-`Likelihood Estimators` 
+`Likelihood Estimators` are a generic form of describing the behaviour of a population from a sample. The Ordinary Least Squares regression is a linear form of this, however for a binary outcome model we need to look at a different form. 
+
+We have a function $F_\varepsilon(X \beta_o)$, which a binary outcome function and has a known distribution for the errors ($\varepsilon$). For a binary outcome we'll use either the Logit or Probit model to estimate this. This means that $P(y_i=1|x_i) = F_\varepsilon (x'_i\beta_o)$. Given that this is a binary outcome we can also say that $P(y_i=0|x_i) = 1 - F_\varepsilon (x_i \beta)$. This gives the specific outcome
+
+$$P(y_i | x_i) = (F_\varepsilon (x'_i \beta))^{y_i} \cdot (1- F_\varepsilon (x'_i \beta))^{1-y_i}$$
+
+This can then be extended beyond a given result to allow us to find the probability that all the outcomes are as expected.
+
+$$\begin{aligned}
+P(Y | X) &= P(y_1 | x_1) \cdot P(y_2 | x_2) \cdot \ldots \cdot P(y_n | x_n) \\
+&= \prod_{i=1}^n \left( (F_\varepsilon (x'_i \beta))^{y_i} \cdot (1- F_\varepsilon (x'_i \beta))^{1-y_i} \right)
+\end{aligned}$$
+
+And this is our likelihood function, also denoted with respect to $\beta$ as 
+
+$$\L(\beta) = \prod_{i=1}^n \left( (F_\varepsilon (x'_i \beta))^{y_i} \cdot (1- F_\varepsilon (x'_i \beta))^{1-y_i} \right)$$
+
+`Log-likelihood function` The likelihood function itself isn't very useful. Trying to evaluate an n-dimensional product takes a lot of caluclation, even for a computer. As such we take advantage of the monotonic properties of the log function and take logs of both sides, giving us 
+
+$$ln\L(\beta) = \sum_{i=1}^n \left(y_i ln (F_\varepsilon (x'_i \beta)) + (1-y_i)ln(1- F_\varepsilon(x'_i \beta)) \right) $$
+
+This can then be applied to both the logit and the probit models, with $F_\varepsilon (x'_i \beta) = \Lambda(x_i \beta)$ and $F_\varepsilon (x'_i \beta) = \Phi(x_i \beta)$ respectively.
+
+$$ln\L(\beta) = \sum_{i=1}^{n} \left( (1-y_i) ln(1-\Lambda(x'_i \beta)) + y_i ln (\Lambda(x'_i \beta)) \right)$$
 
 `Asymptotic Variance`
 
