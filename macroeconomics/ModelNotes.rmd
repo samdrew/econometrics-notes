@@ -1,0 +1,52 @@
+---
+title: "Macro Models"
+author: "Sam Drew"
+output: html_document
+---
+
+# Structure
+
+- Model Name
+- Principles
+	+ What it's trying to do
+	+ Assumptions
+	+ 
+- Findings
+- 
+
+# Shapiro-Stiglitz Model
+
+## Principles
+
+Tries to answer, why is there unemployment? Why not market clearing?
+
+The model builds upon the provisions that 
+
+- Individuals choose their own level of effort
+- Identifying this is difficult for firms
+
+Built on the structure of the incentivising workers to exert effort in their work. It uses unemployment as an incentive to avoid shirking,  The core principle is 
+
+- Workers effort is a binary state - they are either Shirking or Working
+- Companies have a single discipline method, in the form of their payment of wages
+	+ reducing income will only induce more shirking, therefore unemployment is the only positive option
+- Workers who can shirk and for whom it provides the best utility, will
+- No hetrogeniety amongst workers/jobs
+
+This model of wage pricing explains why full employment is not achieved.
+
+## Findings
+
+- No shirking condition - wage equilibrium
+- Unemployment benefits increase wages
+- Higher unemployment levels benefit individuals over companies
+- 
+
+## 
+
+# Solow Production Model
+
+## Principles 
+
+Neoclassical model which attempts to capture observed growth and capital/labour share properties into a simple model, by stating that Output is a property of Capital and Labour.
+
