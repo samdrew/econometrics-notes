@@ -138,7 +138,8 @@ $$\begin{aligned}
 &= (X'X)^{-1} X'Y
 \end{aligned}$$
 
-`bias` Given our OLS estimator $\hat \beta = (X' X)^{-1} X' y$ we can plug in the linear regression model $y = X\beta + u$ to give us 
+`bias` is something to be avoided in an estimator. It implies that using it the expectation of the model from the sample is not equal to the expectation from the population. This can be stated as $\Bias_\theta(\hat \theta) = \E_\theta(\hat \theta) - \theta$. Given our OLS estimator $\hat \beta = (X' X)^{-1} X' y$ we can plug in the linear regression model $y = X\beta + u$ to give us 
+
 $$\begin{align}
 \hat \beta &= (X' X)^{-1} X' (X\beta + u)\\
  &= (X' X)^{-1} X' X \beta + (X' X)^{-1} X' u \\
@@ -257,8 +258,8 @@ These models have the properties that for -∞ the function should return 0 and 
 
 $$\begin{aligned}
 \Lambda(x) &= \frac{e^x}{1+e^x} \\
-&= \frac{1}{1+e^{-1}} \\
-&= (1+e^{-1})^{-1} \\
+&= \frac{1}{1+e^{-x}} \\
+&= (1+e^{-x})^{-1} \\
 \frac{\delta \Lambda(x)}{\delta x} &= (-1)\cdot(-e^{-x})\cdot(1+e^{-x})^{-2} \\
 &= \frac{e^{-x}}{(1+e^{-x})^{2}} \\
 &= \frac{1}{1+e^{-x}} \cdot \frac{e^{-x}}{1+e^{-x}} \\
@@ -267,14 +268,12 @@ $$\begin{aligned}
 &= \Lambda(x) \cdot \left( 1 - \Lambda(x) \right)\\
 \end{aligned}$$
 
-Similarly if we differentiate $\Lambda(x \beta)$ we find[^Logit]. That said I am not sure that the following is correct.
+Similarly if we differentiate $\Lambda(x \beta)$ we find ^[This is $\Lambda(x'_i \beta_o)[1-\Lambda(x'_i \beta_o)]\beta_{ko}$ in the notes]. That said I am not sure that the following is correct.
 
 $$\begin{aligned}
 \frac{\delta \Lambda(x \beta_o)}{\delta x} &= \frac{\beta_o e^{-x \beta_o}}{(1+e^{-x \beta_o})^{2}} \\
 &= \Lambda(x \beta_o) \cdot \left[ 1 - \Lambda(x \beta_o) \right] \beta_o\\
 \end{aligned}$$
-
-[^Logit]: This is $\Lambda(x'_i \beta_o)[1-\Lambda(x'_i \beta_o)]\beta_{ko}$ in the notes
 
 `Probit` is a very similar function to the logit, however it is defined as $F(x \beta)
 
@@ -396,3 +395,62 @@ Var(\hat \beta_{GLS}) &= \sigma^2 \mathbb{E}((X' \Omega^{-1} X)^{-1})
 \end{aligned}$$
 
 Note: Sometimes GLS, when applied to hetroskedasity is referred to as Weighted Least Squares (WLS).
+
+# Instrumental Variables
+
+Instrumental variables (IV) are invaluable for estimating the effect of a variable on an outcome when there is correlation between the residual error term and the covariate of interest. In this case a different covariate, which is uncorrelated with the error term, but is correlated with the covariate of interest, is used.
+
+This might be described in the following form 
+
+$$\begin{aligned}
+y_i &= x_i \beta + u && \E(u_i|z_i) = 0 && \E(u^2|x_i,z_i) = \sigma^2 && i=1, \ldots, N \\
+x_i &= z_i \alpha + v && \text{where } z_i \text{ and } u_i \text{ independent}
+\end{aligned}$$
+
+It is important to note in this case that there must be correlation between $z_i$ and $x_i$, which could also be stated as $\alpha \neq 0$ or $\E(x_i z_i) \neq 0$.
+
+## 2SLS
+
+Two-stage least squares is a simple form for solving the IV problem where first an OLS is taken, and then using the expectation of $u_i$ given $z_i$, $\beta_{IV}$ is calculated. For example, firstly
+
+$$\begin{aligned}
+\hat \alpha_{OLS} &= (Z'Z)Z'X \text{ and }\\
+\hat X &= Z \hat \alpha \\
+\Rightarrow \hat X &= Z (Z'Z)^{-1} Z' X
+\end{aligned}$$
+
+And on the second pass, we get
+
+$$\begin{aligned}
+\newcommand{\X}{\hat X}
+\hat \beta_{IV} &= (\X'\X)^{-1}\X'Y \\
+&= ((Z (Z'Z)^{-1} Z' X)'Z (Z'Z)^{-1} Z' X)^{-1} (Z (Z'Z)^{-1} Z' X)' Y \\
+&= (X' Z (Z'Z)^{-1} Z' Z (Z'Z)^{-1} Z' X)^{-1} X' Z (Z'Z)^{-1} Z' Y \\
+&= (X' Z (Z'Z)^{-1} Z' X)^{-1} X' Z (Z'Z)^{-1} Z' Y \\
+&= (\X' X)^{-1} \X' Y 
+\end{aligned}$$
+
+Alternatively this can be achieved via
+
+$$\begin{aligned}
+0 &= \E(u_i z_i) \\
+&= n^{-1} \sum_{i=1}^n u_i z_i \\
+&= n^{-1} \sum_{i=1}^n (y_i - x_i \beta) z_i  \\
+&= n^{-1} \sum_{i=1}^n y_i z_i - z_i x_i' \beta  \\
+&= n^{-1} \sum_{i=1}^n y_i z_i - n^{-1} \sum_{i=1}^n z_i x_i' \beta \\
+\beta_{IV} &= \left( n^{-1} \sum_{i=1}^n z_i x_i' \right)^{-1} n^{-1} \sum_{i=1}^n y_i z_i \\
+&= (n^{-1} Z' X)^{-1} n^{-1} Z' Y
+\end{aligned}$$
+
+Which contrary to appearances is in fact the same result. 
+
+$$\begin{aligned}
+\hat\beta_{IV} &= (\X' X)^{-1} \X' Y \\
+&= (\alpha Z' X)^{-1} \alpha Z' Y \\
+&= \alpha^{-1} \alpha ( Z' X)^{-1} Z' Y \\
+&= (n^{-1} Z' X)^{-1} n^{-1 } Z' Y \\
+&= \left( n^{-1} \sum_{i=1}^n z_i x_i' \right)^{-1} n^{-1} \sum_{i=1}^n y_i z_i \\
+&= \beta_{IV}
+\end{aligned}$$
+
+## Generalized Least Squares

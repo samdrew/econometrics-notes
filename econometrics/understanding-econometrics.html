@@ -211,7 +211,8 @@ Cov(X_N, X_1) &amp; \ldots &amp; \ldots &amp; Var(X_N) \end{array} \right)\]</sp
 \hat \beta &amp;= (2X'X)^{-1} 2X'Y \\
 &amp;= (X'X)^{-1} X'Y
 \end{aligned}\]</span></p>
-<p><code>bias</code> Given our OLS estimator <span class="math inline">\(\hat \beta = (X' X)^{-1} X' y\)</span> we can plug in the linear regression model <span class="math inline">\(y = X\beta + u\)</span> to give us <span class="math display">\[\begin{align}
+<p><code>bias</code> is something to be avoided in an estimator. It implies that using it the expectation of the model from the sample is not equal to the expectation from the population. This can be stated as <span class="math inline">\(\Bias_\theta(\hat \theta) = {\mathbb{E}}_\theta(\hat \theta) - \theta\)</span>. Given our OLS estimator <span class="math inline">\(\hat \beta = (X' X)^{-1} X' y\)</span> we can plug in the linear regression model <span class="math inline">\(y = X\beta + u\)</span> to give us</p>
+<p><span class="math display">\[\begin{align}
 \hat \beta &amp;= (X' X)^{-1} X' (X\beta + u)\\
  &amp;= (X' X)^{-1} X' X \beta + (X' X)^{-1} X' u \\
  &amp;= \beta + (X' X)^{-1} X' u
@@ -305,8 +306,8 @@ S &amp;= (\hat u' \hat u) = (Y - \hat \beta X)'(Y - X \hat \beta)\\
 <p><code>Logit</code> The logistic function or logit is defined as <span class="math inline">\(\Lambda(x) = \frac{e^x}{1+e^x}\)</span>. This function, while not having quite such good properties as the probit, ie less steep transition and longer tails, is very easy to differentiate.</p>
 <p><span class="math display">\[\begin{aligned}
 \Lambda(x) &amp;= \frac{e^x}{1+e^x} \\
-&amp;= \frac{1}{1+e^{-1}} \\
-&amp;= (1+e^{-1})^{-1} \\
+&amp;= \frac{1}{1+e^{-x}} \\
+&amp;= (1+e^{-x})^{-1} \\
 \frac{\delta \Lambda(x)}{\delta x} &amp;= (-1)\cdot(-e^{-x})\cdot(1+e^{-x})^{-2} \\
 &amp;= \frac{e^{-x}}{(1+e^{-x})^{2}} \\
 &amp;= \frac{1}{1+e^{-x}} \cdot \frac{e^{-x}}{1+e^{-x}} \\
@@ -314,11 +315,12 @@ S &amp;= (\hat u' \hat u) = (Y - \hat \beta X)'(Y - X \hat \beta)\\
 &amp;= \frac{1}{1+e^{-x}} \cdot \left( \frac{1 + e^{-x}}{1+e^{-x}} - \frac{1}{1+e^{-x}} \right)\\
 &amp;= \Lambda(x) \cdot \left( 1 - \Lambda(x) \right)\\
 \end{aligned}\]</span></p>
-<p>Similarly if we differentiate <span class="math inline">\(\Lambda(x \beta)\)</span> we find <a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<p>Similarly if we differentiate <span class="math inline">\(\Lambda(x \beta)\)</span> we find <a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. That said I am not sure that the following is correct.</p>
 <p><span class="math display">\[\begin{aligned}
 \frac{\delta \Lambda(x \beta_o)}{\delta x} &amp;= \frac{\beta_o e^{-x \beta_o}}{(1+e^{-x \beta_o})^{2}} \\
 &amp;= \Lambda(x \beta_o) \cdot \left[ 1 - \Lambda(x \beta_o) \right] \beta_o\\
 \end{aligned}\]</span></p>
+<p><code>Probit</code> is a very similar function to the logit, however it is defined as $F(x )</p>
 <p><code>Likelihood Estimators</code> are a generic form of describing the behaviour of a population from a sample. The Ordinary Least Squares regression is a linear form of this, however for a binary outcome model we need to look at a different form.</p>
 <p>We have a function <span class="math inline">\(F_\varepsilon(X \beta_o)\)</span>, which a binary outcome function and has a known distribution for the errors (<span class="math inline">\(\varepsilon\)</span>). For a binary outcome we’ll use either the Logit or Probit model to estimate this. This means that <span class="math inline">\(P(y_i=1|x_i) = F_\varepsilon (x'_i\beta_o)\)</span>. Given that this is a binary outcome we can also say that <span class="math inline">\(P(y_i=0|x_i) = 1 - F_\varepsilon (x_i \beta)\)</span>. This gives the specific outcome</p>
 <p><span class="math display">\[P(y_i | x_i) = (F_\varepsilon (x'_i \beta))^{y_i} \cdot (1- F_\varepsilon (x'_i \beta))^{1-y_i}\]</span></p>
@@ -413,6 +415,53 @@ Var(\hat \beta_{GLS} | X) &amp;= (X' \Omega^{-1} X)^{-1} X' \Omega^{-1} Var(Y|X)
 Var(\hat \beta_{GLS}) &amp;= \sigma^2 \mathbb{E}((X' \Omega^{-1} X)^{-1})
 \end{aligned}\]</span></p>
 <p>Note: Sometimes GLS, when applied to hetroskedasity is referred to as Weighted Least Squares (WLS).</p>
+</div>
+</div>
+<div id="instrumental-variables" class="section level1">
+<h1>Instrumental Variables</h1>
+<p>Instrumental variables (IV) are invaluable for estimating the effect of a variable on an outcome when there is correlation between the residual error term and the covariate of interest. In this case a different covariate, which is uncorrelated with the error term, but is correlated with the covariate of interest, is used.</p>
+<p>This might be described in the following form</p>
+<p><span class="math display">\[\begin{aligned}
+y_i &amp;= x_i \beta + u &amp;&amp; {\mathbb{E}}(u_i|z_i) = 0 &amp;&amp; {\mathbb{E}}(u^2|x_i,z_i) = \sigma^2 &amp;&amp; i=1, \ldots, N \\
+x_i &amp;= z_i \alpha + v &amp;&amp; \text{where } z_i \text{ and } u_i \text{ independent}
+\end{aligned}\]</span></p>
+<p>It is important to note in this case that there must be correlation between <span class="math inline">\(z_i\)</span> and <span class="math inline">\(x_i\)</span>, which could also be stated as <span class="math inline">\(\alpha \neq 0\)</span> or <span class="math inline">\({\mathbb{E}}(x_i z_i) \neq 0\)</span>.</p>
+<div id="sls" class="section level2">
+<h2>2SLS</h2>
+<p>Two-stage least squares is a simple form for solving the IV problem where first an OLS is taken, and then using the expectation of <span class="math inline">\(u_i\)</span> given <span class="math inline">\(z_i\)</span>, <span class="math inline">\(\beta_{IV}\)</span> is calculated. For example, firstly</p>
+<p><span class="math display">\[\begin{aligned}
+\hat \alpha_{OLS} &amp;= (Z'Z)Z'X \text{ and }\\
+\hat X &amp;= Z \hat \alpha \\
+\Rightarrow \hat X &amp;= Z (Z'Z)^{-1} Z' X
+\end{aligned}\]</span></p>
+<p>And on the second pass, we get</p>
+<p><span class="math display">\[\begin{aligned}
+\newcommand{\X}{\hat X}
+\hat \beta_{IV} &amp;= (\X'\X)^{-1}\X'Y \\
+&amp;= ((Z (Z'Z)^{-1} Z' X)'Z (Z'Z)^{-1} Z' X)^{-1} (Z (Z'Z)^{-1} Z' X)' Y \\
+&amp;= (X' Z (Z'Z)^{-1} Z' Z (Z'Z)^{-1} Z' X)^{-1} X' Z (Z'Z)^{-1} Z' Y \\
+&amp;= (X' Z (Z'Z)^{-1} Z' X)^{-1} X' Z (Z'Z)^{-1} Z' Y \\
+&amp;= (\X' X)^{-1} \X' Y 
+\end{aligned}\]</span></p>
+<p>Alternatively this can be achieved via</p>
+<p><span class="math display">\[\begin{aligned}
+0 &amp;= {\mathbb{E}}(u_i z_i) \\
+&amp;= n^{-1} \sum_{i=1}^n u_i z_i \\
+&amp;= n^{-1} \sum_{i=1}^n (y_i - x_i \beta) z_i  \\
+&amp;= n^{-1} \sum_{i=1}^n y_i z_i - z_i x_i' \beta  \\
+&amp;= n^{-1} \sum_{i=1}^n y_i z_i - n^{-1} \sum_{i=1}^n z_i x_i' \beta \\
+\beta_{IV} &amp;= \left( n^{-1} \sum_{i=1}^n z_i x_i' \right)^{-1} n^{-1} \sum_{i=1}^n y_i z_i \\
+&amp;= (n^{-1} Z' X)^{-1} n^{-1} Z' Y
+\end{aligned}\]</span></p>
+<p>Which contrary to appearances is in fact the same result.</p>
+<p><span class="math display">\[\begin{aligned}
+\hat\beta_{IV} &amp;= (\X' X)^{-1} \X' Y \\
+&amp;= (\alpha Z' X)^{-1} \alpha Z' Y \\
+&amp;= \alpha^{-1} \alpha ( Z' X)^{-1} Z' Y \\
+&amp;= (n^{-1} Z' X)^{-1} n^{-1 } Z' Y \\
+&amp;= \left( n^{-1} \sum_{i=1}^n z_i x_i' \right)^{-1} n^{-1} \sum_{i=1}^n y_i z_i \\
+&amp;= \beta_{IV}
+\end{aligned}\]</span></p>
 </div>
 </div>
 <div class="footnotes">
