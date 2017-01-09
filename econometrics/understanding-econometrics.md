@@ -298,11 +298,37 @@ $$\L(\beta) = \prod_{i=1}^n \left( (F_\varepsilon (x'_i \beta))^{y_i} \cdot (1- 
 
 $$ln\L(\beta) = \sum_{i=1}^n \left(y_i ln (F_\varepsilon (x'_i \beta)) + (1-y_i)ln(1- F_\varepsilon(x'_i \beta)) \right) $$
 
-This can then be applied to both the logit and the probit models, with $F_\varepsilon (x'_i \beta) = \Lambda(x_i \beta)$ and $F_\varepsilon (x'_i \beta) = \Phi(x_i \beta)$ respectively.
+This can then be applied to both the logit and the probit models, with $F_\varepsilon (x'_i \beta) = \Lambda(x_i \beta)$ and $F_\varepsilon (x'_i \beta) = \Phi(x_i \beta)$ respectively. In the generic form this gives us 
 
-$$ln\L(\beta) = \sum_{i=1}^{n} \left( (1-y_i) ln(1-\Lambda(x'_i \beta)) + y_i ln (\Lambda(x'_i \beta)) \right)$$
+$$\begin{aligned}
+\frac{\delta}{\delta \beta} ln \L (\beta) &= \sum_{i=1}^n \left( \frac{y_i}{F_\varepsilon (x'_i \beta)} f_\varepsilon (x'_i \beta) x'_i + \frac{1}{1- F_\varepsilon(x'_i \beta)} (-f_\varepsilon(x'_i \beta)) x'_i + \frac{-y_i}{1- F_\varepsilon(x'_i \beta)} (-f(x'_i \beta)) x_i \right) \\
+&= \sum_{i=1}^n \left( \frac{y_i f_\varepsilon (x'_i \beta) x'_i}{F_\varepsilon (x'_i \beta)} - \frac{f_\varepsilon(x'_i \beta) x'_i}{1- F_\varepsilon(x'_i \beta)} + \frac{y_i f(x'_i \beta) x_i }{1 - F_\varepsilon(x'_i \beta)}  \right) \\
+&= \sum_{i=1}^n x_i \left( \frac{y_i f_\varepsilon (x'_i \beta)}{F_\varepsilon (x'_i \beta)} + \frac{(y_i - 1) f_\varepsilon(x'_i \beta)}{1 - F_\varepsilon(x'_i \beta)}  \right) \\
+&= \sum_{i=1}^n x_i \left( \frac{y_i f_\varepsilon (x'_i \beta) (1 - F_\varepsilon(x'_i \beta))}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))} + \frac{(y_i - 1) f_\varepsilon(x'_i \beta)(F_\varepsilon (x'_i \beta))}{(1 - F_\varepsilon(x'_i \beta))F_\varepsilon (x'_i \beta)}  \right) \\
+&= \sum_{i=1}^n x_i \left( \frac{y_i f_\varepsilon (x'_i \beta) (1 - F_\varepsilon(x'_i \beta)) + (y_i - 1) f_\varepsilon(x'_i \beta)(F_\varepsilon (x'_i \beta))}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))} \right) \\
+&= \sum_{i=1}^n x_i \left( \frac{y_i f_\varepsilon (x'_i \beta) - y_i f_\varepsilon (x'_i \beta) F_\varepsilon(x'_i \beta)) + y_i f_\varepsilon(x'_i \beta)(F_\varepsilon (x'_i \beta)) - f_\varepsilon(x'_i \beta)(F_\varepsilon (x'_i \beta))}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))} \right) \\
+&= \sum_{i=1}^n x_i \left( \frac{y_i f_\varepsilon (x'_i \beta) - f_\varepsilon(x'_i \beta)(F_\varepsilon (x'_i \beta))}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))} \right) \\
+&= \sum_{i=1}^n x_i f_\varepsilon (x'_i \beta) \left( \frac{y_i - F_\varepsilon (x'_i \beta)}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))} \right) 
+\end{aligned}$$
 
-`Asymptotic Variance`
+In the case of the probit model we can directly substitue $F(\cdot) = \Phi(\cdot)$ and $f(\cdot) = \phi(\cdot)$, while for a logit we are able to work it through from the beginning to get
+
+$$\begin{aligned}
+\newcommand{\Lxb}{\Lambda(x'_i \beta)}
+ln\L(\beta) &= \sum_{i=1}^{n} \left( (1-y_i) ln(1-\Lambda(x'_i \beta)) + y_i ln (\Lambda(x'_i \beta)) \right) \\
+\arg\min_\beta ln\L(\beta) &\Rightarrow \frac{d}{d\beta} \sum_{i=1}^{n} \left( (1-y_i) ln(1-\Lambda(x'_i \beta)) + y_i ln (\Lambda(x'_i \beta)) \right) = 0 \\
+0 &= \sum_{i=1}^{n} \left( \frac{y_i}{\Lxb} x \Lxb (1-\Lxb) - \frac{\Lxb}{1-\Lxb} (1-\Lxb) x + \frac{y}{1-\Lxb} \Lxb (1-\Lxb) x \right) \\
+&= \sum_{i=1}^{n} \left( y_i x_i (1-\Lxb) - \Lxb x + y_i \Lxb x_i \right) \\
+&= \sum_{i=1}^{n} \left( y_i x_i - y_i x_i\Lxb - \Lxb x + y_i \Lxb x_i \right) \\
+&= \sum_{i=1}^{n} \left( y_i x_i - \Lxb x \right) \\
+&= \sum_{i=1}^{n} \left(  x_i (y_i - \Lxb)  \right) 
+\end{aligned}$$
+
+`Asymptotic Variance` to find the asymptotic distribution of this function we start with the differential of the log-likelihood estimator, and use a taylor-series approximation of it. We start by defining
+
+$$g_i(\theta) = \frac{\delta}{\delta \theta} \ln f(z_i, \theta)$$
+
+Where $\ln f(z_i, \theta)$ is the log-likelihood function
 
 `Newton-Raphson` is an iterative, heuristic algorithm for finding solutions to equations. The reason it is relevant is that it is able to provide results for problems which cannot otherwise be analytically solved.
 
@@ -442,7 +468,7 @@ $$\begin{aligned}
 &= (n^{-1} Z' X)^{-1} n^{-1} Z' Y
 \end{aligned}$$
 
-Which contrary to appearances is in fact the same result. 
+Which contrary to appearances is in fact the same result. **While this is following the problem set solutions, I am unconvinced that we can pull $\alpha$ out.**
 
 $$\begin{aligned}
 \hat\beta_{IV} &= (\X' X)^{-1} \X' Y \\
@@ -453,4 +479,13 @@ $$\begin{aligned}
 &= \beta_{IV}
 \end{aligned}$$
 
-## Generalized Least Squares
+## Generalized Method Moments
+
+The problem with the 2SLS estimator is that it only works when the number of covariates in the vector $x_i$ is the same as that in the vector $z_i$. Another way of putting this is that matricies $X$ and $Z$ are the same dimensions. When this isn't the case then we need to take a different approach. 
+
+In the case that the samples of $z$ have more covariates than $x$, it would be possible to just drop some of the covariates and use 2SLS, however ignoring data isn't going to create the best estimator. Instead we want to create a weighting matrix $W_n$ that relates the K values for vector $z_i$ to the L values of $x_i$. Given that we cannot multipy in the form $\beta_{IV} = (Z'X)^{-1}Z'Y$ due to the matrix dimensions, we instead use the quadratic form of $\E(u_i z_i)$.
+
+$$\begin{aligned}
+\arg\min_\beta \left( n^{-1} \sum_{i=1}^n z_i(y_i - x_i' \beta) \right)' W_n \left( n^{-1} \sum_{i=1}^n z_i (y_i - x_i' \beta) \right)
+\end{aligned}$$
+
