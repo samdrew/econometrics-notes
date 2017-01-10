@@ -180,7 +180,7 @@ Cov(X_N, X_1) &amp; \ldots &amp; \ldots &amp; Var(X_N) \end{array} \right)\]</sp
 \end{aligned}\]</span></p>
 <p><code>Total law of Variance</code> This law, otherwise known as Eve’s law, allows the variance of a given value to be found, knowing only its conditional variance and expectations.</p>
 <p><span class="math display">\[Var(Y)=\mathbb{E}[Var(Y|X)]+Var(\mathbb{E}[Y|X])\]</span></p>
-<p><code>Law of Large Numbers</code> means that if you take enough samples, the sample mean will approach the population mean. The below equation states that the sample mean ($)</p>
+<p><code>Law of Large Numbers</code> means that if you take enough samples, the sample mean will approach the population mean. The below equation states that the sample mean (<span class="math inline">\(\hat \mu\)</span>)</p>
 <p><span class="math display">\[\begin{aligned}
 \hat \mu = n^{-1} \sum_{i=1}^n y_i\\
 \lim_{n \rightarrow \infty} P (|\hat \mu - \mu| &gt; \varepsilon) = 0 &amp;&amp; \forall \varepsilon &gt; 0
@@ -355,10 +355,46 @@ ln{\mathcal{L}}(\beta) &amp;= \sum_{i=1}^{n} \left( (1-y_i) ln(1-\Lambda(x'_i \b
 &amp;= \sum_{i=1}^{n} \left( y_i x_i - \Lxb x \right) \\
 &amp;= \sum_{i=1}^{n} \left(  x_i (y_i - \Lxb)  \right) 
 \end{aligned}\]</span></p>
-<p><code>Asymptotic Variance</code> to find the asymptotic distribution of this function we start with the differential of the log-likelihood estimator, and use a taylor-series approximation of it. We start by defining</p>
-<p><span class="math display">\[g_i(\theta) = \frac{\delta}{\delta \theta} \ln f(z_i, \theta)\]</span></p>
-<p>Where <span class="math inline">\(\ln f(z_i, \theta)\)</span> is the log-likelihood function</p>
+<div id="asymptotic-variance" class="section level3">
+<h3>Asymptotic Variance</h3>
+<p>To find the asymptotic distribution of this function we start with the differential of the log-likelihood estimator, prove some intermediate properties for this function, and eventually use a taylor-series approximation of it to approximate the asymptotic properties of the distribution. We start by defining</p>
+<p><span class="math display">\[
+\newcommand{\lzt}{\ln f(z, \theta)}
+\newcommand{\zt}{f(z, \theta)}
+g(\theta) = \frac{\delta}{\delta \theta} \ln f(z, \theta)
+\]</span></p>
+<p>Where <span class="math inline">\(\ln f(z, \theta)\)</span> is a log-likelihood function, representing the sample. From this we can say</p>
+<blockquote>
+<p><em>Lemma 1</em> : <span class="math inline">\({g_i(\theta)}_{i=0}^n\)</span> is an iid sequence.</p>
+<p>Transformation of <span class="math inline">\(f(z_i, \theta) \rightarrow g_i(\theta)\)</span> must be iid given that <span class="math inline">\(\{z_i\}_{i=1}^n\)</span> is iid.</p>
+</blockquote>
+<p>The next step is</p>
+<blockquote>
+<p><em>Lemma 2</em> : <span class="math inline">\({\mathbb{E}}(g(\theta_0)) = 0\)</span></p>
+<p><span class="math display">\[\begin{aligned}
+{\mathbb{E}}(f(x)) &amp;= \int_{-\infty}^\infty x f(x) dx \\
+{\mathbb{E}}(g(\theta_0)) &amp;= \int \frac{\delta \lzt}{\delta \theta} \zt dz \\
+&amp;= \int \frac{1}{\zt} \frac{\delta \zt}{\delta \theta} \zt dz &amp;&amp; \text{as } \frac{\delta \ln f(x)}{\delta x} = \frac{1}{f(x)} f'(x) \\
+&amp;= \int \frac{\delta \zt}{\delta \theta} dz \\
+&amp;= \frac{\delta \int \zt dz}{\delta \theta} &amp;&amp; \text{from regularity condition (v)} \\
+&amp;= \frac{\delta 1}{\delta \theta} = 0
+\end{aligned}\]</span></p>
+</blockquote>
+<p>Finally we also need</p>
+<blockquote>
+<p><em>Lemma 3</em> : <span class="math inline">\({\mathbb{E}}(g(\theta_0)'g(\theta_0)) = -{\mathbb{E}}(\frac{\delta^2 \lzt}{\delta \theta \delta \theta'})\)</span></p>
+<p><span class="math display">\[\begin{aligned}
+{\mathbb{E}}(\frac{\delta^2 \lzt}{\delta \theta \delta \theta'}) &amp;= \int \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \zt dz \\
+\text{From L2: } \int \frac{\delta \lzt}{\delta \theta} \zt dz &amp;= 0 \\
+\text{Differentiated: } 0 &amp;= int \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \zt dz + \int \frac{\delta \lzt}{\delta \theta} \frac{\delta \zt}{\delta \theta'} dz \\
+&amp;= \int \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \zt dz + \int \frac{\delta \lzt}{\delta \theta} \frac{\delta \lzt}{\delta \theta'} \zt dz &amp;&amp; \text{as } \frac{\delta \zt}{\delta \theta} = \frac{\delta \lzt}{\delta \theta} \zt \\
+\Rightarrow  - \int \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \zt dz &amp;= \int \frac{\delta \lzt}{\delta \theta} \frac{\delta \lzt}{\delta \theta'} \zt dz \\
+- {\mathbb{E}}\left( \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \right) &amp;= {\mathbb{E}}(g(\theta_0)'g(\theta_0)) 
+\end{aligned}\]</span></p>
+</blockquote>
+<p>Using these it is then possible to show that the MLE is asymptotically normal under these conditions.</p>
 <p><code>Newton-Raphson</code> is an iterative, heuristic algorithm for finding solutions to equations. The reason it is relevant is that it is able to provide results for problems which cannot otherwise be analytically solved.</p>
+</div>
 </div>
 <div id="semi-parametric" class="section level2">
 <h2>Semi-Parametric</h2>

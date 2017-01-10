@@ -99,7 +99,7 @@ $$\begin{aligned}
 
 $$Var(Y)=\mathbb{E}[Var(Y|X)]+Var(\mathbb{E}[Y|X])$$
 
-`Law of Large Numbers` means that if you take enough samples, the sample mean will approach the population mean. The below equation states that the sample mean ($\hat \mu)
+`Law of Large Numbers` means that if you take enough samples, the sample mean will approach the population mean. The below equation states that the sample mean ($\hat \mu$)
 
 $$\begin{aligned}
 \hat \mu = n^{-1} \sum_{i=1}^n y_i\\
@@ -324,11 +324,49 @@ ln\L(\beta) &= \sum_{i=1}^{n} \left( (1-y_i) ln(1-\Lambda(x'_i \beta)) + y_i ln 
 &= \sum_{i=1}^{n} \left(  x_i (y_i - \Lxb)  \right) 
 \end{aligned}$$
 
-`Asymptotic Variance` to find the asymptotic distribution of this function we start with the differential of the log-likelihood estimator, and use a taylor-series approximation of it. We start by defining
+### Asymptotic Variance
 
-$$g_i(\theta) = \frac{\delta}{\delta \theta} \ln f(z_i, \theta)$$
+To find the asymptotic distribution of this function we start with the differential of the log-likelihood estimator, prove some intermediate properties for this function, and eventually use a taylor-series approximation of it to approximate the asymptotic properties of the distribution. We start by defining
 
-Where $\ln f(z_i, \theta)$ is the log-likelihood function
+$$
+\newcommand{\lzt}{\ln f(z, \theta)}
+\newcommand{\zt}{f(z, \theta)}
+g(\theta) = \frac{\delta}{\delta \theta} \ln f(z, \theta)
+$$
+
+Where $\ln f(z, \theta)$ is a log-likelihood function, representing the sample. From this we can say 
+
+> *Lemma 1* : ${g_i(\theta)}_{i=0}^n$ is an iid sequence.
+> 
+> Transformation of $f(z_i, \theta) \rightarrow g_i(\theta)$ must be iid given that $\{z_i\}_{i=1}^n$ is iid.
+
+The next step is 
+
+> *Lemma 2* : $\E(g(\theta_0)) = 0$
+> 
+> $$\begin{aligned}
+> \E(f(x)) &= \int_{-\infty}^\infty x f(x) dx \\
+> \E(g(\theta_0)) &= \int \frac{\delta \lzt}{\delta \theta} \zt dz \\
+> &= \int \frac{1}{\zt} \frac{\delta \zt}{\delta \theta} \zt dz && \text{as } \frac{\delta \ln f(x)}{\delta x} = \frac{1}{f(x)} f'(x) \\
+> &= \int \frac{\delta \zt}{\delta \theta} dz \\
+> &= \frac{\delta \int \zt dz}{\delta \theta} && \text{from regularity condition (v)} \\
+> &= \frac{\delta 1}{\delta \theta} = 0
+> \end{aligned}$$
+ 
+Finally we also need
+
+> *Lemma 3* : $\E(g(\theta_0)'g(\theta_0)) = -\E(\frac{\delta^2 \lzt}{\delta \theta \delta \theta'})$
+> 
+> $$\begin{aligned}
+> \E(\frac{\delta^2 \lzt}{\delta \theta \delta \theta'}) &= \int \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \zt dz \\
+> \text{From L2: } \int \frac{\delta \lzt}{\delta \theta} \zt dz &= 0 \\
+> \text{Differentiated: } 0 &= int \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \zt dz + \int \frac{\delta \lzt}{\delta \theta} \frac{\delta \zt}{\delta \theta'} dz \\
+> &= \int \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \zt dz + \int \frac{\delta \lzt}{\delta \theta} \frac{\delta \lzt}{\delta \theta'} \zt dz && \text{as } \frac{\delta \zt}{\delta \theta} = \frac{\delta \lzt}{\delta \theta} \zt \\
+> \Rightarrow  - \int \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \zt dz &= \int \frac{\delta \lzt}{\delta \theta} \frac{\delta \lzt}{\delta \theta'} \zt dz \\
+> - \E \left( \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \right) &= \E(g(\theta_0)'g(\theta_0)) 
+> \end{aligned}$$
+
+Using these it is then possible to show that the MLE is asymptotically normal under these conditions. 
 
 `Newton-Raphson` is an iterative, heuristic algorithm for finding solutions to equations. The reason it is relevant is that it is able to provide results for problems which cannot otherwise be analytically solved.
 
