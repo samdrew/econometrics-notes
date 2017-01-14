@@ -148,11 +148,48 @@ $(document).ready(function () {
 <h3>Preferences</h3>
 <ul>
 <li>(2015 &amp; 2016) Show that if <span class="math inline">\(f: \R \rightarrow \R\)</span> is a strictly increasing function and <span class="math inline">\(u: X \rightarrow \R\)</span> is a utility function representing the preference relation <span class="math inline">\(\succsim\)</span>, then the function<span class="math inline">\(v: X \rightarrow \R\)</span> defined by <span class="math inline">\(v(x) = f(u(x))\)</span> is also a utility function representing the preference relation <span class="math inline">\(\succsim\)</span>.</li>
-<li>(Tutorial 1) Show that if <span class="math inline">\(\succsim\)</span> is rational then, if <span class="math inline">\(x \succ y \succsim z\)</span>, then <span class="math inline">\(x \succ z\)</span></li>
-<li>Show that <span class="math inline">\(\succ\)</span> is both irreflexive (<span class="math inline">\(x \succ x\)</span> never holds) and transitive (if <span class="math inline">\(x \succ y\)</span> and <span class="math inline">\(y \succ z\)</span>, then <span class="math inline">\(x \succ z\)</span>)</li>
-<li>Show that <span class="math inline">\(\sim\)</span> is reflexive (<span class="math inline">\(x \sim x\)</span> for all <span class="math inline">\(x\)</span>), transitive (if <span class="math inline">\(x\sim y\)</span> and <span class="math inline">\(y \sim z\)</span>, then <span class="math inline">\(x \sim z\)</span>), and symmetric (if <span class="math inline">\(x \sim y\)</span>, then <span class="math inline">\(y\sim x\)</span>)</li>
-<li><span class="math inline">\(\mathcal{B} = \B\)</span></li>
 </ul>
+<blockquote>
+<p>Let <span class="math inline">\(x, y \in X\)</span></p>
+<p>Since <span class="math inline">\(u(\cdot)\)</span> represents <span class="math inline">\(x\)</span>, <span class="math inline">\(u(x) \geq u(y) \iff x \succsim y\)</span></p>
+<p>Given <span class="math inline">\(f(\cdot)\)</span> is strictly increasing, <span class="math inline">\(u(x) \geq u(y) \iff v(x) \geq v(y)\)</span></p>
+<p>So <span class="math inline">\(x \succsim y \iff v(x) \geq v(y)\)</span></p>
+<p>Therefore v() is a preference relationship <span class="math inline">\(\succsim\)</span>.</p>
+</blockquote>
+<ul>
+<li>(Tutorial 1) Show that if <span class="math inline">\(\succsim\)</span> is rational then, if <span class="math inline">\(x \succ y \succsim z\)</span>, then <span class="math inline">\(x \succ z\)</span></li>
+</ul>
+<blockquote>
+<p><span class="math inline">\(x \succ y\)</span> implies <span class="math inline">\(x \succsim y\)</span></p>
+<p>Therefore <span class="math inline">\(x \succsim y \succsim z\)</span> and by transitivity <span class="math inline">\(x \succsim z\)</span></p>
+<p>Now, assume <span class="math inline">\(z \succsim x\)</span>, then we have <span class="math inline">\(y \succsim z \succsim x\)</span>, and by transitivity <span class="math inline">\(y \succsim x\)</span>.</p>
+<p>This violates the continuity condition on <span class="math inline">\(x \succ y\)</span>, and is therefore false by contradiction.</p>
+<p>As such <span class="math inline">\(x \succsim z\)</span> and not <span class="math inline">\(z \succsim x\)</span>, which is <span class="math inline">\(x \succ z\)</span>.</p>
+</blockquote>
+<ul>
+<li>Show that <span class="math inline">\(\succ\)</span> is both irreflexive (<span class="math inline">\(x \succ x\)</span> never holds) and transitive (if <span class="math inline">\(x \succ y\)</span> and <span class="math inline">\(y \succ z\)</span>, then <span class="math inline">\(x \succ z\)</span>)</li>
+</ul>
+<blockquote>
+<p>Irreflexitivity: Let <span class="math inline">\(x \in X\)</span>, by completeness <span class="math inline">\(x \succsim x\)</span></p>
+<p>Therefore there is no <span class="math inline">\(x\)</span> for which <span class="math inline">\(x \succ x\)</span></p>
+<p>Transitivity: Suppose that <span class="math inline">\(x \succ y\)</span> and <span class="math inline">\(y \succ z\)</span>. This implies <span class="math inline">\(y \succsim z\)</span></p>
+<p>This gives <span class="math inline">\(x \succ y \succsim z\)</span>, which we’ve already shows implies <span class="math inline">\(x \succ z\)</span>.</p>
+</blockquote>
+<ul>
+<li>Show that <span class="math inline">\(\sim\)</span> is reflexive (<span class="math inline">\(x \sim x\)</span> for all <span class="math inline">\(x\)</span>), transitive (if <span class="math inline">\(x\sim y\)</span> and <span class="math inline">\(y \sim z\)</span>, then <span class="math inline">\(x \sim z\)</span>), and symmetric (if <span class="math inline">\(x \sim y\)</span>, then <span class="math inline">\(y\sim x\)</span>)[^](say something)</li>
+</ul>
+<blockquote>
+<p>Reflexivity: Let <span class="math inline">\(x \in X\)</span>, by completeness <span class="math inline">\(x \succsim x\)</span></p>
+<p>Given <span class="math inline">\(x \succsim x\)</span> and <span class="math inline">\(x \precsim x\)</span> always hold, we can say <span class="math inline">\(x \sim x\)</span></p>
+<p>Transitivity: Suppose <span class="math inline">\(x \sim y\)</span> and <span class="math inline">\(y \sim z\)</span>, we can imply</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(x \succsim y\)</span> and <span class="math inline">\(y \succsim z\)</span>, and by transitivity <span class="math inline">\(x \succsim z\)</span></li>
+<li><span class="math inline">\(y \succsim x\)</span> and <span class="math inline">\(z \succsim y\)</span>, and by transitivity <span class="math inline">\(z \succsim x\)</span></li>
+</ol>
+<p>From which we can conclude <span class="math inline">\(x \sim z\)</span>.</p>
+<p>Symmetry: Suppose <span class="math inline">\(x \sim y\)</span> we can say <span class="math inline">\(x \succsim y\)</span> and <span class="math inline">\(y \succsim x\)</span>.</p>
+<p>Therefore <span class="math inline">\(y \succsim x\)</span> and <span class="math inline">\(x \succsim y\)</span>, giving us <span class="math inline">\(y \sim x\)</span>.</p>
+</blockquote>
 </div>
 <div id="choice" class="section level3">
 <h3>Choice</h3>
@@ -173,8 +210,18 @@ $(document).ready(function () {
 <li>Show that if <span class="math inline">\(f(\cdot)\)</span> is a continuous utility function representing <span class="math inline">\(\succsim\)</span>, then <span class="math inline">\(\succsim\)</span> is continuous</li>
 </ul>
 </div>
-<div id="section" class="section level2">
-<h2></h2>
+</div>
+<div id="budget-sets" class="section level1">
+<h1>Budget Sets</h1>
+<p>Budget sets are a formal way of describing a set of options.</p>
+<div id="questions-2" class="section level2">
+<h2>Questions</h2>
+<ul>
+<li>(Tutorial) A consumer consumes one consumption good x and hours of leisure h. The price of the consumption good is p, and the consumer can work at a wage rate of s = 1. What is the consumer’s Walrasian budget set?</li>
+<li><ol start="2016" style="list-style-type: decimal">
+<li>Show formally that the Walrasian budget set $B_{p,w} = {x ^L_+ : px w } is convex.</li>
+</ol></li>
+</ul>
 </div>
 </div>
 
