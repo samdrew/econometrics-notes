@@ -170,24 +170,24 @@ $(document).ready(function () {
 <li>Show that <span class="math inline">\(\succ\)</span> is both irreflexive (<span class="math inline">\(x \succ x\)</span> never holds) and transitive (if <span class="math inline">\(x \succ y\)</span> and <span class="math inline">\(y \succ z\)</span>, then <span class="math inline">\(x \succ z\)</span>)</li>
 </ul>
 <blockquote>
-<p>Irreflexitivity: Let <span class="math inline">\(x \in X\)</span>, by completeness <span class="math inline">\(x \succsim x\)</span></p>
+<p><em>Irreflexitivity:</em> Let <span class="math inline">\(x \in X\)</span>, by completeness <span class="math inline">\(x \succsim x\)</span></p>
 <p>Therefore there is no <span class="math inline">\(x\)</span> for which <span class="math inline">\(x \succ x\)</span></p>
-<p>Transitivity: Suppose that <span class="math inline">\(x \succ y\)</span> and <span class="math inline">\(y \succ z\)</span>. This implies <span class="math inline">\(y \succsim z\)</span></p>
+<p><em>Transitivity:</em> Suppose that <span class="math inline">\(x \succ y\)</span> and <span class="math inline">\(y \succ z\)</span>. This implies <span class="math inline">\(y \succsim z\)</span></p>
 <p>This gives <span class="math inline">\(x \succ y \succsim z\)</span>, which we’ve already shows implies <span class="math inline">\(x \succ z\)</span>.</p>
 </blockquote>
 <ul>
 <li>Show that <span class="math inline">\(\sim\)</span> is reflexive (<span class="math inline">\(x \sim x\)</span> for all <span class="math inline">\(x\)</span>), transitive (if <span class="math inline">\(x\sim y\)</span> and <span class="math inline">\(y \sim z\)</span>, then <span class="math inline">\(x \sim z\)</span>), and symmetric (if <span class="math inline">\(x \sim y\)</span>, then <span class="math inline">\(y\sim x\)</span>)[^](say something)</li>
 </ul>
 <blockquote>
-<p>Reflexivity: Let <span class="math inline">\(x \in X\)</span>, by completeness <span class="math inline">\(x \succsim x\)</span></p>
+<p><em>Reflexivity:</em> Let <span class="math inline">\(x \in X\)</span>, by completeness <span class="math inline">\(x \succsim x\)</span></p>
 <p>Given <span class="math inline">\(x \succsim x\)</span> and <span class="math inline">\(x \precsim x\)</span> always hold, we can say <span class="math inline">\(x \sim x\)</span></p>
-<p>Transitivity: Suppose <span class="math inline">\(x \sim y\)</span> and <span class="math inline">\(y \sim z\)</span>, we can imply</p>
+<p><em>Transitivity:</em> Suppose <span class="math inline">\(x \sim y\)</span> and <span class="math inline">\(y \sim z\)</span>, we can imply</p>
 <ol style="list-style-type: decimal">
 <li><span class="math inline">\(x \succsim y\)</span> and <span class="math inline">\(y \succsim z\)</span>, and by transitivity <span class="math inline">\(x \succsim z\)</span></li>
 <li><span class="math inline">\(y \succsim x\)</span> and <span class="math inline">\(z \succsim y\)</span>, and by transitivity <span class="math inline">\(z \succsim x\)</span></li>
 </ol>
 <p>From which we can conclude <span class="math inline">\(x \sim z\)</span>.</p>
-<p>Symmetry: Suppose <span class="math inline">\(x \sim y\)</span> we can say <span class="math inline">\(x \succsim y\)</span> and <span class="math inline">\(y \succsim x\)</span>.</p>
+<p><em>Symmetry:</em> Suppose <span class="math inline">\(x \sim y\)</span> we can say <span class="math inline">\(x \succsim y\)</span> and <span class="math inline">\(y \succsim x\)</span>.</p>
 <p>Therefore <span class="math inline">\(y \succsim x\)</span> and <span class="math inline">\(x \succsim y\)</span>, giving us <span class="math inline">\(y \sim x\)</span>.</p>
 </blockquote>
 </div>
@@ -204,9 +204,44 @@ $(document).ready(function () {
 <div id="questions-1" class="section level2">
 <h2>Questions</h2>
 <ul>
-<li>(Mock) Show the following: If <span class="math inline">\(\succsim\)</span> is strongly monotone, then it is monotone.</li>
+<li>(Mock &amp; Tutorial) Show the following: If <span class="math inline">\(\succsim\)</span> is strongly monotone, then it is monotone.</li>
+</ul>
+<blockquote>
+<p>Strongly monotone definition: If <span class="math inline">\(x \geq y\)</span> and <span class="math inline">\(x \neq y\)</span>, then <span class="math inline">\(x \succ y\)</span></p>
+<p>Assume <span class="math inline">\(\succsim\)</span> is strongly monotone and <span class="math inline">\(x \gg y\)</span></p>
+<p>In which case, <span class="math inline">\(x \geq y\)</span> and <span class="math inline">\(x \neq y\)</span>, so <span class="math inline">\(x \succ y\)</span></p>
+<p>Therefore <span class="math inline">\(\succsim\)</span> is monotone.</p>
+</blockquote>
+<ul>
 <li>(Tutorial) Show the following: If <span class="math inline">\(\succsim\)</span> is monotone, then it is locally nonsatiated.</li>
+</ul>
+<blockquote>
+<p>Let <span class="math inline">\(\varepsilon &gt; 0\)</span> and <span class="math inline">\(x \in X\)</span></p>
+<p><span class="math inline">\(i \rightarrow \R_+^L\)</span></p>
+<p><span class="math inline">\(y = x + \frac{\varepsilon}{\parallel i \parallel}\cdot i\)</span></p>
+<p>Therefore <span class="math inline">\(\parallel y - x \parallel \leq \varepsilon\)</span> and <span class="math inline">\(y \succsim x\)</span>, and preference relationship <span class="math inline">\(\succsim\)</span> is locally nonsatiated.</p>
+</blockquote>
+<ul>
 <li>(Mas-Colell) Verify that lexicographic ordering is complete, transitive, strongly monotone and strictly convex.</li>
+</ul>
+<blockquote>
+<p><strong>Definition</strong>: Preference relationship <span class="math inline">\(x \succsim y\)</span> if <span class="math inline">\(x_1 \geq y_1\)</span> and either <span class="math inline">\(x_1 \neq y_1 \text{ or } x_2 \geq y_2\)</span>.</p>
+<p><em>Completeness</em>: Assume <span class="math inline">\(\succsim\)</span> does not exist, and <span class="math inline">\(x,y \in X\)</span> we get</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(y_1 \succ x_1\)</span>, or</li>
+<li><span class="math inline">\(x_1 = y_1 \text{ and } y_2 &gt; x_2\)</span></li>
+</ol>
+<p>Therefore if <span class="math inline">\(x \succsim y\)</span> does not exist, <span class="math inline">\(y \succ x\)</span> must, which in turn implies <span class="math inline">\(y \succsim x\)</span>, prooving completeness by contradiction.</p>
+<p><em>Transitivity</em>: If preference relations <span class="math inline">\(x \succsim y\)</span> and <span class="math inline">\(y \succsim z\)</span> represent lexicograpic ordering, then either</p>
+<ol style="list-style-type: decimal">
+<li>(<span class="math inline">\(x_1 \geq y_1\)</span> and <span class="math inline">\(x_1 \neq y_1\)</span>) and (<span class="math inline">\(y_1 \geq z_1\)</span> and <span class="math inline">\(y_1 \neq z_1\)</span>) <span class="math inline">\(\Rightarrow x_1 \geq z_2 \text{ and } x_1 \neq z_1\)</span>, or</li>
+<li>(<span class="math inline">\(x_1 \geq y_1\)</span> and <span class="math inline">\(x_1 \neq y_1\)</span>) and (<span class="math inline">\(y_1 \geq z_1\)</span> and <span class="math inline">\(y_2 \geq z_2\)</span>) <span class="math inline">\(\Rightarrow x_1 \geq z_2 \text{ and } x_1 \neq z_1\)</span>, or</li>
+<li>(<span class="math inline">\(x_1 \geq y_1\)</span> and <span class="math inline">\(x_2 \geq y_2\)</span>) and (<span class="math inline">\(y_1 \geq z_1\)</span> and <span class="math inline">\(y_1 \neq z_1\)</span>) <span class="math inline">\(\Rightarrow x_1 \geq z_2 \text{ and } x_1 \neq z_1\)</span>, or</li>
+<li>(<span class="math inline">\(x_1 \geq y_1\)</span> and <span class="math inline">\(x_2 \geq y_2\)</span>) and (<span class="math inline">\(y_1 \geq z_1\)</span> and <span class="math inline">\(y_2 \geq z_2\)</span>) <span class="math inline">\(\Rightarrow x_1 \geq z_2 \text{ and } x_2 \geq z_2\)</span>.</li>
+</ol>
+<p>Therefore <span class="math inline">\(x_1 \geq z_1\)</span> and either <span class="math inline">\(x_1 \neq z_1 \text{ or } x_2 \geq z_2\)</span>, and <span class="math inline">\(x \succsim z\)</span>.</p>
+</blockquote>
+<ul>
 <li>Show that if <span class="math inline">\(f(\cdot)\)</span> is a continuous utility function representing <span class="math inline">\(\succsim\)</span>, then <span class="math inline">\(\succsim\)</span> is continuous</li>
 </ul>
 </div>
@@ -218,10 +253,36 @@ $(document).ready(function () {
 <h2>Questions</h2>
 <ul>
 <li>(Tutorial) A consumer consumes one consumption good x and hours of leisure h. The price of the consumption good is p, and the consumer can work at a wage rate of s = 1. What is the consumer’s Walrasian budget set?</li>
+</ul>
+<blockquote>
+<p><span class="math inline">\(s+h \leq 24\)</span> and <span class="math inline">\(px \leq s\)</span>, therefore the budget set can be described as</p>
+<p><span class="math display">\[\{(x,h) \in \R_+^2 : h \leq 24 \text{ and } px \leq 24-h \}\]</span></p>
+</blockquote>
+<ul>
 <li><ol start="2016" style="list-style-type: decimal">
-<li>Show formally that the Walrasian budget set $B_{p,w} = {x ^L_+ : px w } is convex.</li>
+<li>Show formally that the Walrasian budget set <span class="math inline">\(B_{p,w} = \{x \in \R^L_+ : px \leq w \}\)</span> is convex.</li>
 </ol></li>
 </ul>
+</div>
+</div>
+<div id="market-clearing-and-competitive-equilibria" class="section level1">
+<h1>Market Clearing and Competitive Equilibria</h1>
+<div id="questions-3" class="section level2">
+<h2>Questions</h2>
+<ul>
+<li><p>(2013 ) Show that, if an allocation <span class="math inline">\(\left(x_1^*, \ldots ,x_I^*, y_1^*, \ldots , y_I^* \right)\)</span> and price vector <span class="math inline">\(p^* \gg 0\)</span> constitute a competitive equilibrium, then for any strictly positive scalar <span class="math inline">\(\alpha &gt; 0\)</span>, allocation <span class="math inline">\(\left(x_1^*, \ldots ,x_I^*, y_1^*, \ldots , y_J^* \right)\)</span> and price vector <span class="math inline">\(\alpha p^* \gg 0\)</span> also constitue a competitive equilibrium.</p></li>
+<li><p>(2014 &amp; Tutorial) Show that, if an allocation <span class="math inline">\(\left(x_1, \ldots ,x_I, y_1, \ldots , y_J \right)\)</span> and price vector <span class="math inline">\(p \gg 0\)</span> satisfy the parket clearing condition <span class="math inline">\(\displaystyle \sum_{i=1}^I x_{li} = \omega_l + \sum_{j=1}^J y_{lj}\)</span> for all goods <span class="math inline">\(l \neq k\)</span> and if every consumer’s budget constraint is satisfied with equality, so that <span class="math inline">\(\displaystyle px_i = p \omega_i + \sum_{j=1}^J \theta_{ij} p y_j\)</span> for all <span class="math inline">\(i\)</span>, then the market for good <span class="math inline">\(k\)</span> also clears.</p></li>
+</ul>
+<blockquote>
+<p>The budget constraint for all goods, <span class="math inline">\(l\)</span> is <span class="math display">\[\begin{aligned}\sum_{l=1}^L p_l x_{il} &amp;= \sum_{l=1}^L p_l \omega_{il} + \sum_{l=1}^L \sum_{j=1}^J \theta_{ij} p_l y_jl \\
+0 &amp;= \sum_{l=1}^L p_l \left( x_{il} - \omega_{il} - \sum_{j=1}^J \theta_{ij} y_{jl} \right) \\
+\text{Summed across all individuals} \\
+&amp;= \sum_{l=1}^L p_l \left(\sum_{i=1}^I x_{il} - \omega_{l} - \sum_{j=1}^J y_{jl} \right) &amp;&amp; \text{since } \sum_{i=1}^I \theta_{ij} = 1_j\\
+\sum_{l \neq k} p_l \left(\sum_{i=1}^I x_{il} - \omega_{l} - \sum_{j=1}^J y_{jl} \right) &amp;= - p_k \left(\sum_{i=1}^I x_{ik} - \omega_{k} - \sum_{j=1}^J y_{jk} \right) \\ 
+\text{Given market clearing for } l \neq k \\
+0 &amp;= - p_k \left(\sum_{i=1}^I x_{ik} - \omega_{k} - \sum_{j=1}^J y_{jk} \right) \\ 
+\text{Implies market clears, since } p &gt; 0 \end{aligned}\]</span></p>
+</blockquote>
 </div>
 </div>
 

@@ -57,28 +57,28 @@ From this relationship we then define more preference relations. These are
 
 - Show that $\succ$ is both irreflexive ($x \succ x$ never holds) and transitive (if $x \succ y$ and $y \succ z$, then $x \succ z$)
 
-> Irreflexitivity: Let $x \in X$, by completeness $x \succsim x$
+> *Irreflexitivity:* Let $x \in X$, by completeness $x \succsim x$
 > 
 > Therefore there is no $x$ for which $x \succ x$
 > 
-> Transitivity: Suppose that $x \succ y$ and $y \succ z$. This implies $y \succsim z$
+> *Transitivity:* Suppose that $x \succ y$ and $y \succ z$. This implies $y \succsim z$
 > 
 > This gives $x \succ y \succsim z$, which we've already shows implies $x \succ z$.
 
 - Show that $\sim$ is reflexive ($x \sim x$ for all $x$), transitive (if $x\sim y$ and $y \sim z$, then $x \sim z$), and symmetric (if $x \sim y$, then $y\sim x$)[^](say something)
 
-> Reflexivity: Let $x \in X$, by completeness $x \succsim x$
+> *Reflexivity:* Let $x \in X$, by completeness $x \succsim x$
 > 
 > Given $x \succsim x$ and $x \precsim x$ always hold, we can say $x \sim x$
 > 
-> Transitivity: Suppose $x \sim y$ and $y \sim z$, we can imply
+> *Transitivity:* Suppose $x \sim y$ and $y \sim z$, we can imply
 > 
 > 1. $x \succsim y$ and $y \succsim z$, and by transitivity $x \succsim z$
 > 2. $y \succsim x$ and $z \succsim y$, and by transitivity $z \succsim x$
 > 
 > From which we can conclude $x \sim z$.
 > 
-> Symmetry: Suppose $x \sim y$ we can say $x \succsim y$ and $y \succsim x$.
+> *Symmetry:* Suppose $x \sim y$ we can say $x \succsim y$ and $y \succsim x$.
 > 
 > Therefore $y \succsim x$ and $x \succsim y$, giving us $y \sim x$.
 
@@ -90,9 +90,46 @@ From this relationship we then define more preference relations. These are
 
 ## Questions
 
-- (Mock) Show the following: If $\succsim$ is strongly monotone, then it is monotone.
+- (Mock & Tutorial) Show the following: If $\succsim$ is strongly monotone, then it is monotone.
+
+> Strongly monotone definition: If $x \geq y$ and $x \neq y$, then $x \succ y$
+> 
+> Assume $\succsim$ is strongly monotone and $x \gg y$
+> 
+> In which case, $x \geq y$ and $x \neq y$, so $x \succ y$
+> 
+> Therefore $\succsim$ is monotone.
+
 - (Tutorial) Show the following: If $\succsim$ is monotone, then it is locally nonsatiated.
+
+> Let $\varepsilon > 0$ and $x \in X$
+> 
+> $i \rightarrow \R_+^L$
+> 
+> $y = x + \frac{\varepsilon}{\parallel i \parallel}\cdot i$
+> 
+> Therefore $\parallel y - x \parallel \leq \varepsilon$ and $y \succsim x$, and preference relationship $\succsim$ is locally nonsatiated.
+
 - (Mas-Colell) Verify that lexicographic ordering is complete, transitive, strongly monotone and strictly convex.
+
+> **Definition**: Preference relationship $x \succsim y$ if $x_1 \geq y_1$ and either $x_1 \neq y_1 \text{ or } x_2 \geq y_2$.
+> 
+> *Completeness*: Assume $\succsim$ does not exist, and $x,y \in X$ we get
+> 
+> 1. $y_1 \succ x_1$, or 
+> 2. $x_1 = y_1 \text{ and } y_2 > x_2$
+> 
+> Therefore if $x \succsim y$ does not exist, $y \succ x$ must, which in turn implies $y \succsim x$, prooving completeness by contradiction.
+> 
+> *Transitivity*: If preference relations $x \succsim y$ and $y \succsim z$ represent lexicograpic ordering, then either
+> 
+> 1. ($x_1 \geq y_1$ and $x_1 \neq y_1$) and ($y_1 \geq z_1$ and $y_1 \neq z_1$) $\Rightarrow x_1 \geq z_2 \text{ and } x_1 \neq z_1$, or
+> 1. ($x_1 \geq y_1$ and $x_1 \neq y_1$) and ($y_1 \geq z_1$ and $y_2 \geq z_2$) $\Rightarrow x_1 \geq z_2 \text{ and } x_1 \neq z_1$, or
+> 1. ($x_1 \geq y_1$ and $x_2 \geq y_2$) and ($y_1 \geq z_1$ and $y_1 \neq z_1$) $\Rightarrow x_1 \geq z_2 \text{ and } x_1 \neq z_1$, or
+> 1. ($x_1 \geq y_1$ and $x_2 \geq y_2$) and ($y_1 \geq z_1$ and $y_2 \geq z_2$) $\Rightarrow x_1 \geq z_2 \text{ and } x_2 \geq z_2$.
+> 
+> Therefore $x_1 \geq z_1$ and either $x_1 \neq z_1 \text{ or } x_2 \geq z_2$, and $x \succsim z$.
+
 - Show that if $f(\cdot)$ is a continuous utility function representing $\succsim$, then $\succsim$ is continuous
 
 # Budget Sets
@@ -102,4 +139,27 @@ Budget sets are a formal way of describing a set of options.
 ## Questions 
 
 - (Tutorial) A consumer consumes one consumption good x and hours of leisure h. The price of the consumption good is p, and the consumer can work at a wage rate of s = 1. What is the consumer's Walrasian budget set?
-- (2016) Show formally that the Walrasian budget set $B_{p,w} = \{x \in \R^L_+ : px \leq w \} is convex.
+
+> $s+h \leq 24$ and $px \leq s$, therefore the budget set can be described as
+> 
+> $$\{(x,h) \in \R_+^2 : h \leq 24 \text{ and } px \leq 24-h \}$$
+
+- (2016) Show formally that the Walrasian budget set $B_{p,w} = \{x \in \R^L_+ : px \leq w \}$ is convex.
+
+# Market Clearing and Competitive Equilibria
+
+## Questions
+
+- (2013 ) Show that, if an allocation $\left(x_1^*, \ldots ,x_I^*, y_1^*, \ldots , y_I^* \right)$ and price vector $p^* \gg 0$ constitute a competitive equilibrium, then for any strictly positive scalar $\alpha > 0$, allocation $\left(x_1^*, \ldots ,x_I^*, y_1^*, \ldots , y_J^* \right)$ and price vector $\alpha p^* \gg 0$ also constitue a competitive equilibrium.
+
+- (2014 & Tutorial) Show that, if an allocation $\left(x_1, \ldots ,x_I, y_1, \ldots , y_J \right)$ and price vector $p \gg 0$ satisfy the parket clearing condition $\displaystyle \sum_{i=1}^I x_{li} = \omega_l + \sum_{j=1}^J y_{lj}$ for all goods $l \neq k$ and if every consumer's budget constraint is satisfied with equality, so that $\displaystyle px_i = p \omega_i + \sum_{j=1}^J \theta_{ij} p y_j$ for all $i$, then the market for good $k$ also clears.
+
+> The budget constraint for all goods, $l$ is 
+> $$\begin{aligned}\sum_{l=1}^L p_l x_{il} &= \sum_{l=1}^L p_l \omega_{il} + \sum_{l=1}^L \sum_{j=1}^J \theta_{ij} p_l y_jl \\
+> 0 &= \sum_{l=1}^L p_l \left( x_{il} - \omega_{il} - \sum_{j=1}^J \theta_{ij} y_{jl} \right) \\
+> \text{Summed across all individuals} \\
+> &= \sum_{l=1}^L p_l \left(\sum_{i=1}^I x_{il} - \omega_{l} - \sum_{j=1}^J y_{jl} \right) && \text{since } \sum_{i=1}^I \theta_{ij} = 1_j\\
+> \sum_{l \neq k} p_l \left(\sum_{i=1}^I x_{il} - \omega_{l} - \sum_{j=1}^J y_{jl} \right) &= - p_k \left(\sum_{i=1}^I x_{ik} - \omega_{k} - \sum_{j=1}^J y_{jk} \right) \\ 
+> \text{Given market clearing for } l \neq k \\
+> 0 &= - p_k \left(\sum_{i=1}^I x_{ik} - \omega_{k} - \sum_{j=1}^J y_{jk} \right) \\ 
+> \text{Implies market clears, since } p > 0 \end{aligned}$$
