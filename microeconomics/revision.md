@@ -86,6 +86,12 @@ From this relationship we then define more preference relations. These are
 
 - (2015 & Tutorial 1) Consider the choice structure $(\B, C(\cdot))$ with $\B = (\{x, y\}, \{x, y, z\})$ and $C(\{x, y\}) = \{x\}$. Show that if $(\B, C(\cdot))$ satisfies the weak axiom, then we must have $C(\{x, y, z\}) = \{x\},= \{z\}, \text{ or }= \{x, z\}$.
 
+> *By Contradiction*: $y \in C(\{x, y, z\})$ implies $y \in C(\{x, y\})$, by WARP.
+> 
+> This contradicts $C(\{x, y\}) = \{x\}$, therefore $y \notin C(\{x, y, z\})$, and
+> 
+> $C(\{x, y, z\}) = \{x\}, \{z\}, or \{x, z\}$
+
 # Convexity and Monotonicity
 
 ## Questions
@@ -168,7 +174,7 @@ Budget sets are a formal way of describing a set of options.
 
 ## Questions 
 
-Consider the signalling model of Spence analysed in the lecture with the following
+(2013) Consider the signalling model of Spence analysed in the lecture with the following
 specifications: The productivity of a worker with education level e is 2+(e/4) if he is of
 a high type while it is 1 regardless of e if he is of a low type. The worker’s cost of
 obtaining e is e/2 if he is of a high type while it is e if he is of a low type. The worker's outside option value is 1 for both types.
@@ -195,8 +201,50 @@ obtaining e is e/2 if he is of a high type while it is e if he is of a low type.
 	
 	> Separating equilibria occurs when the cost of education for a low-type worker is higher than the increase in wages that they achieve. This can be described by the equation $$w_H \leq w_L + e_L \cdot h$$ where h is the amount of education required to be paid at $w_H$. 
 	> 
-	> The separating wages will again be equal to the productivities of the individuals taking part. As such $w_L = 1$ and in this case $w_H = 2 + \frac{h}{4}$. This means that the amount of education required can be defined as $$2 + \frac{h}{4} = 1 + h \\ h = \frac{4}{3} (2 - 1) \\ h = \frac{4}{3}$$
+	> The separating wages will again be equal to the productivities of the individuals taking part. As such $w_L = 1$ and in this case $w_H = 2 + \frac{h}{4}$. This means that the amount of education required can be defined as $$2 + \frac{h}{4} = 1 + h \\ h = \frac{4}{3} (2 - 1) \\ h = \frac{4}{3}$$. 
+	> 
+	> This consitutes the minimum amount of education for a high-type worker to differentiate themselves from a low-type worker, based upon the assumption they will be paid at either $w_L = 1$ or $w_H = 2 + \frac{h}{4}$. In this case there is no benefit for low type workers to take part in education. 
+	> 
+	> This means that the equilibrium wage for high type workers will be $w_H = 2 \frac{1}{3}$. 
+	> 
+	> The utility for these workers at this new equilibrium is going to be their $\text{wage} - \text{education cost}$. In this case it will be $u_H = 2 \frac{1}{3} - \frac{4}{3} \cdot \frac{1}{2} \Rightarrow u_H = 1 \frac{2}{3}$, and $u_L = 1$.
 
 1. Describe pooling equilibria when the education opportunity is present.
+
+	> The pooling equilibrium won't change, as it doesn't require signalling, and provides lower returns to education than even a separating equilibrium, which in itself doesn't cover the cost in terms of productivity gains.
+
 1. Find the separating equilibrium that satisfies the Intuitive Criterion.
+
+	> Did that above ^ when dealing with separating equilibria.
+
 1. Which type(s) of worker benefits from the education opportunity? Does the benefit stem from the signalling role or the productivity-enhancing role of education? Justify your answers
+
+	> High type workers generally prefer the signalling outcome to the pooling outcome, unless $\lambda$ very high (in most questions $\lambda \leq 0.5$ so this isn't an issue). They get do better if $1\frac{2}{3} \geq 1 + \lambda$, so for any situation where $\lambda > \frac{2}{3}$. 
+	> 
+	> On the other hand low type workers tend to lose out vs the pooled equilibrium. In the pooled equilibrium they get $w_L = 1 + \lambda$. In the case of a separated equilibrium it is $w_L = 1$. 
+	> 
+	> Firms are assumed not to care one way or another, as the equilibrium condition on wages dictates that there is no profit to be had.
+
+---
+
+(Assignment) Consider the model used in lecture for education signalling, with the following modification: The productivity of a worker with education level e is 2+(e/4) if he is of a high type while it is 1 regardless of e if he is of a low type. The reservation utility levels of types H = 2 and L = 1 are 0.6H and 0.6L, respectively. (As before, the worker’s cost of obtaining e is e/2 for high type while it is e for low type.)
+
+1.  Describe the equilibrium when the worker’s type is publicly known.
+
+	> When the worker's type is publicly known there will be separate equilibrium wages for the high and low type workers, as firms pay them according to their productivity. Given a single firm the workers would be paid according to their reservervation utilities, $r_H = 1.2$ and $r_L = 0.6$ respectively. 
+	> 
+	> Given a second firm, these wages will be bid up to their productivity levels $H = 2 + \frac{e}{4}$ and $L = 1$ respectively. This is due to competition, and so long as it is possible to hire a worker at a wage less than their productivity it is in the interest of the firm to do so.
+	> 
+	> There is no incentive for low type workers to obtain education. For high type workers, the marginal benefit of education ($\frac{1}{4}$) is lower than the marginal cost ($\frac{1}{2}$). 
+
+	Answer the following questions assuming that the worker’s type, which is high with
+	probability $\lambda \in (0, \frac{1}{2}), is private information.
+
+1. Describe the equilibrium when education opportunity does not exist. When does market failure results?
+
+	> In the case that the type is private and there is no education opportunity, the equilibrium is pooled - there will only be a single wage offer. Assuming everyone is participating, this wage will be offered at the mean productivity of the worker pool $$w_p = 2 \lambda + (1 - \lambda) = 1 + \lambda$$
+	> 
+	> If this value is greater than the reservation wage of all market participants then there will be full employment and everyone will celebrate. In the case that this is lower than either reservation wage then market failure will occur.
+
+1. Describe separating equilibria when the education opportunity is present.
+1. Discuss who benefits from signaling. Relative to the case of no asymmetric information, who bears the signaling cost?
