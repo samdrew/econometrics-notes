@@ -163,3 +163,40 @@ Budget sets are a formal way of describing a set of options.
 > \text{Given market clearing for } l \neq k \\
 > 0 &= - p_k \left(\sum_{i=1}^I x_{ik} - \omega_{k} - \sum_{j=1}^J y_{jk} \right) \\ 
 > \text{Implies market clears, since } p > 0 \end{aligned}$$
+
+# Game Theory - Signalling
+
+## Questions 
+
+Consider the signalling model of Spence analysed in the lecture with the following
+specifications: The productivity of a worker with education level e is 2+(e/4) if he is of
+a high type while it is 1 regardless of e if he is of a low type. The worker’s cost of
+obtaining e is e/2 if he is of a high type while it is e if he is of a low type. The worker's outside option value is 1 for both types.
+
+1. Describe the equilibrium when the worker's type is publicly known.
+
+    > In equilibrium when the worker's type is known, each worker's wage will be equal to their productivity, so $w_H = 2 \text{ and } w_L = 1$. This is because in 
+    > 
+    > - If they were paid less than that, someone else would hire they away at a greater wage, and take the additional profit.
+    > - This is $\geq$ than the reserver prices for their outside options.
+    >
+    > Additionally neither will undertake education, as the marginal increase in productivity ($\frac{e}{4}$ and $0$) is less than the cost ($\frac{e}{2}$ and $e$)
+
+	Answer the following questions assuming that the worker's type, which is high with probability $\lambda < 1/2$, is private information.
+
+1. Describe the equilibrium when the education opportunity is absent.
+	
+	> In the case of no education opportunity, there will be no separation. Wages will be a pooled at the mean productivity for a worker. This is given by $$w_p = \lambda p_H + (1 - \lambda) p_L = 1 + \lambda$$. Again
+    > 
+    > - If they were paid less than that, someone else would hire they away at a greater wage, and take the additional profit.
+    > - This is $\geq$ than the reserver prices for their outside options.
+
+1. Describe separating equilibria when the education opportunity is present.
+	
+	> Separating equilibria occurs when the cost of education for a low-type worker is higher than the increase in wages that they achieve. This can be described by the equation $$w_H \leq w_L + e_L \cdot h$$ where h is the amount of education required to be paid at $w_H$. 
+	> 
+	> The separating wages will again be equal to the productivities of the individuals taking part. As such $w_L = 1$ and in this case $w_H = 2 + \frac{h}{4}$. This means that the amount of education required can be defined as $$2 + \frac{h}{4} = 1 + h \\ h = \frac{4}{3} (2 - 1) \\ h = \frac{4}{3}$$
+
+1. Describe pooling equilibria when the education opportunity is present.
+1. Find the separating equilibrium that satisfies the Intuitive Criterion.
+1. Which type(s) of worker benefits from the education opportunity? Does the benefit stem from the signalling role or the productivity-enhancing role of education? Justify your answers
