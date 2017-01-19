@@ -4,6 +4,8 @@ author: "Sam Drew"
 output: html_document
 ---
 
+\newcommand{\E}{\mathbb{E}}
+
 # Structure
 
 - Model Name
@@ -12,7 +14,7 @@ output: html_document
 	+ Assumptions
 	+ 
 - Findings
-- 
+- Key Equations
 
 # Shapiro-Stiglitz Model
 
@@ -42,11 +44,136 @@ This model of wage pricing explains why full employment is not achieved.
 - Higher unemployment levels benefit individuals over companies
 - 
 
-## 
+## Key Equations
+
+The relative values for shirking and not-shirking are
+
+$$\begin{aligned}
+rV_s &= w + (q + c)(V_u - V_s) \\
+rV_n &= w - e + c(V_u - V_n)
+\end{aligned}$$
+
+Which gives a no-shirking condition on the wages as 
+
+$$w \geq rV_u + \frac{e}{q}(r+b+q)$$
 
 # Solow Production Model
+
+See [SolowNotes](./SolowNotes.html)
 
 ## Principles 
 
 Neoclassical model which attempts to capture observed growth and capital/labour share properties into a simple model, by stating that Output is a property of Capital and Labour.
 
+The model is built on the principle that output ($Y$) is a function of capital  ($K$) and labour ($L$). The most commonly used base form is to also incorporate technology ($A$). It then attempts to explain growth based on observations of growth from Kaldor:
+
+1. The shares of income going to capital and labor are roughly constant over time 
+2. The rate of growth of the capital stock is roughly constant over time 
+3. The rate of growth of output per worker is roughly constant over time 
+4. The capital/ouptut ratio is roughly constant over time 
+5. The rate of return on investment is roughly constant over time 
+6. The real wage grows over time First-generation growth models, like Solow’s and Ramsey’s, attempted to account for these facts in a standard neoclassical framework
+
+## Findings
+
+In steady state 
+
+## Key equations
+
+- Building blocks are $Y = F(K, AL)$ and $\dot K = sY - \delta K$.
+- Steady-state $sf(k) = (n + g + \delta)k$, where $f(k) = y = k^{\alpha}$
+- Dynamic state $\displaystyle \frac{\dot k}{k} \approx -\lambda (\ln k - \ln k^*)$, where $\lambda = (1 - \alpha)(n + g + \delta)$
+
+# Job Matching (Skip)
+
+## Principles
+
+This looks at the relationship between unemployment and vacancies in a population. Building upon the Bereridge curve, but also looking how it reaches a wage equilibrium
+
+# Consumption [Smoothing]
+
+## Principles
+
+People have the ability to spend or save, and their current income and their expected future income. Given this information they will make their purchasing decisions.
+
+- Rational expectations (a.k.a. model-consistent)
+
+## Findings
+
+- Random walk hypothesis
+- 
+
+## Key equations
+
+- Budget constraint $A_{t+1} = (1 + r)(A_t + Y_t - C_t)$, which summed across a lifetime gives $\displaystyle A_t + \sum_{k=0}^\infty \frac{Y_{t+k}}{(1+r)^k} - \sum_{k=0}^\infty \frac{C_{t+k}}{(1+r)^k} \geq 0$.
+- Welfare function $\displaystyle W = \sum_{k=0}^\infty \left( \frac{1}{1+\beta} \right)^k U(C_{t+k})$
+- Combined as a Lagrangian we get $\displaystyle \sum_{k=0}^\infty \left( \frac{1}{1+\beta} \right)^k U(C_{t+k}) + \lambda \left[ A_t + \sum_{k=0}^\infty \frac{Y_{t+k}}{(1+r)^k} - \sum_{k=0}^\infty \frac{C_{t+k}}{(1+r)^k} \right]$
+- Hall's martingale $C_{t} = \mathbb{E}_t (C_{t+k})$
+
+## 2-Period budget
+
+You have consumption ($c$) and income ($y$), with interest rates $r$. On the assuption that everything gets spent, the follow can be stated.
+
+$$c_1 + \frac{c_2}{1+r} = y_1 + \frac{y_2}{1+r}$$
+
+This means that your consuption tomorrow will be discounted by interest rates, but so will future income. On the other hand income can be switched between now and the future there is no issue.
+
+## Lucas Critique
+
+Starting with $C_t = \mu + 0.75Y_t$, this relationship is not considered to be 'structural', ie the relationship is likely to change in the case of policy changes. Instead the model should be based on deep parameters such as risk aversion, patience or individual consumption preferences.
+
+`martingale` is a stochastic process where the expectation for the future consuption is equal to the current consumption. This can be written in discrete time as $E_t(c_{t+1}) = c_t$
+
+## Utility
+
+Marginal utility:
+
+$$u'_{t+i+1} = \frac{1+r}{1+\rho}u'_{t+i}$$
+
+The aim is to maximize expected utility across a lifetime.
+
+$$U_t = \mathbb{E}_t \left[\sum_{i=0}^\infty \left(\frac{1}{1+\rho} \right)^i u(c_{t+i}) \right]$$
+
+While having negative assets (ie debt) is possible, it is not possible to maintain this permanently, so the asset equation has to be positive.
+
+$$U_t = \mathbb{E}_t \left[\sum_{i=0}^\infty \left(\frac{1}{1+\rho} \right)^i u((1+r)A_{t_i}-A_{t+i+1} + y_{t+i}) \right]$$
+
+and the FOC for the first period
+
+$$u'_{t} = \frac{1+r}{1+\rho}\mathbb{E}_tu'_{t+1}$$
+
+We can then define $\eta_{t+1} \equiv u'(c_{t+1} - \E_t u'(c_{t+1}))$, where we can assume that $\eta_{t+i}$ is mean zero. This means our previous expression becomes
+
+$$u'(c_{t+1}) = \frac{1+r}{1+\rho}u'(c_t) + \eta_{t+1}$$ 
+
+Finally this is possible to simplify into a martingale if we 
+
+- set $r = \rho$
+- define our utility function as quadratic, ie u(c) = c-(b/2)c^2, where b is the shape of the utility function, and makes marginal consumption more linked to consuption
+
+This then gives us 
+
+$$c_{t+1} = c_t + e_{t+1}$$
+
+where $e_{t+1} \equiv -(1/b)\eta_{t+1}$. 
+
+# Monetary and Fiscal Policy
+
+## Ricardian Equivlence 
+
+REPIH model taking into acount government budget constraints
+
+## Inflation bias
+
+Static model, looking at the differences between inflation ($\pi$) and underlying/expected inflation ($\pi^*$), we work with a Phillips-curve type relationship for output. This requires inflation policies which are possible to implement (ie time consistent). This is a core of why we have central bank independence.
+
+This is built by looking at the minimization of a loss function of the deviation from intended policies, subject to the relationship between output and inflation.
+
+### Findings
+
+- Government policies for inflation are time-inconsistent, because they want to increase output and lower unemployment.
+
+### Key Equations
+
+- The (Accelerationist) Phillips curve relationship between output and inflation: $y = y^n + b(\pi - \pi^*)$
+- Without commitment the optimal outcome is $\pi = \pi^* + \frac{b}{a}(y^* - y^n)$

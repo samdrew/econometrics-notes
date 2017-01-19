@@ -132,7 +132,7 @@ $(document).ready(function () {
 <li></li>
 </ul></li>
 <li>Findings</li>
-<li></li>
+<li>Key Equations</li>
 </ul>
 </div>
 <div id="shapiro-stiglitz-model" class="section level1">
@@ -166,15 +166,133 @@ $(document).ready(function () {
 <li></li>
 </ul>
 </div>
-<div id="section" class="section level2">
-<h2></h2>
+<div id="key-equations" class="section level2">
+<h2>Key Equations</h2>
+<p>The relative values for shirking and not-shirking are</p>
+<p><span class="math display">\[\begin{aligned}
+rV_s &amp;= w + (q + c)(V_u - V_s) \\
+rV_n &amp;= w - e + c(V_u - V_n)
+\end{aligned}\]</span></p>
+<p>Which gives a no-shirking condition on the wages as</p>
+<p><span class="math display">\[w \geq rV_u + \frac{e}{q}(r+b+q)\]</span></p>
 </div>
 </div>
 <div id="solow-production-model" class="section level1">
 <h1>Solow Production Model</h1>
+<p>See <a href="./SolowNotes.html">SolowNotes</a></p>
 <div id="principles-1" class="section level2">
 <h2>Principles</h2>
 <p>Neoclassical model which attempts to capture observed growth and capital/labour share properties into a simple model, by stating that Output is a property of Capital and Labour.</p>
+<p>The model is built on the principle that output (<span class="math inline">\(Y\)</span>) is a function of capital (<span class="math inline">\(K\)</span>) and labour (<span class="math inline">\(L\)</span>). The most commonly used base form is to also incorporate technology (<span class="math inline">\(A\)</span>). It then attempts to explain growth based on observations of growth from Kaldor:</p>
+<ol style="list-style-type: decimal">
+<li>The shares of income going to capital and labor are roughly constant over time</li>
+<li>The rate of growth of the capital stock is roughly constant over time</li>
+<li>The rate of growth of output per worker is roughly constant over time</li>
+<li>The capital/ouptut ratio is roughly constant over time</li>
+<li>The rate of return on investment is roughly constant over time NA</li>
+</ol>
+</div>
+<div id="findings-1" class="section level2">
+<h2>Findings</h2>
+<p>In steady state</p>
+</div>
+<div id="key-equations-1" class="section level2">
+<h2>Key equations</h2>
+<ul>
+<li>Building blocks are <span class="math inline">\(Y = F(K, AL)\)</span> and <span class="math inline">\(\dot K = sY - \delta K\)</span>.</li>
+<li>Steady-state <span class="math inline">\(sf(k) = (n + g + \delta)k\)</span>, where <span class="math inline">\(f(k) = y = k^{\alpha}\)</span></li>
+<li>Dynamic state <span class="math inline">\(\displaystyle \frac{\dot k}{k} \approx -\lambda (\ln k - \ln k^*)\)</span>, where <span class="math inline">\(\lambda = (1 - \alpha)(n + g + \delta)\)</span></li>
+</ul>
+</div>
+</div>
+<div id="job-matching-skip" class="section level1">
+<h1>Job Matching (Skip)</h1>
+<div id="principles-2" class="section level2">
+<h2>Principles</h2>
+<p>This looks at the relationship between unemployment and vacancies in a population. Building upon the Bereridge curve, but also looking how it reaches a wage equilibrium</p>
+</div>
+</div>
+<div id="consumption-smoothing" class="section level1">
+<h1>Consumption [Smoothing]</h1>
+<div id="principles-3" class="section level2">
+<h2>Principles</h2>
+<p>People have the ability to spend or save, and their current income and their expected future income. Given this information they will make their purchasing decisions.</p>
+<ul>
+<li>Rational expectations (a.k.a. model-consistent)</li>
+</ul>
+</div>
+<div id="findings-2" class="section level2">
+<h2>Findings</h2>
+<ul>
+<li>Random walk hypothesis</li>
+<li></li>
+</ul>
+</div>
+<div id="key-equations-2" class="section level2">
+<h2>Key equations</h2>
+<ul>
+<li>Budget constraint <span class="math inline">\(A_{t+1} = (1 + r)(A_t + Y_t - C_t)\)</span>, which summed across a lifetime gives <span class="math inline">\(\displaystyle A_t + \sum_{k=0}^\infty \frac{Y_{t+k}}{(1+r)^k} - \sum_{k=0}^\infty \frac{C_{t+k}}{(1+r)^k} \geq 0\)</span>.</li>
+<li>Welfare function <span class="math inline">\(\displaystyle W = \sum_{k=0}^\infty \left( \frac{1}{1+\beta} \right)^k U(C_{t+k})\)</span></li>
+<li>Combined as a Lagrangian we get <span class="math inline">\(\displaystyle \sum_{k=0}^\infty \left( \frac{1}{1+\beta} \right)^k U(C_{t+k}) + \lambda \left[ A_t + \sum_{k=0}^\infty \frac{Y_{t+k}}{(1+r)^k} - \sum_{k=0}^\infty \frac{C_{t+k}}{(1+r)^k} \right]\)</span></li>
+<li>Hall’s martingale <span class="math inline">\(C_{t} = \mathbb{E}_t (C_{t+k})\)</span></li>
+</ul>
+</div>
+<div id="period-budget" class="section level2">
+<h2>2-Period budget</h2>
+<p>You have consumption (<span class="math inline">\(c\)</span>) and income (<span class="math inline">\(y\)</span>), with interest rates <span class="math inline">\(r\)</span>. On the assuption that everything gets spent, the follow can be stated.</p>
+<p><span class="math display">\[c_1 + \frac{c_2}{1+r} = y_1 + \frac{y_2}{1+r}\]</span></p>
+<p>This means that your consuption tomorrow will be discounted by interest rates, but so will future income. On the other hand income can be switched between now and the future there is no issue.</p>
+</div>
+<div id="lucas-critique" class="section level2">
+<h2>Lucas Critique</h2>
+<p>Starting with <span class="math inline">\(C_t = \mu + 0.75Y_t\)</span>, this relationship is not considered to be ‘structural’, ie the relationship is likely to change in the case of policy changes. Instead the model should be based on deep parameters such as risk aversion, patience or individual consumption preferences.</p>
+<p><code>martingale</code> is a stochastic process where the expectation for the future consuption is equal to the current consumption. This can be written in discrete time as <span class="math inline">\(E_t(c_{t+1}) = c_t\)</span></p>
+</div>
+<div id="utility" class="section level2">
+<h2>Utility</h2>
+<p>Marginal utility:</p>
+<p><span class="math display">\[u'_{t+i+1} = \frac{1+r}{1+\rho}u'_{t+i}\]</span></p>
+<p>The aim is to maximize expected utility across a lifetime.</p>
+<p><span class="math display">\[U_t = \mathbb{E}_t \left[\sum_{i=0}^\infty \left(\frac{1}{1+\rho} \right)^i u(c_{t+i}) \right]\]</span></p>
+<p>While having negative assets (ie debt) is possible, it is not possible to maintain this permanently, so the asset equation has to be positive.</p>
+<p><span class="math display">\[U_t = \mathbb{E}_t \left[\sum_{i=0}^\infty \left(\frac{1}{1+\rho} \right)^i u((1+r)A_{t_i}-A_{t+i+1} + y_{t+i}) \right]\]</span></p>
+<p>and the FOC for the first period</p>
+<p><span class="math display">\[u'_{t} = \frac{1+r}{1+\rho}\mathbb{E}_tu'_{t+1}\]</span></p>
+<p>We can then define <span class="math inline">\(\eta_{t+1} \equiv u'(c_{t+1} - {\mathbb{E}}_t u'(c_{t+1}))\)</span>, where we can assume that <span class="math inline">\(\eta_{t+i}\)</span> is mean zero. This means our previous expression becomes</p>
+<p><span class="math display">\[u'(c_{t+1}) = \frac{1+r}{1+\rho}u'(c_t) + \eta_{t+1}\]</span></p>
+<p>Finally this is possible to simplify into a martingale if we</p>
+<ul>
+<li>set <span class="math inline">\(r = \rho\)</span></li>
+<li>define our utility function as quadratic, ie u(c) = c-(b/2)c^2, where b is the shape of the utility function, and makes marginal consumption more linked to consuption</li>
+</ul>
+<p>This then gives us</p>
+<p><span class="math display">\[c_{t+1} = c_t + e_{t+1}\]</span></p>
+<p>where <span class="math inline">\(e_{t+1} \equiv -(1/b)\eta_{t+1}\)</span>.</p>
+</div>
+</div>
+<div id="monetary-and-fiscal-policy" class="section level1">
+<h1>Monetary and Fiscal Policy</h1>
+<div id="ricardian-equivlence" class="section level2">
+<h2>Ricardian Equivlence</h2>
+<p>REPIH model taking into acount government budget constraints</p>
+</div>
+<div id="inflation-bias" class="section level2">
+<h2>Inflation bias</h2>
+<p>Static model, looking at the differences between inflation (<span class="math inline">\(\pi\)</span>) and underlying/expected inflation (<span class="math inline">\(\pi^*\)</span>), we work with a Phillips-curve type relationship for output. This requires inflation policies which are possible to implement (ie time consistent). This is a core of why we have central bank independence.</p>
+<p>This is built by looking at the minimization of a loss function of the deviation from intended policies, subject to the relationship between output and inflation.</p>
+<div id="findings-3" class="section level3">
+<h3>Findings</h3>
+<ul>
+<li>Government policies for inflation are time-inconsistent, because they want to increase output and lower unemployment.</li>
+</ul>
+</div>
+<div id="key-equations-3" class="section level3">
+<h3>Key Equations</h3>
+<ul>
+<li>The (Accelerationist) Phillips curve relationship between output and inflation: <span class="math inline">\(y = y^n + b(\pi - \pi^*)\)</span></li>
+<li>Without commitment the optimal outcome is <span class="math inline">\(\pi = \pi^* + \frac{b}{a}(y^* - y^n)\)</span></li>
+</ul>
+</div>
 </div>
 </div>
 
