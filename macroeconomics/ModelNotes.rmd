@@ -42,7 +42,7 @@ This model of wage pricing explains why full employment is not achieved.
 - No shirking condition - wage equilibrium
 - Unemployment benefits increase wages
 - Higher unemployment levels benefit individuals over companies
-- 
+- Kreuger (1991) fast food industry, broadly positive (but inconclusive) results testing relationship between monitoring and wages.
 
 ## Key Equations
 
@@ -72,11 +72,22 @@ The model is built on the principle that output ($Y$) is a function of capital  
 3. The rate of growth of output per worker is roughly constant over time 
 4. The capital/ouptut ratio is roughly constant over time 
 5. The rate of return on investment is roughly constant over time 
-6. The real wage grows over time First-generation growth models, like Solow’s and Ramsey’s, attempted to account for these facts in a standard neoclassical framework
+6. The real wage grows over time 
+
+First-generation growth models, like Solow’s and Ramsey’s, attempted to account for these facts in a standard neoclassical framework
+
+### Assumptions
+
+- Constant returns to scale
+- Exogeneity of savings and growth rates
+- Capital and labour are substitutable
+- No price
 
 ## Findings
 
-In steady state 
+In steady state the endogenous factor which has a persistent per-individual growth in output and capital is the technology ($A$), while endogenous parameters such as the savings rate, population growth and depreciation only effect the outcome linearlly, technology growth, as part of the technology factor is exponential.
+
+Assuming a balanced growth path where $\dot k = 0$, we also find the dynamic properties of the Solow model. This predicts that 
 
 ## Key equations
 
@@ -161,7 +172,9 @@ where $e_{t+1} \equiv -(1/b)\eta_{t+1}$.
 
 ## Ricardian Equivlence 
 
-REPIH model taking into acount government budget constraints
+REPIH model taking into acount government budget constraints.
+
+### Findings 
 
 ## Inflation bias
 
