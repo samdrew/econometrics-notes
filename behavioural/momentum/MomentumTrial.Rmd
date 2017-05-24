@@ -1,0 +1,135 @@
+---
+title: "MomentumPortfolioTheory"
+author: "Sam Drew"
+date: "25/01/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+require("quantmod")
+require("xts")
+require("zoo")
+```
+
+# Theory
+
+The theory is that if you take the top quantile of performing stocks purchase them, while at the same time selling the bottom quantile, the outcome is short-term profit. I want to test this, so let's get hold of FTSE 250 data. Earlier I got hold of all the stock symbols for ftse250 companies, using a spider/scraper.
+
+```{r loadData, include=FALSE}
+#Load Data
+ftse250 <- read.csv("shares.csv",as.is = TRUE)
+
+makeLondon <- function(x) {
+  if (endsWith(x, ".")) {
+    return(paste(x, "L", sep="") )
+  } else {
+    return(paste(x, ".L", sep=""))
+  }
+}
+
+setSymbolLookup(CTY.L='google',LCL.L='google') #Yahoo 404'd on these stocks
+ftse250$symbol <- sapply(ftse250$symbol, makeLondon)
+Data<-new.env()
+quantmod::getSymbols(ftse250$symbol)
+sets <- ls(pattern = "\\.L$")
+```
+
+That done we now want to merge the data. Or not. It broke my computer.
+
+```{r mergeData, include=FALSE}
+setlist <- mget(sets)
+openVal <- function(symbol) {
+  return(paste(symbol,'.Open',sep = ""))
+}
+
+pcchange <- function(ts, values) {
+  values <- coredata(values)
+  size <- dim(values)[1]
+  retval <- array(dim = size)
+  for(i in ts+1:size) {
+    retval[i] <- (values[i] - values[i-ts])/values[i]
+  }
+  return(retval[1:size])
+}
+
+#Should have used rollapply (zoo)
+largest = 0
+largestset = ""
+for (set in sets) {
+  # Get the last value from the dataset and divide through and calculate momentum
+  size <- dim(setlist[[set]])[1]
+  if (size > largest) {
+    largest = size
+    largestset = set
+  }
+  base <- drop(coredata(setlist[[set]][dim(setlist[[set]])[1],paste(set,".Open", sep = "")])) 
+  setlist[[set]]$rebase <- setlist[[set]][,1] / base
+  setlist[[set]]$pcchange1d <- pcchange(1, setlist[[set]][,1])
+  setlist[[set]]$pcchange1d <- na.fill(setlist[[set]]$pcchange1d,0)
+  setlist[[set]]$rollmean <- rollmeanr(setlist[[set]]$pcchange1d, 20)
+  attributes(setlist[[set]])$sd <- sd(setlist[[set]]$rollmean, na.rm=TRUE)
+}
+```
+
+So now that I have some data sets, I need to compare them, and set up the behaviour...
+
+```{r compareData, include=FALSE}
+
+mergedRollmean <- setlist[[sets[1]]]$rollmean
+mergedOpen <- setlist[[sets[1]]]
+for (set in sets[-1]){
+  mergedRollmean <- cbind.xts(mergedRollmean, setlist[[set]]$rollmean)
+}
+colnames(mergedRollmean) <- sets
+
+meanquantiles <- apply.daily(mergedRollmean, function(x) quantile(x, prob=c(0.2, 0.5,0.8), na.rm=TRUE))
+#mergedRollmean <- cbind(mergedRollmean, meanquantiles)
+
+#TOOD Optimize this code - far too slow at the moment
+behaviour <- apply.daily(mergedRollmean, function(x){
+  index = as.Date.POSIXct(attributes(x)$index)
+  #print(x)
+  noQuantiles <- (is.na(meanquantiles[index]$`80%`) | is.na(meanquantiles[index]$`20%`))
+  return(sapply(x, function(x) {
+    if (noQuantiles | is.na(x)) return(NA)
+    else if (x >= meanquantiles[index]$`80%`) return(TRUE)
+    else if (x <= meanquantiles[index]$`20%`) return(FALSE)
+    else return(NA)
+  }))
+})
+```
+
+Now that the portfolio behaviour has been defined, we'll take a look at the 3-month returns for hold and short positions, and composite. We'll then compare these to the index results.
+
+```{r calculateReturns, include=FALSE}
+time <- 91 #Number of days for 3 months
+
+apply.daily(behaviour, function(x) {
+  index = as.Date.POSIXct(attributes(x)$index)
+  return(sapply(x, function(y) {
+    if (is.na(x)) {
+      return(0)
+    } else if (x) {
+      name = attributes(y)$dimname[[2]]
+      priceToday <- coredata(setlist[[name]][index,1])
+      price3months <- coredata(setlist[[name]][index+time,1])
+      return((price3months - priceToday)/ priceToday)
+    } else {
+      name = attributes(y)$dimname[[2]]
+      priceToday <- coredata(setlist[[name]][index,1])
+      price3months <- coredata(setlist[[name]][index+time,1])
+      return((priceToday - price3months)/ priceToday)
+    }
+  }))
+})
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

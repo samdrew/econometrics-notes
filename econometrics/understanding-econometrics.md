@@ -3,8 +3,7 @@ title: "Econometrics Understanding"
 author: "Sam Drew"
 header-includes:
    - \usepackage{xfrac}
-output:
-    html_document
+output: html_document
 ---
 \newcommand{\L}{\mathcal{L}}
 \newcommand{\E}{\mathbb{E}}
@@ -214,6 +213,10 @@ S &= (\hat u' \hat u) = (Y - \hat \beta X)'(Y - X \hat \beta)\\
 
 # Hypothesis Testing
 
+A test looks at the chance of getting a given outcome given a set of data. So we have a sample which has a variance mean and variance. If we assume that sample is normally distributed (reasonable for a large sample due to central limit theorem), the we can immediately estimate confidence intervals for what would and wouldn't be expected behaviour x percent of the time.
+
+
+
 `Hypothesis formulation`
 
 `Test statistics`
@@ -240,7 +243,7 @@ One-sided
 
 # Binary Response Models
 
-These models have the properties that for -∞ the function should return 0 and and the function for +∞ tends towards 1, and the function of 0 returning 1/2. The models generally used are the `logit` (L or $\Lamda$) and `probit` ($\Phi$).
+These models have the properties that for -∞ the function should return 0 and and the function for +∞ tends towards 1, and the function of 0 returning 1/2. The models generally used are the `logit` (L or $\Lambda$) and `probit` ($\Phi$).
 
 `Notation` Binary response functions tend to be denoted as $1( \cdot )$. In a generic form these would then contain a condition, e.g. $1(\gamma_0(x_i, u_i) \geq 0 )$.
 
@@ -357,14 +360,14 @@ Finally we also need
 
 > *Lemma 3* : $\E(g(\theta_0)'g(\theta_0)) = -\E(\frac{\delta^2 \lzt}{\delta \theta \delta \theta'})$
 > 
-> $$\begin{aligned}
-> \E(\frac{\delta^2 \lzt}{\delta \theta \delta \theta'}) &= \int \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \zt dz \\
-> \text{From L2: } \int \frac{\delta \lzt}{\delta \theta} \zt dz &= 0 \\
-> \text{Differentiated: } 0 &= int \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \zt dz + \int \frac{\delta \lzt}{\delta \theta} \frac{\delta \zt}{\delta \theta'} dz \\
-> &= \int \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \zt dz + \int \frac{\delta \lzt}{\delta \theta} \frac{\delta \lzt}{\delta \theta'} \zt dz && \text{as } \frac{\delta \zt}{\delta \theta} = \frac{\delta \lzt}{\delta \theta} \zt \\
-> \Rightarrow  - \int \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \zt dz &= \int \frac{\delta \lzt}{\delta \theta} \frac{\delta \lzt}{\delta \theta'} \zt dz \\
-> - \E \left( \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \right) &= \E(g(\theta_0)'g(\theta_0)) 
-> \end{aligned}$$
+> $$\begin{alignedat}{1}
+> &\E(\frac{\delta^2 \lzt}{\delta \theta \delta \theta'}) &= \int \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \zt dz \\
+> \text{From L2: } &\int \frac{\delta \lzt}{\delta \theta} \zt dz &= 0 \\
+> \text{Differentiated: } &0 &= \int \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \zt dz + \int \frac{\delta \lzt}{\delta \theta} \frac{\delta \zt}{\delta \theta'} dz \\
+> &&= \int \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \zt dz + \int \frac{\delta \lzt}{\delta \theta} \frac{\delta \lzt}{\delta \theta'} \zt dz && \text{as } \frac{\delta \zt}{\delta \theta} = \frac{\delta \lzt}{\delta \theta} \zt \\
+> \Rightarrow & - \int \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \zt dz &= \int \frac{\delta \lzt}{\delta \theta} \frac{\delta \lzt}{\delta \theta'} \zt dz \\
+> &- \E \left( \frac{\delta^2 \lzt}{\delta \theta \delta \theta'} \right) &= \E(g(\theta_0)'g(\theta_0)) 
+> \end{alignedat}$$
 
 Using these it is then possible to show that the MLE is asymptotically normal under these conditions. 
 

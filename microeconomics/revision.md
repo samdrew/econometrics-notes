@@ -152,6 +152,14 @@ Budget sets are a formal way of describing a set of options.
 
 - (2016) Show formally that the Walrasian budget set $B_{p,w} = \{x \in \R^L_+ : px \leq w \}$ is convex.
 
+> $\R_+$ is convex. 
+> 
+> Given that $x \text{ and } x'$ are positive, $x'' = \alpha x + (1-\alpha) x' \quad \alpha \in (0,1)$, we can say that $x'' \in \R_+$
+> 
+> Given $px \leq w$ and $px' \leq w$, $p(\alpha x + (1-\alpha) x') \leq w$
+> 
+> Therefore $x'' \in B_{p,w}$
+
 # Market Clearing and Competitive Equilibria
 
 ## Questions
