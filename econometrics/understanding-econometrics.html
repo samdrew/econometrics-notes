@@ -186,9 +186,10 @@ Cov(X_N, X_1) &amp; \ldots &amp; \ldots &amp; Var(X_N) \end{array} \right)\]</sp
 \hat \mu = n^{-1} \sum_{i=1}^n y_i\\
 \lim_{n \rightarrow \infty} P (|\hat \mu - \mu| &gt; \varepsilon) = 0 &amp;&amp; \forall \varepsilon &gt; 0
 \end{aligned}\]</span></p>
-<p><code>Central Limit Theorem</code></p>
+<p><code>Central Limit Theorem</code> Something converges to a probability distribution of <span class="math inline">\(\mathcal{N}(0,V(u_i x_i))\)</span></p>
 <p><code>Continuous Mapping</code> states that for a given (continuous) function <span class="math inline">\(f(x)\)</span>, as the value of <span class="math inline">\(\hat x\)</span> approaches a given value <span class="math inline">\(x\)</span>, the function <span class="math inline">\(f(\hat x)\)</span> also approaches a value <span class="math inline">\(f(x)\)</span>. This only works if the function <span class="math inline">\(f(x)\)</span> is differentiable.</p>
-<p><code>Slutzky Lemma</code> similar to the continuous mapping function, however it is applied to probability convergence. Given <span class="math inline">\(\hat \mu\)</span>, <span class="math inline">\(\hat \tau\)</span> as random variable where</p>
+<p><code>Slutzky Lemma</code> similar to the continuous mapping function, however it is applied to probability convergence. Given a function <span class="math inline">\(f(x)g(z)\)</span> with <span class="math inline">\({\mathbb{E}}(f(x)) = \mu\)</span> and <span class="math inline">\(g(z) \xrightarrow{D} \mathcal{N}(0,\sigma^2)\)</span>, according to Slutzky’s Lemma these combine as <span class="math inline">\(f(x)g(x) \xrightarrow{D} \mu \mathcal{N}(0,\sigma^2) = \mathcal{N}(0,\mu \sigma^2 \mu')\)</span>.</p>
+<p>Generally for any sample expectation <span class="math inline">\(\hat \mu \xrightarrow{P} \mu\)</span> and distribution <span class="math inline">\(\hat \tau \xrightarrow{D} \tau\)</span>, <span class="math inline">\(\hat \mu + \hat \tau \xrightarrow{D} \mu + \tau\)</span>, <span class="math inline">\(\hat \mu \hat \tau \xrightarrow{D} \mu \tau\)</span> and <span class="math inline">\(\hat \mu^{-1} + \hat \tau \xrightarrow{D} \mu^{-1} \tau\)</span> (where <span class="math inline">\(\mu \neq 0\)</span>).</p>
 </div>
 <div id="linear-regression-model" class="section level1">
 <h1>Linear Regression Model</h1>
@@ -294,7 +295,7 @@ S &amp;= (\hat u' \hat u) = (Y - \hat \beta X)'(Y - X \hat \beta)\\
 </div>
 <div id="binary-response-models" class="section level1">
 <h1>Binary Response Models</h1>
-<p>These models have the properties that for -∞ the function should return 0 and and the function for +∞ tends towards 1, and the function of 0 returning 1/2. The models generally used are the <code>logit</code> (L or <span class="math inline">\(\Lamda\)</span>) and <code>probit</code> (<span class="math inline">\(\Phi\)</span>).</p>
+<p>These models have the properties that for -∞ the function should return 0 and and the function for +∞ tends towards 1, and the function of 0 returning 1/2. The models generally used are the <code>logit</code> (L or <span class="math inline">\(\Lambda\)</span>) and <code>probit</code> (<span class="math inline">\(\Phi\)</span>).</p>
 <p><code>Notation</code> Binary response functions tend to be denoted as <span class="math inline">\(1( \cdot )\)</span>. In a generic form these would then contain a condition, e.g. <span class="math inline">\(1(\gamma_0(x_i, u_i) \geq 0 )\)</span>.</p>
 <p><code>Single-index model</code> is a set of conditions which are applied to the binary response model. These are</p>
 <ul>
@@ -395,6 +396,38 @@ g(\theta) = \frac{\delta}{\delta \theta} \ln f(z, \theta)
 \end{alignedat}\]</span></p>
 </blockquote>
 <p>Using these it is then possible to show that the MLE is asymptotically normal under these conditions.</p>
+<p>This is done by knowing the variance matrix for the MLE is the inverse of the information matrix (<span class="math inline">\(I^{-1}\)</span>), where</p>
+<p><span class="math display">\[I = -{\mathbb{E}}(\frac{\delta^2 \lzt}{\delta \theta \delta \theta'})\]</span></p>
+<p>By lemma 3 we are then able to estimate the variance matrix.</p>
+<p><span class="math display">\[\begin{aligned}
+-{\mathbb{E}}\left(\frac{\delta^2 \lzt}{\delta \theta \delta \theta'}\right) &amp;= {\mathbb{E}}(g(\theta_0)'g(\theta_0)) \\
+&amp;= {\mathbb{E}}\left( \frac{d \ln {\mathcal{L}}(\beta)}{d\beta} \frac{d \ln {\mathcal{L}}(\beta)}{d\beta'} \right) \\
+&amp;= {\mathbb{E}}\left( \sum_{i=1}^n x_i f_\varepsilon (x'_i \beta) \left( \frac{y_i - F_\varepsilon (x'_i \beta)}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))} \right) x_i' f_\varepsilon (x'_i \beta) \left( \frac{y_i - F_\varepsilon (x'_i \beta)}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))} \right) \right)
+&amp;= {\mathbb{E}}\left( \sum_{i=1}^n x_i x_i' f_\varepsilon (x'_i \beta)^2 \left( \frac{y_i - F_\varepsilon (x'_i \beta)}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))} \right)^2 \right) \\
+&amp;= {\mathbb{E}}\left( {\mathbb{E}}\left(\sum_{i=1}^n x_i x_i' f_\varepsilon (x'_i \beta)^2 \left( \frac{y_i - F_\varepsilon (x'_i \beta)}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))} \right)^2 \Bigg| x_i \right)\right) \\
+&amp;= {\mathbb{E}}\left( \sum_{i=1}^n x_i x_i' f_\varepsilon (x'_i \beta)^2 \left( \frac{{\mathbb{E}}(y_i - F_\varepsilon (x'_i \beta)|x_i)}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))} \right)^2 \right) \\
+&amp;= {\mathbb{E}}\left( \sum_{i=1}^n x_i x_i' f_\varepsilon (x'_i \beta)^2 \frac{{\mathbb{E}}((y_i - F_\varepsilon (x'_i \beta))^2|x_i)}{(F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta)))^2}  \right) \\
+\end{aligned}\]</span></p>
+<p>We then want to look at <span class="math inline">\({\mathbb{E}}((y_i - F_\varepsilon (x'_i \beta))^2|x_i)\)</span> to simplify. Using the identity <span class="math inline">\(Var(x) = {\mathbb{E}}(x^2) - {\mathbb{E}}(x)^2\)</span> we can</p>
+<p><span class="math display">\[\begin{aligned}
+{\mathbb{E}}((y_i - F_\varepsilon (x'_i \beta))^2|x_i) &amp;= Var(y_i - F_\varepsilon (x'_i \beta) | x_i) + {\mathbb{E}}(y_i - F_\varepsilon (x'_i \beta) | x_i)^2
+\end{aligned}\]</span></p>
+<p>Starting with <span class="math inline">\({\mathbb{E}}(y_i - F_\varepsilon (x'_i \beta) | x_i)^2\)</span> we find</p>
+<p><span class="math display">\[\begin{aligned}
+{\mathbb{E}}(y_i - F_\varepsilon (x'_i \beta) | x_i)^2 &amp;= ({\mathbb{E}}(y_i |x_i) - F_\varepsilon (x'_i \beta))^2 \\
+&amp;= (F_\varepsilon (x'_i \beta) - F_\varepsilon (x'_i \beta))^2 \\
+&amp;= 0
+\end{aligned}\]</span></p>
+<p>Additional we know that for a Bernoulli random distribution the variance is <span class="math inline">\(Var(x) = P(x = 1) \cdot (1 - P(x = 1))\)</span>, giving us</p>
+<p><span class="math display">\[Var(y_i - F_\varepsilon (x'_i \beta) | x_i) = F_\varepsilon (x'_i \beta) (1 - F_\varepsilon (x'_i \beta) )\]</span></p>
+<p>Substituting this back into the original equation we get</p>
+<p><span class="math display">\[\begin{aligned}
+\mathbf{I} &amp;= {\mathbb{E}}\left( \frac{d \ln {\mathcal{L}}(\beta)}{d\beta} \frac{d \ln {\mathcal{L}}(\beta)}{d\beta'} \right) \\
+&amp;= {\mathbb{E}}\left( \sum_{i=1}^n x_i x_i' f_\varepsilon (x'_i \beta)^2 \frac{F_\varepsilon (x'_i \beta) (1 - F_\varepsilon (x'_i \beta) )}{(F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta)))^2}  \right) \\
+&amp;= {\mathbb{E}}\left( \sum_{i=1}^n \frac{x_i x_i' f_\varepsilon (x'_i \beta)^2}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))}  \right) \\
+\\
+\mathbf{I}^{-1} &amp;= {\mathbb{E}}\left( \sum_{i=1}^n \frac{x_i x_i' f_\varepsilon (x'_i \beta)^2}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))}  \right)^{-1}
+\end{aligned}\]</span></p>
 <p><code>Newton-Raphson</code> is an iterative, heuristic algorithm for finding solutions to equations. The reason it is relevant is that it is able to provide results for problems which cannot otherwise be analytically solved.</p>
 </div>
 </div>
@@ -529,6 +562,51 @@ x_i &amp;= z_i \alpha + v &amp;&amp; \text{where } z_i \text{ and } u_i \text{ i
 <p>In the case that the samples of <span class="math inline">\(z\)</span> have more covariates than <span class="math inline">\(x\)</span>, it would be possible to just drop some of the covariates and use 2SLS, however ignoring data isn’t going to create the best estimator. Instead we want to create a weighting matrix <span class="math inline">\(W_n\)</span> that relates the K values for vector <span class="math inline">\(z_i\)</span> to the L values of <span class="math inline">\(x_i\)</span>. Given that we cannot multipy in the form <span class="math inline">\(\beta_{IV} = (Z'X)^{-1}Z'Y\)</span> due to the matrix dimensions, we instead use the quadratic form of <span class="math inline">\({\mathbb{E}}(u_i z_i)\)</span>.</p>
 <p><span class="math display">\[\begin{aligned}
 \arg\min_\beta \left( n^{-1} \sum_{i=1}^n z_i(y_i - x_i' \beta) \right)' W_n \left( n^{-1} \sum_{i=1}^n z_i (y_i - x_i' \beta) \right)
+\end{aligned}\]</span></p>
+</div>
+</div>
+<div id="panel-data" class="section level1">
+<h1>Panel Data</h1>
+<p>Panel data provides us with a way of dealing with unobserved hetrogeneity. For example we may have a general model in the form</p>
+<p><span class="math display">\[y_{it} = x_{it}' \beta + u_{it}\]</span></p>
+<p>There will be cases where there is bias as <span class="math inline">\({\mathbb{E}}(u_{it} x_{it}) \neq 0\)</span> resulting from unobserved hetrogeneity in the error term. Instead if we define the error term as <span class="math inline">\(u_{it} = e_i + \varepsilon_{it}\)</span>, we have an unobserved, unchanging component <span class="math inline">\(e_i\)</span> and a remainder <span class="math inline">\(\varepsilon_{it}\)</span> where we can have an unbiased outcome with <span class="math inline">\({\mathbb{E}}(\varepsilon_{it} x_{it}) = 0\)</span>.</p>
+<p>There are a few models which remove this term <span class="math inline">\(e_i\)</span>, and are called Fixed Effects estimators.</p>
+<div id="within-estimator" class="section level2">
+<h2>Within Estimator</h2>
+<p>The within estimator is best described as removing the mean across time for each <span class="math inline">\(i\)</span>.</p>
+<p><span class="math display">\[y_{it} - \bar y_{i} = (x_{it}' - \bar x_{i}') \beta + e_i - \bar e_i + \varepsilon_{it} - \bar \varepsilon_{i}\]</span></p>
+<p>This then gives <span class="math inline">\(\ddot y_{it} = \ddot x_{it}' \beta + \ddot \varepsilon_{it}\)</span> where <span class="math inline">\(\ddot y_{it} \equiv y_{it} - \bar y_{i}\)</span>, <span class="math inline">\(\ddot x_{it} \equiv x_{it} - \bar x_{i}\)</span> and <span class="math inline">\(\ddot \varepsilon_{it} \equiv \varepsilon_{it} - \bar \varepsilon_{i}\)</span>.</p>
+<p>Calculating <span class="math inline">\(\beta\)</span> with this model will give</p>
+<p><span class="math display">\[\begin{aligned}
+\beta_{FE} &amp;= (\ddot X' \ddot X)^{-1} \ddot X' \ddot Y \\
+&amp;= \left( \sum_{t=1}^T \sum_{i=1}^N \ddot x_{it} \ddot x_{it}' \right)^{-1} \sum_{t=1}^T \sum_{i=1}^N \ddot x_{it} \ddot y_{it} \\
+&amp;= \left( \sum_{t=1}^T \sum_{i=1}^N (x_{it} - \bar x_{i}) (x_{it} - \bar x_{i})' \right)^{-1} \sum_{t=1}^T \sum_{i=1}^N (x_{it} - \bar x_{i}) (y_{it} - \bar y_{i}) 
+\end{aligned}\]</span></p>
+</div>
+<div id="first-difference-estimator" class="section level2">
+<h2>First Difference Estimator</h2>
+<p>The first-difference estimator looks at the difference between each time period and it’s previous one. In this way it also removes unobserved hetrogeneity.</p>
+<p><span class="math display">\[\begin{aligned}
+y_{it} - y_{it-1} &amp;= (x_{it} - x_{it-1})' \beta + e_i - e_i + \varepsilon_{it} - \varepsilon_{it-1} \\
+\Delta y_{it} &amp;= \Delta x_{it}' \beta + \Delta \varepsilon_{it}
+\end{aligned}\]</span></p>
+<p>In doing this autocorrelation is added to the <span class="math inline">\(\varepsilon\)</span> error term. This gives the first-difference estimator <span class="math inline">\(\beta_{FD}\)</span> as</p>
+<p><span class="math display">\[\begin{aligned}
+\beta_{FD} &amp;= \left( \sum_{t=2}^T \sum_{i=1}^N \Delta x_{it} \Delta x_{it}' \right)^{-1} \sum_{t=2}^T \sum_{i=1}^N \Delta x_{it} \Delta y_{it} \\
+&amp;= \left( \sum_{t=2}^T \sum_{i=1}^N (x_{it} - x_{it-1}) (x_{it} - x_{it-1})' \right)^{-1} \sum_{t=2}^T \sum_{i=1}^N (x_{it} - x_{it-1}) (y_{it} - y_{it-1})
+\end{aligned}\]</span></p>
+</div>
+<div id="period-equivalence-of-fe-and-fd" class="section level2">
+<h2>2-Period equivalence of FE and FD</h2>
+<p>Starting with <span class="math inline">\(\beta_{FE}\)</span>, for two periods we can say <span class="math inline">\(\bar y_i = \frac{y_i1 + y_i2}{2}\)</span>, <span class="math inline">\(\bar x_i = \frac{x_i1 + x_i2}{2}\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+\beta_{FE} &amp;= \left(\sum_{t=1}^T \sum_{i=1}^N (x_{it} - \bar x_{i}) (x_{it} - \bar x_{i})' \right)^{-1} \sum_{t=1}^T \sum_{i=1}^N (x_{it} - \bar x_{i}) (y_{it} - \bar y_{i}) \\
+&amp;= \left(\sum_{t=1}^T \sum_{i=1}^N (x_{it} - \frac{x_{i1} + x_{i2}}{2}) (x_{it} - \frac{x_{i1} + x_{i2}}{2})' \right)^{-1} \sum_{t=1}^T \sum_{i=1}^N (x_{it} - \frac{x_{i1} + x_{i2}}{2}) (y_{it} - \frac{y_{i1} + y_{i2}}{2}) \\
+&amp;= \left(\sum_{i=1}^N \frac{x_{i1} - x_{i2}}{2} \frac{x_{i1} - x_{i2}}{2}' + \frac{x_{i2} - x_{i1}}{2} \frac{x_{i2} - x_{i1}}{2}' \right)^{-1} \sum_{i=1}^N \frac{x_{i1} - x_{i2}}{2} \frac{y_{i1} - y_{i2}}{2} + \frac{x_{i2} - x_{i1}}{2} \frac{y_{i2} - y_{i1}}{2} \\
+&amp;= \left(\frac{1}{2} \sum_{i=1}^N (x_{i1} - x_{i2}) (x_{i1} - x_{i2})' + (x_{i2} - x_{i1}) (x_{i2} - x_{i1})' \right)^{-1} \frac{1}{2} \sum_{i=1}^N (x_{i1} - x_{i2}) (y_{i1} - y_{i2}) + (x_{i2} - x_{i1}) (y_{i2} - y_{i1} ) \\
+&amp;= \left(\frac{1}{2} \sum_{i=1}^N 2 (x_{i2} - x_{i1}) (x_{i2} - x_{i1})' \right)^{-1} \frac{1}{2} \sum_{i=1}^N 2 (x_{i2} - x_{i1}) (y_{i2} - y_{i1}) \\
+&amp;= \left(\sum_{i=1}^N (x_{i2} - x_{i1}) (x_{i2} - x_{i1})' \right)^{-1} \sum_{i=1}^N (x_{i2} - x_{i1}) (y_{i2} - y_{i1}) \\
+&amp;= \beta_{FD}
 \end{aligned}\]</span></p>
 </div>
 </div>

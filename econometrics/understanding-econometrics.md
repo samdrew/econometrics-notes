@@ -105,11 +105,13 @@ $$\begin{aligned}
 \lim_{n \rightarrow \infty} P (|\hat \mu - \mu| > \varepsilon) = 0 && \forall \varepsilon > 0
 \end{aligned}$$
 
-`Central Limit Theorem`
+`Central Limit Theorem` Something converges to a probability distribution of $\mathcal{N}(0,V(u_i x_i))$
 
 `Continuous Mapping` states that for a given (continuous) function $f(x)$, as the value of $\hat x$ approaches a given value $x$, the function $f(\hat x)$ also approaches a value $f(x)$. This only works if the function $f(x)$ is differentiable. 
 
-`Slutzky Lemma` similar to the continuous mapping function, however it is applied to probability convergence. Given $\hat \mu$, $\hat \tau$ as random variable where 
+`Slutzky Lemma` similar to the continuous mapping function, however it is applied to probability convergence. Given a function $f(x)g(z)$ with $\E(f(x)) = \mu$ and $g(z) \xrightarrow{D} \mathcal{N}(0,\sigma^2)$, according to Slutzky's Lemma these combine as $f(x)g(x) \xrightarrow{D} \mu \mathcal{N}(0,\sigma^2) = \mathcal{N}(0,\mu \sigma^2 \mu')$.
+
+Generally for any sample expectation $\hat \mu \xrightarrow{P} \mu$ and distribution $\hat \tau \xrightarrow{D} \tau$, $\hat \mu + \hat \tau \xrightarrow{D} \mu + \tau$, $\hat \mu \hat \tau \xrightarrow{D} \mu \tau$ and $\hat \mu^{-1} + \hat \tau \xrightarrow{D} \mu^{-1} \tau$ (where $\mu \neq 0$).
 
 # Linear Regression Model
 
@@ -371,6 +373,50 @@ Finally we also need
 
 Using these it is then possible to show that the MLE is asymptotically normal under these conditions. 
 
+This is done by knowing the variance matrix for the MLE is the inverse of the information matrix ($I^{-1}$), where 
+
+$$I = -\E(\frac{\delta^2 \lzt}{\delta \theta \delta \theta'})$$
+
+By lemma 3 we are then able to estimate the variance matrix.
+
+$$\begin{aligned}
+-\E\left(\frac{\delta^2 \lzt}{\delta \theta \delta \theta'}\right) &= \E(g(\theta_0)'g(\theta_0)) \\
+&= \E \left( \frac{d \ln \L (\beta)}{d\beta} \frac{d \ln \L (\beta)}{d\beta'} \right) \\
+&= \E \left( \sum_{i=1}^n x_i f_\varepsilon (x'_i \beta) \left( \frac{y_i - F_\varepsilon (x'_i \beta)}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))} \right) x_i' f_\varepsilon (x'_i \beta) \left( \frac{y_i - F_\varepsilon (x'_i \beta)}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))} \right) \right)
+&= \E \left( \sum_{i=1}^n x_i x_i' f_\varepsilon (x'_i \beta)^2 \left( \frac{y_i - F_\varepsilon (x'_i \beta)}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))} \right)^2 \right) \\
+&= \E \left( \E \left(\sum_{i=1}^n x_i x_i' f_\varepsilon (x'_i \beta)^2 \left( \frac{y_i - F_\varepsilon (x'_i \beta)}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))} \right)^2 \Bigg| x_i \right)\right) \\
+&= \E \left( \sum_{i=1}^n x_i x_i' f_\varepsilon (x'_i \beta)^2 \left( \frac{\E (y_i - F_\varepsilon (x'_i \beta)|x_i)}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))} \right)^2 \right) \\
+&= \E \left( \sum_{i=1}^n x_i x_i' f_\varepsilon (x'_i \beta)^2 \frac{\E ((y_i - F_\varepsilon (x'_i \beta))^2|x_i)}{(F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta)))^2}  \right) \\
+\end{aligned}$$
+
+We then want to look at $\E ((y_i - F_\varepsilon (x'_i \beta))^2|x_i)$ to simplify. Using the identity $Var(x) = \E (x^2) - \E (x)^2$ we can
+
+$$\begin{aligned}
+\E ((y_i - F_\varepsilon (x'_i \beta))^2|x_i) &= Var(y_i - F_\varepsilon (x'_i \beta) | x_i) + \E(y_i - F_\varepsilon (x'_i \beta) | x_i)^2
+\end{aligned}$$
+
+Starting with $\E(y_i - F_\varepsilon (x'_i \beta) | x_i)^2$ we find
+
+$$\begin{aligned}
+\E(y_i - F_\varepsilon (x'_i \beta) | x_i)^2 &= (\E(y_i |x_i) - F_\varepsilon (x'_i \beta))^2 \\
+&= (F_\varepsilon (x'_i \beta) - F_\varepsilon (x'_i \beta))^2 \\
+&= 0
+\end{aligned}$$
+
+Additional we know that for a Bernoulli random distribution the variance is $Var(x) = P(x = 1) \cdot (1 - P(x = 1))$, giving us
+
+$$Var(y_i - F_\varepsilon (x'_i \beta) | x_i) = F_\varepsilon (x'_i \beta) (1 - F_\varepsilon (x'_i \beta) )$$
+
+Substituting this back into the original equation we get
+
+$$\begin{aligned}
+\mathbf{I} &= \E \left( \frac{d \ln \L (\beta)}{d\beta} \frac{d \ln \L (\beta)}{d\beta'} \right) \\
+&= \E \left( \sum_{i=1}^n x_i x_i' f_\varepsilon (x'_i \beta)^2 \frac{F_\varepsilon (x'_i \beta) (1 - F_\varepsilon (x'_i \beta) )}{(F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta)))^2}  \right) \\
+&= \E \left( \sum_{i=1}^n \frac{x_i x_i' f_\varepsilon (x'_i \beta)^2}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))}  \right) \\
+\\
+\mathbf{I}^{-1} &= \E \left( \sum_{i=1}^n \frac{x_i x_i' f_\varepsilon (x'_i \beta)^2}{F_\varepsilon (x'_i \beta)(1 - F_\varepsilon(x'_i \beta))}  \right)^{-1}
+\end{aligned}$$
+
 `Newton-Raphson` is an iterative, heuristic algorithm for finding solutions to equations. The reason it is relevant is that it is able to provide results for problems which cannot otherwise be analytically solved.
 
 ## Semi-Parametric
@@ -530,3 +576,58 @@ $$\begin{aligned}
 \arg\min_\beta \left( n^{-1} \sum_{i=1}^n z_i(y_i - x_i' \beta) \right)' W_n \left( n^{-1} \sum_{i=1}^n z_i (y_i - x_i' \beta) \right)
 \end{aligned}$$
 
+# Panel Data
+
+Panel data provides us with a way of dealing with unobserved hetrogeneity. For example we may have a general model in the form
+
+$$y_{it} = x_{it}' \beta + u_{it}$$
+
+There will be cases where there is bias as $\E (u_{it} x_{it}) \neq 0$ resulting from unobserved hetrogeneity in the error term. Instead if we define the error term as $u_{it} = e_i + \varepsilon_{it}$, we have an unobserved, unchanging component $e_i$ and a remainder $\varepsilon_{it}$ where we can have an unbiased outcome with $\E (\varepsilon_{it} x_{it}) = 0$.
+
+There are a few models which remove this term $e_i$, and are called Fixed Effects estimators.
+
+## Within Estimator
+
+The within estimator is best described as removing the mean across time for each $i$.
+
+$$y_{it} - \bar y_{i} = (x_{it}' - \bar x_{i}') \beta + e_i - \bar e_i + \varepsilon_{it} - \bar \varepsilon_{i}$$
+
+This then gives $\ddot y_{it} = \ddot x_{it}' \beta + \ddot \varepsilon_{it}$ where $\ddot y_{it} \equiv y_{it} - \bar y_{i}$, $\ddot x_{it} \equiv x_{it} - \bar x_{i}$ and $\ddot \varepsilon_{it} \equiv \varepsilon_{it} - \bar \varepsilon_{i}$.
+
+Calculating $\beta$ with this model will give
+
+$$\begin{aligned}
+\beta_{FE} &= (\ddot X' \ddot X)^{-1} \ddot X' \ddot Y \\
+&= \left( \sum_{t=1}^T \sum_{i=1}^N \ddot x_{it} \ddot x_{it}' \right)^{-1} \sum_{t=1}^T \sum_{i=1}^N \ddot x_{it} \ddot y_{it} \\
+&= \left( \sum_{t=1}^T \sum_{i=1}^N (x_{it} - \bar x_{i}) (x_{it} - \bar x_{i})' \right)^{-1} \sum_{t=1}^T \sum_{i=1}^N (x_{it} - \bar x_{i}) (y_{it} - \bar y_{i}) 
+\end{aligned}$$
+
+## First Difference Estimator
+
+The first-difference estimator looks at the difference between each time period and it's previous one. In this way it also removes unobserved hetrogeneity.
+
+$$\begin{aligned}
+y_{it} - y_{it-1} &= (x_{it} - x_{it-1})' \beta + e_i - e_i + \varepsilon_{it} - \varepsilon_{it-1} \\
+\Delta y_{it} &= \Delta x_{it}' \beta + \Delta \varepsilon_{it}
+\end{aligned}$$
+
+In doing this autocorrelation is added to the $\varepsilon$ error term. This gives the first-difference estimator $\beta_{FD}$ as
+
+$$\begin{aligned}
+\beta_{FD} &= \left( \sum_{t=2}^T \sum_{i=1}^N \Delta x_{it} \Delta x_{it}' \right)^{-1} \sum_{t=2}^T \sum_{i=1}^N \Delta x_{it} \Delta y_{it} \\
+&= \left( \sum_{t=2}^T \sum_{i=1}^N (x_{it} - x_{it-1}) (x_{it} - x_{it-1})' \right)^{-1} \sum_{t=2}^T \sum_{i=1}^N (x_{it} - x_{it-1}) (y_{it} - y_{it-1})
+\end{aligned}$$
+
+## 2-Period equivalence of FE and FD
+
+Starting with $\beta_{FE}$, for two periods we can say $\bar y_i = \frac{y_i1 + y_i2}{2}$, $\bar x_i = \frac{x_i1 + x_i2}{2}$. 
+
+$$\begin{aligned}
+\beta_{FE} &= \left(\sum_{t=1}^T \sum_{i=1}^N (x_{it} - \bar x_{i}) (x_{it} - \bar x_{i})' \right)^{-1} \sum_{t=1}^T \sum_{i=1}^N (x_{it} - \bar x_{i}) (y_{it} - \bar y_{i}) \\
+&= \left(\sum_{t=1}^T \sum_{i=1}^N (x_{it} - \frac{x_{i1} + x_{i2}}{2}) (x_{it} - \frac{x_{i1} + x_{i2}}{2})' \right)^{-1} \sum_{t=1}^T \sum_{i=1}^N (x_{it} - \frac{x_{i1} + x_{i2}}{2}) (y_{it} - \frac{y_{i1} + y_{i2}}{2}) \\
+&= \left(\sum_{i=1}^N \frac{x_{i1} - x_{i2}}{2} \frac{x_{i1} - x_{i2}}{2}' + \frac{x_{i2} - x_{i1}}{2} \frac{x_{i2} - x_{i1}}{2}' \right)^{-1} \sum_{i=1}^N \frac{x_{i1} - x_{i2}}{2} \frac{y_{i1} - y_{i2}}{2} + \frac{x_{i2} - x_{i1}}{2} \frac{y_{i2} - y_{i1}}{2} \\
+&= \left(\frac{1}{2} \sum_{i=1}^N (x_{i1} - x_{i2}) (x_{i1} - x_{i2})' + (x_{i2} - x_{i1}) (x_{i2} - x_{i1})' \right)^{-1} \frac{1}{2} \sum_{i=1}^N (x_{i1} - x_{i2}) (y_{i1} - y_{i2}) + (x_{i2} - x_{i1}) (y_{i2} - y_{i1} ) \\
+&= \left(\frac{1}{2} \sum_{i=1}^N 2 (x_{i2} - x_{i1}) (x_{i2} - x_{i1})' \right)^{-1} \frac{1}{2} \sum_{i=1}^N 2 (x_{i2} - x_{i1}) (y_{i2} - y_{i1}) \\
+&= \left(\sum_{i=1}^N (x_{i2} - x_{i1}) (x_{i2} - x_{i1})' \right)^{-1} \sum_{i=1}^N (x_{i2} - x_{i1}) (y_{i2} - y_{i1}) \\
+&= \beta_{FD}
+\end{aligned}$$
